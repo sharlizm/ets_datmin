@@ -7,6 +7,8 @@ import html
 import io
 import math
 import re
+import textwrap
+from urllib.parse import quote
 from collections import Counter
 from pathlib import Path
 from typing import Iterable, Sequence
@@ -40,8 +42,10 @@ st.set_page_config(
 # Styling
 # -----------------------------------------------------------------------------
 def render_html(markup: str, **_ignored_kwargs) -> None:
-    """Render custom HTML/CSS and accept ignored kwargs for older call sites."""
-    st.markdown(markup, unsafe_allow_html=True)
+    """Render custom HTML/CSS safely through Markdown without accidental code blocks."""
+    cleaned = textwrap.dedent(str(markup)).strip()
+    if cleaned:
+        st.markdown(cleaned, unsafe_allow_html=True)
 
 
 def inject_css() -> None:
@@ -925,6 +929,343 @@ def inject_css() -> None:
             .stTabs [data-baseweb="tab-list"] { border-radius: 22px; flex-wrap: wrap; }
             .game-card { border-radius: 22px; }
         }
+
+
+        /* Final premium pass: cinematic depth, clickable UI, stronger identity */
+        .stApp [data-testid="stVerticalBlock"] { animation: softReveal .55s ease both; }
+        @keyframes softReveal {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: .52; transform: scale(1); }
+            50% { opacity: .98; transform: scale(1.035); }
+        }
+        @keyframes slowRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes scanline {
+            0% { transform: translateX(-130%) skewX(-18deg); opacity: 0; }
+            35% { opacity: .65; }
+            100% { transform: translateX(150%) skewX(-18deg); opacity: 0; }
+        }
+        @keyframes particleFloat {
+            from { transform: translate3d(0, 14px, 0) scale(.88); opacity: .25; }
+            45% { opacity: .96; }
+            to { transform: translate3d(10px, -22px, 0) scale(1.08); opacity: .40; }
+        }
+
+        .hero {
+            min-height: clamp(540px, 58vh, 690px);
+            border-radius: 42px;
+            padding: clamp(30px, 5vw, 70px);
+            border-color: rgba(253,199,135,.42);
+            background:
+                radial-gradient(circle at 78% 18%, rgba(253,199,135,.27), transparent 13rem),
+                radial-gradient(circle at 18% 7%, rgba(165,197,204,.14), transparent 22rem),
+                radial-gradient(circle at 68% 88%, rgba(151,112,134,.21), transparent 22rem),
+                linear-gradient(118deg, rgba(2,19,52,.99) 0%, rgba(1,42,97,.86) 48%, rgba(0,5,17,.98) 100%);
+            box-shadow:
+                0 55px 150px rgba(0,0,0,.56),
+                0 0 92px rgba(39,90,145,.19),
+                inset 0 1px 0 rgba(255,255,255,.10);
+        }
+        .hero::before {
+            background:
+                linear-gradient(105deg, rgba(253,199,135,.20), transparent 30%, rgba(165,197,204,.06) 64%, transparent),
+                repeating-linear-gradient(116deg, rgba(165,197,204,.062) 0 1px, transparent 1px 28px),
+                linear-gradient(to bottom, rgba(255,255,255,.04), transparent 28%);
+        }
+        .hero-grid {
+            grid-template-columns: minmax(0, 1.12fr) minmax(340px, .78fr);
+        }
+        .hero-copy { position: relative; z-index: 3; }
+        .hero h1 {
+            max-width: 960px;
+            font-size: clamp(3.35rem, 7.8vw, 8.2rem);
+            line-height: .80;
+            letter-spacing: -0.095em;
+        }
+        .hero h1 .ghost-word {
+            display: block;
+            color: rgba(165,197,204,.40) !important;
+            -webkit-text-stroke: 1px rgba(253,199,135,.18);
+            text-shadow: none;
+        }
+        .hero h1 .accent {
+            background: linear-gradient(115deg, var(--gold), #fff2cf 42%, var(--mist));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent !important;
+            text-shadow: 0 0 42px rgba(253,199,135,.18);
+        }
+        .hero-subtitle {
+            max-width: 780px;
+            font-size: clamp(1.05rem, 1.32vw, 1.32rem);
+            line-height: 1.82;
+            color: rgba(238,248,250,.82) !important;
+        }
+        .hero-proof-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        .hero-proof {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 34px;
+            padding: 0 12px;
+            border-radius: 999px;
+            font-size: .76rem;
+            font-weight: 900;
+            color: var(--text-soft) !important;
+            background: rgba(165,197,204,.075);
+            border: 1px solid rgba(165,197,204,.15);
+            backdrop-filter: blur(14px);
+        }
+        .hero-proof::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: var(--gold);
+            box-shadow: 0 0 16px rgba(253,199,135,.72);
+        }
+        .hero-actions { margin-top: 34px; }
+        .cta {
+            min-height: 56px;
+            padding: 0 24px;
+            letter-spacing: -.01em;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+        }
+        .cta-primary {
+            box-shadow: 0 24px 64px rgba(253,199,135,.28), 0 0 34px rgba(253,199,135,.18);
+        }
+        .cta-secondary {
+            background: rgba(2,19,52,.48);
+            border-color: rgba(165,197,204,.28);
+            backdrop-filter: blur(16px);
+        }
+        .cta:hover { transform: translateY(-4px) scale(1.012); }
+
+        .hero-panel {
+            transform: perspective(1000px) rotateY(-7deg) rotateX(3deg);
+            border-color: rgba(253,199,135,.24);
+            box-shadow:
+                0 42px 110px rgba(0,0,0,.50),
+                0 0 62px rgba(39,90,145,.18),
+                inset 0 1px 0 rgba(255,255,255,.10);
+        }
+        .hero-panel::before {
+            content: "";
+            position: absolute;
+            inset: -80px -42px auto auto;
+            width: 150px;
+            height: 150px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(253,199,135,.38), transparent 68%);
+            filter: blur(2px);
+            animation: pulseGlow 5s ease-in-out infinite;
+        }
+        .launcher-screen {
+            min-height: 378px;
+            background:
+                radial-gradient(circle at 48% 42%, rgba(253,199,135,.30), transparent 6rem),
+                radial-gradient(circle at 74% 26%, rgba(165,197,204,.18), transparent 11rem),
+                linear-gradient(145deg, rgba(39,90,145,.34), rgba(1,42,97,.20), rgba(2,19,52,.72));
+        }
+        .signature-orb {
+            position: absolute;
+            left: 50%;
+            top: 47%;
+            z-index: 0;
+            width: 164px;
+            height: 164px;
+            border-radius: 999px;
+            transform: translate(-50%, -50%);
+            background:
+                radial-gradient(circle at 38% 32%, #fff6df 0 8%, var(--gold) 12%, rgba(253,199,135,.34) 36%, rgba(39,90,145,.16) 58%, transparent 72%);
+            box-shadow: 0 0 58px rgba(253,199,135,.42), 0 0 118px rgba(39,90,145,.28);
+            animation: pulseGlow 5.4s ease-in-out infinite;
+        }
+        .signature-orb::before,
+        .signature-orb::after {
+            content: "";
+            position: absolute;
+            inset: -16px;
+            border-radius: inherit;
+            border: 1px solid rgba(253,199,135,.22);
+            animation: slowRotate 16s linear infinite;
+        }
+        .signature-orb::after {
+            inset: -34px;
+            border-color: rgba(165,197,204,.18);
+            animation-duration: 24s;
+            animation-direction: reverse;
+        }
+        .particle {
+            position: absolute;
+            z-index: 1;
+            width: 5px;
+            height: 5px;
+            border-radius: 999px;
+            background: var(--gold);
+            box-shadow: 0 0 18px rgba(253,199,135,.70);
+            animation: particleFloat 4.8s ease-in-out infinite alternate;
+        }
+        .particle.p1 { left: 18%; top: 24%; animation-delay: .2s; }
+        .particle.p2 { right: 23%; top: 18%; animation-delay: 1s; width: 7px; height: 7px; }
+        .particle.p3 { left: 32%; bottom: 21%; animation-delay: 1.8s; }
+        .particle.p4 { right: 16%; bottom: 27%; animation-delay: 2.5s; width: 4px; height: 4px; }
+        .mock-row { z-index: 2; backdrop-filter: blur(18px); }
+        .mock-row.one { top: 26px; }
+        .mock-row.two { top: 138px; }
+        .mock-row.three { top: 250px; }
+
+        .spotlight-deck {
+            position: relative;
+            overflow: hidden;
+            margin: 16px 0 24px;
+            padding: clamp(18px, 2.4vw, 28px);
+            border-radius: 32px;
+            border: 1px solid rgba(165,197,204,.16);
+            background:
+                radial-gradient(circle at 12% 18%, rgba(253,199,135,.11), transparent 18rem),
+                radial-gradient(circle at 86% 0%, rgba(39,90,145,.24), transparent 25rem),
+                linear-gradient(180deg, rgba(1,42,97,.24), rgba(2,19,52,.60));
+            box-shadow: 0 30px 96px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+        }
+        .spotlight-deck::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(90deg, transparent, rgba(253,199,135,.06), transparent);
+            animation: scanline 7s ease-in-out infinite;
+        }
+        .active-filter-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 12px 0 18px;
+            padding: 13px 15px;
+            border-radius: 20px;
+            background: rgba(253,199,135,.10);
+            border: 1px solid rgba(253,199,135,.26);
+            color: var(--text-soft) !important;
+            box-shadow: 0 18px 52px rgba(0,0,0,.22);
+        }
+        .active-filter-card b { color: var(--gold) !important; }
+        .active-filter-card a {
+            color: var(--ink) !important;
+            text-decoration: none !important;
+            font-weight: 950;
+            border-radius: 999px;
+            padding: 8px 12px;
+            background: linear-gradient(135deg, var(--gold), var(--mist));
+        }
+
+        .game-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(105deg, transparent 20%, rgba(253,199,135,.12), transparent 46%);
+            transform: translateX(-120%) skewX(-18deg);
+            opacity: 0;
+        }
+        .game-card:hover::after { animation: scanline 1.15s ease; }
+        .cover-link {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            display: block;
+            text-decoration: none !important;
+        }
+        .cover-link img, .cover-link .game-img-fallback { position: absolute; inset: 0; }
+        .cover-link .game-img-fallback { display: grid; place-items: center; }
+        .preview-chip {
+            position: absolute;
+            left: 50%;
+            bottom: 18px;
+            z-index: 3;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 36px;
+            padding: 0 13px;
+            border-radius: 999px;
+            color: var(--ink) !important;
+            font-size: .72rem;
+            font-weight: 950;
+            background: linear-gradient(135deg, var(--gold), var(--mist));
+            box-shadow: 0 15px 38px rgba(0,0,0,.32), 0 0 28px rgba(253,199,135,.24);
+            transform: translate(-50%, 16px) scale(.92);
+            opacity: 0;
+            transition: opacity .22s ease, transform .22s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .game-card:hover .preview-chip { opacity: 1; transform: translate(-50%, 0) scale(1); }
+        .game-card:hover .rank-badge { box-shadow: 0 0 28px rgba(253,199,135,.24); }
+        .tag {
+            text-decoration: none !important;
+            transition: transform .16s ease, background .16s ease, border-color .16s ease, color .16s ease, box-shadow .16s ease;
+        }
+        a.tag:hover {
+            transform: translateY(-2px);
+            color: var(--gold) !important;
+            background: rgba(253,199,135,.12);
+            border-color: rgba(253,199,135,.34);
+            box-shadow: 0 10px 26px rgba(0,0,0,.22), 0 0 24px rgba(253,199,135,.12);
+        }
+        .tag-active {
+            color: var(--gold) !important;
+            border-color: rgba(253,199,135,.38) !important;
+            background: rgba(253,199,135,.12) !important;
+        }
+        .card-actions { position: relative; z-index: 3; }
+
+        div[role="radiogroup"] {
+            gap: 10px !important;
+        }
+        div[role="radiogroup"] label {
+            border-radius: 999px !important;
+            padding: 8px 14px !important;
+            border: 1px solid rgba(165,197,204,.14) !important;
+            background: rgba(165,197,204,.06) !important;
+            transition: transform .16s ease, border-color .16s ease, background .16s ease;
+        }
+        div[role="radiogroup"] label:hover {
+            transform: translateY(-2px);
+            border-color: rgba(253,199,135,.28) !important;
+            background: rgba(253,199,135,.08) !important;
+        }
+
+        @media (max-width: 900px) {
+            .hero-panel { transform: none; }
+            .hero-grid { grid-template-columns: 1fr; }
+            .hero { min-height: auto; }
+            .launcher-screen { min-height: 310px; }
+            .hero h1 { font-size: clamp(3.0rem, 16vw, 4.8rem); }
+            .active-filter-card { align-items: flex-start; flex-direction: column; }
+        }
+
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(var(--cards-per-row, 3), minmax(0, 1fr));
+            gap: 18px;
+            align-items: stretch;
+        }
+        .card-grid .game-card { margin-bottom: 0; }
+        @media (max-width: 1180px) { .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        @media (max-width: 760px) { .card-grid { grid-template-columns: 1fr; } }
+
         </style>
         """
     )
@@ -1627,6 +1968,41 @@ def steam_url(row: pd.Series) -> str:
     return ""
 
 
+def query_value(name: str, default: str = "") -> str:
+    """Read one query-param value across Streamlit versions."""
+    try:
+        value = st.query_params.get(name, default)
+        if isinstance(value, list):
+            return str(value[0]) if value else default
+        return str(value) if value is not None else default
+    except Exception:
+        return default
+
+
+def match_known_value(raw: str, options: Sequence[str]) -> str:
+    """Return the existing option with matching casing, if available."""
+    raw_clean = str(raw or "").strip()
+    if not raw_clean:
+        return ""
+    lookup = {str(option).lower(): str(option) for option in options}
+    return lookup.get(raw_clean.lower(), raw_clean)
+
+
+def app_link(view: str = "Explore", tag: str | None = None, anchor: str | None = None) -> str:
+    """Create a lightweight in-app navigation link using query params."""
+    params = [f"view={quote(str(view))}"]
+    if tag:
+        params.append(f"tag={quote(str(tag))}")
+    suffix = f"#{anchor}" if anchor else ""
+    return "?" + "&".join(params) + suffix
+
+
+def tag_link(tag: str, active_tag: str = "") -> str:
+    safe = esc(tag)
+    active = " tag-active" if active_tag and active_tag.lower() == str(tag).lower() else ""
+    return f'<a class="tag{active}" href="{app_link("Explore", tag, "explore")}" title="Show more {safe} games">{safe}</a>'
+
+
 def price_badge(row: pd.Series) -> str:
     if bool(row.get("is_free", False)):
         return "<span class='pill pill-green'>Free</span>"
@@ -1647,12 +2023,12 @@ def price_badge(row: pd.Series) -> str:
 def component_bar(label: str, value: float) -> str:
     value = float(np.clip(value if np.isfinite(value) else 0, 0, 1))
     pct = int(round(value * 100))
-    return f"""
+    return textwrap.dedent(f"""
     <div class='bar-row'>
       <div class='bar-label'><span>{esc(label)}</span><span>{pct}</span></div>
       <div class='bar-track'><div class='bar-fill' style='width:{pct}%'></div></div>
     </div>
-    """
+    """).strip()
 
 
 def explain_row(row: pd.Series, games: pd.DataFrame, favorite_titles: Sequence[str], preferred_tags: Sequence[str]) -> str:
@@ -1700,6 +2076,7 @@ def game_card_html(
     preferred_tags: Sequence[str] = (),
     show_components: bool = False,
     rank: int | None = None,
+    active_tag: str = "",
 ) -> str:
     title = esc(row.get("name", "Unknown Game"))
     url_raw = steam_url(row)
@@ -1712,10 +2089,11 @@ def game_card_html(
     img = esc(str(row.get("header_image", "")).strip())
     initials = "".join([part[:1] for part in re.findall(r"[A-Za-z0-9]+", title)[:2]]).upper() or "SV"
     fallback = f'<div class="game-img-fallback"><div><span>{esc(initials)}</span><b>{title}</b></div></div>'
+    media_inner = f'{fallback}<img src="{img}" alt="{title} cover" loading="lazy">' if img else fallback
     img_html = (
-        f'{fallback}<img src="{img}" alt="{title} cover" loading="lazy" onerror="this.remove();">'
-        if img
-        else fallback
+        f'<a class="cover-link" href="{url}" target="_blank" rel="noopener noreferrer" aria-label="Open {title} on Steam">{media_inner}<span class="preview-chip">▶ Steam preview</span></a>'
+        if url
+        else media_inner
     )
     genre = esc(row.get("genre_primary", "Unknown"))
     year = fmt_int(row.get("year"))
@@ -1724,7 +2102,7 @@ def game_card_html(
     recs = fmt_int(row.get("review_volume"))
     play = fmt_float(row.get("playtime_h"), 1, "h")
     tags = row.get("tag_list", []) if isinstance(row.get("tag_list", []), list) else []
-    tag_html = "".join(f'<span class="tag">{esc(t)}</span>' for t in tags[:7])
+    tag_html = "".join(tag_link(str(t), active_tag=active_tag) for t in tags[:7])
     why = esc(explain_row(row, games, favorite_titles, preferred_tags))
     comp_html = ""
     if show_components:
@@ -1745,7 +2123,7 @@ def game_card_html(
         if url
         else '<span class="card-action secondary">Wishlist</span>'
     )
-    return f"""
+    return textwrap.dedent(f"""
     <article class="game-card">
       <div class="game-img-wrap">
         {img_html}
@@ -1768,7 +2146,7 @@ def game_card_html(
         <div class="card-actions">{action_primary}{action_secondary}</div>
       </div>
     </article>
-    """
+    """).strip()
 
 
 def render_cards(
@@ -1778,14 +2156,26 @@ def render_cards(
     preferred_tags: Sequence[str] = (),
     columns: int = 3,
     show_components: bool = False,
+    active_tag: str = "",
 ) -> None:
     if rows.empty:
         st.info("Tidak ada data yang cocok dengan filter saat ini.")
         return
-    cards = st.columns(columns)
+    columns = int(max(1, min(4, columns)))
+    cards_html = []
     for i, (_, row) in enumerate(rows.iterrows()):
-        with cards[i % columns]:
-            render_html(game_card_html(row, games, favorite_titles, preferred_tags, show_components, rank=i + 1))
+        cards_html.append(
+            game_card_html(
+                row,
+                games,
+                favorite_titles=favorite_titles,
+                preferred_tags=preferred_tags,
+                show_components=show_components,
+                rank=i + 1,
+                active_tag=active_tag,
+            )
+        )
+    render_html(f'<div class="card-grid" style="--cards-per-row:{columns};">{"".join(cards_html)}</div>')
 
 
 def apply_global_filters(
@@ -1872,32 +2262,41 @@ def render_sidebar_brand() -> None:
 
 
 def hero_section(total_games: int, filtered_games: int, data_source: str) -> str:
+    explore_href = app_link("Explore", anchor="explore")
+    recommend_href = app_link("Recommend", anchor="recommender")
     return f"""
     <section class="hero">
       <div class="hero-grid">
-        <div>
-          <div class="hero-kicker">Cinematic Steam discovery engine</div>
-          <h1>Find your next <span class="accent">legendary</span> game.</h1>
+        <div class="hero-copy">
+          <div class="hero-kicker">SteamVault Pro / cinematic discovery engine</div>
+          <h1><span class="ghost-word">Enter the</span> <span class="accent">Vault</span> of games.</h1>
           <p class="hero-subtitle">
-            SteamVault Pro menggabungkan visual discovery, scoring kualitas, crowd signal,
-            content similarity, dan hybrid recommendation agar user tidak cuma melihat daftar game,
-            tetapi paham alasan tiap game layak dimainkan.
+            A premium Steam discovery console that turns raw game data into cinematic browsing,
+            explainable recommendations, quality signals, value picks, and instantly clickable game journeys.
           </p>
+          <div class="hero-proof-row">
+            <span class="hero-proof">Hybrid recommender</span>
+            <span class="hero-proof">Clickable tags</span>
+            <span class="hero-proof">Steam-ready cards</span>
+            <span class="hero-proof">AAA-style UI</span>
+          </div>
           <div class="hero-actions">
-            <a class="cta cta-primary" href="#recommender">Start recommendation</a>
-            <a class="cta cta-secondary" href="#explore">Explore library</a>
+            <a class="cta cta-primary" href="{recommend_href}">Start recommendation</a>
+            <a class="cta cta-secondary" href="{explore_href}">Explore library</a>
           </div>
           <div class="hero-stats">
             <div class="hero-stat"><strong>{total_games:,}</strong><span>Total games indexed</span></div>
-            <div class="hero-stat"><strong>{filtered_games:,}</strong><span>Visible after filter</span></div>
+            <div class="hero-stat"><strong>{filtered_games:,}</strong><span>Live results after filters</span></div>
             <div class="hero-stat"><strong>{esc(data_source)}</strong><span>Active dataset</span></div>
           </div>
         </div>
         <div class="hero-panel">
           <div class="launcher-screen">
+            <div class="signature-orb"></div>
+            <span class="particle p1"></span><span class="particle p2"></span><span class="particle p3"></span><span class="particle p4"></span>
             <div class="mock-row one">
               <div class="mock-img"></div>
-              <div class="mock-line"><b>Quality signal</b><span>Bayesian rating + popularity</span></div>
+              <div class="mock-line"><b>Quality signal</b><span>Bayesian rating + popularity depth</span></div>
               <div class="mock-score">92</div>
             </div>
             <div class="mock-row two">
@@ -1907,7 +2306,7 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
             </div>
             <div class="mock-row three">
               <div class="mock-img"></div>
-              <div class="mock-line"><b>Hybrid engine</b><span>Rule + value + novelty</span></div>
+              <div class="mock-line"><b>Hybrid engine</b><span>Rule + crowd + value + novelty</span></div>
               <div class="mock-score">95</div>
             </div>
           </div>
@@ -1915,7 +2314,6 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
       </div>
     </section>
     """
-
 
 def feature_strip() -> str:
     items = [
@@ -1970,6 +2368,13 @@ all_titles = sorted(games["name"].dropna().astype(str).unique().tolist())
 all_genres = sorted([g for g in games["genre_primary"].dropna().unique().tolist() if g and g != "Unknown"])
 all_tags = top_values_from_lists(games, "tag_list", limit=120)
 
+NAV_OPTIONS = ["Overview", "Explore", "Recommend", "Evaluation", "Methodology"]
+active_view = match_known_value(query_value("view", "Overview"), NAV_OPTIONS)
+if active_view not in NAV_OPTIONS:
+    active_view = "Overview"
+active_tag = match_known_value(query_value("tag", ""), all_tags)
+active_tag_default = [active_tag] if active_tag in all_tags else []
+
 # Sidebar global filters
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Filter global")
@@ -1984,13 +2389,46 @@ price_limit_global = max(10.0, min(200.0, price_limit_global))
 global_price = st.sidebar.slider("Harga maksimum global ($)", 0.0, float(math.ceil(price_limit_global)), min(60.0, float(math.ceil(price_limit_global))), 1.0)
 global_min_pos = st.sidebar.slider("Minimal positivity global (%)", 0, 100, 0)
 global_genres = st.sidebar.multiselect("Genre global", all_genres, max_selections=5)
-global_tags = st.sidebar.multiselect("Tag wajib global", all_tags, max_selections=5)
+global_tags = st.sidebar.multiselect(
+    "Tag wajib global",
+    all_tags,
+    default=active_tag_default,
+    max_selections=5,
+    key=f"global_tags_{active_tag or 'all'}",
+)
 global_mode = st.sidebar.selectbox("Mode global", ["any", "singleplayer", "multiplayer", "coop"])
 global_search = st.sidebar.text_input("Cari judul")
 filtered = apply_global_filters(games, year_range, global_price, global_min_pos, global_genres, global_tags, global_mode, global_search)
 
 render_html(hero_section(len(games), len(filtered), data_source))
 render_html(feature_strip())
+
+if active_tag:
+    render_html(
+        f"""
+        <div class="active-filter-card">
+          <span>Tag mode aktif: <b>{esc(active_tag)}</b>. Library sekarang menampilkan game dengan tag ini.</span>
+          <a href="{app_link('Explore', anchor='explore')}">Clear tag</a>
+        </div>
+        """
+    )
+
+spotlight_rows = filtered.sort_values("quality_score", ascending=False, na_position="last").head(6)
+spotlight_cards = "".join(
+    game_card_html(row, games, rank=i + 1, active_tag=active_tag)
+    for i, (_, row) in enumerate(spotlight_rows.iterrows())
+)
+render_html(
+    f"""
+    <section id="explore" class="spotlight-deck">
+      {section_header('Explore library', 'live cinematic game surface')}
+      <p class="muted" style="margin-top:-6px;margin-bottom:18px;max-width:860px;">
+        Klik poster atau tombol Open Steam untuk membuka halaman Steam. Klik tag pada card untuk langsung melihat kumpulan game dengan tag yang sama.
+      </p>
+      <div class="card-grid" style="--cards-per-row:3;">{spotlight_cards}</div>
+    </section>
+    """
+)
 
 st.caption(f"Data source: {data_source} | Jumlah data: {len(games):,} game | Setelah filter: {len(filtered):,} game")
 
@@ -2002,11 +2440,17 @@ kpi4.metric("Avg positivity", fmt_float(filtered["positivity"].mean() if not fil
 kpi5.metric("Quality index", fmt_float((filtered["quality_score"].mean() * 100) if not filtered.empty else np.nan, 1))
 
 
-tab_overview, tab_explore, tab_recommender, tab_evaluation, tab_method = st.tabs(
-    ["Overview", "Explore", "Recommend", "Evaluation", "Methodology"]
+render_html('<span id="recommender"></span>')
+nav_view = st.radio(
+    "Navigation",
+    NAV_OPTIONS,
+    index=NAV_OPTIONS.index(active_view),
+    horizontal=True,
+    label_visibility="collapsed",
+    key="main_navigation",
 )
 
-with tab_overview:
+if nav_view == "Overview":
     render_html(section_header("Library intelligence", "overview dataset"))
     if filtered.empty:
         st.warning("Tidak ada data pada filter global saat ini.")
@@ -2055,9 +2499,9 @@ with tab_overview:
         for col, (label, data) in zip(pick_cols, quick_sets):
             with col:
                 render_html(f"<div class='glass-panel'><b>{esc(label)}</b></div>")
-                render_cards(data, games, columns=1)
+                render_cards(data, games, columns=1, active_tag=active_tag)
 
-with tab_explore:
+elif nav_view == "Explore":
     render_html('<span id="explore"></span>' + section_header("Game explorer", "browse and shortlist candidates"))
     if filtered.empty:
         st.warning("Tidak ada data pada filter global saat ini.")
@@ -2071,7 +2515,7 @@ with tab_explore:
         sort_asc = e2.toggle("Ascending", value=False)
         n_show = e3.slider("Jumlah kartu", 6, 60, 18, 3)
         browse = filtered.sort_values(sort_col, ascending=sort_asc, na_position="last").head(n_show)
-        render_cards(browse, games, columns=3)
+        render_cards(browse, games, columns=3, active_tag=active_tag)
         st.markdown("### Tabel data")
         display_cols = [
             "name",
@@ -2099,11 +2543,10 @@ with tab_explore:
             mime="text/csv",
         )
 
-with tab_recommender:
+elif nav_view == "Recommend":
     render_html('<span id="recommender"></span>' + section_header("Smart recommender", "hybrid, explainable, configurable"))
-    st.markdown(
-        "<div class='mini-note'>Tips: pilih 1-5 game favorit atau beberapa tag/genre. Jika tidak ada input favorit, sistem otomatis menjadi cold-start recommender berbasis rule, value, dan crowd signal.</div>",
-        unsafe_allow_html=True,
+    render_html(
+        "<div class='mini-note'>Tips: pilih 1-5 game favorit atau beberapa tag/genre. Jika tidak ada input favorit, sistem otomatis menjadi cold-start recommender berbasis rule, value, dan crowd signal.</div>"
     )
 
     MOODS = {
@@ -2170,11 +2613,10 @@ with tab_recommender:
         st.warning("Tidak ada rekomendasi yang cocok. Turunkan minimal positivity, review, harga, atau tag wajib.")
     else:
         source_label = recs["cf_source"].iloc[0] if "cf_source" in recs.columns else "Crowd proxy"
-        st.markdown(
-            f"<div class='mini-note'><b>Engine aktif:</b> {esc(engine)} | <b>Sinyal kolaboratif:</b> {esc(source_label)} | Hasil sudah direrank dengan diversity penalty.</div>",
-            unsafe_allow_html=True,
+        render_html(
+            f"<div class='mini-note'><b>Engine aktif:</b> {esc(engine)} | <b>Sinyal kolaboratif:</b> {esc(source_label)} | Hasil sudah direrank dengan diversity penalty.</div>"
         )
-        render_cards(recs, games, favorite_titles, preferred_tags, columns=3, show_components=True)
+        render_cards(recs, games, favorite_titles, preferred_tags, columns=3, show_components=True, active_tag=active_tag)
 
         st.markdown("### Score breakdown")
         chart_df = recs.head(10)[["name", "content_component", "crowd_component", "rule_component", "value_component", "novelty_component", "final_score"]].copy()
@@ -2207,7 +2649,7 @@ with tab_recommender:
             mime="text/csv",
         )
 
-with tab_evaluation:
+elif nav_view == "Evaluation":
     render_html(section_header("Recommendation evaluation", "quality, diversity, coverage"))
     st.write("Tab ini mengevaluasi hasil rekomendasi terakhir dari konfigurasi pada tab Rekomendasi.")
     try:
@@ -2265,7 +2707,7 @@ with tab_evaluation:
             """
         )
 
-with tab_method:
+elif nav_view == "Methodology":
     render_html(section_header("Recommendation methodology", "ready for dashboard explanation"))
     st.markdown(
         """
@@ -2274,46 +2716,42 @@ with tab_method:
     )
     c1, c2 = st.columns(2)
     with c1:
-        st.markdown(
+        render_html(
             """
             <div class='method-card'>
             <h4>1. Rule-Based Recommendation</h4>
             <p>Rekomendasi dipilih menggunakan aturan eksplisit seperti genre, harga, minimal positivity, minimal review, mode bermain, dan tag wajib.</p>
             <p><b>Kelebihan:</b> mudah dijelaskan dan cocok untuk cold-start user.</p>
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
-        st.markdown(
+        render_html(
             """
             <div class='method-card'>
             <h4>2. Content-Based Recommendation</h4>
             <p>Item profile dibangun dari genre, tag, kategori, developer, publisher, dan deskripsi singkat. Teks dikonversi menjadi TF-IDF, lalu dihitung kemiripannya dengan cosine similarity.</p>
             <p><b>Formula:</b> similarity(user, item) = cosine(TF-IDF user profile, TF-IDF item profile).</p>
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
     with c2:
-        st.markdown(
+        render_html(
             """
             <div class='method-card'>
             <h4>3. Collaborative / Crowd Signal</h4>
             <p>Jika file interaksi user-item diupload, sistem memakai item-based collaborative filtering. Jika tidak, dashboard memakai proxy crowd wisdom dari Bayesian rating, volume review, dan popularity.</p>
             <p><b>Catatan ilmiah:</b> proxy crowd wisdom bukan pure CF, tetapi aman untuk dataset agregat yang tidak punya user_id.</p>
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
-        st.markdown(
+        render_html(
             """
             <div class='method-card'>
             <h4>4. Weighted Hybrid Recommendation</h4>
             <p>Skor akhir menggabungkan content match, crowd/collaborative signal, rule fit, value, dan novelty.</p>
             <p><b>Formula:</b> S = w1*C_content + w2*C_crowd + w3*C_rule + w4*C_value + w5*C_novelty.</p>
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
 
     st.markdown("### Rumus penting")
