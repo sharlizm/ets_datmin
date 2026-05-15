@@ -1850,6 +1850,161 @@ def inject_css() -> None:
             border-radius: inherit !important;
         }
 
+        /* Premium simplified UX pass: immersive sidebar + intentional feature icons */
+        section[data-testid="stSidebar"] {
+            background:
+                radial-gradient(circle at 18% 0%, rgba(253,199,135,.16), transparent 15rem),
+                radial-gradient(circle at 88% 24%, rgba(165,197,204,.10), transparent 13rem),
+                linear-gradient(180deg, rgba(2,19,52,.82), rgba(1,9,28,.92) 52%, rgba(0,5,17,.96)) !important;
+            border-right: 1px solid rgba(253,199,135,.14) !important;
+            box-shadow: 28px 0 90px rgba(0,0,0,.42), inset -1px 0 0 rgba(255,255,255,.04) !important;
+            backdrop-filter: blur(24px) saturate(1.12) !important;
+        }
+        section[data-testid="stSidebar"]::before {
+            content: "";
+            position: absolute;
+            inset: 12px 10px;
+            pointer-events: none;
+            border-radius: 30px;
+            border: 1px solid rgba(165,197,204,.10);
+            background:
+                linear-gradient(145deg, rgba(255,255,255,.035), transparent 36%),
+                radial-gradient(circle at 50% 0%, rgba(253,199,135,.075), transparent 14rem);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 0 54px rgba(39,90,145,.08);
+        }
+        section[data-testid="stSidebar"] > div {
+            position: relative;
+            z-index: 1;
+            padding: 1.35rem 1rem 2rem !important;
+        }
+        .brand-card {
+            margin: 4px 0 22px !important;
+            padding: 19px 17px 17px !important;
+            border-radius: 28px !important;
+            background:
+                radial-gradient(circle at 76% 8%, rgba(253,199,135,.22), transparent 8rem),
+                radial-gradient(circle at 18% 95%, rgba(165,197,204,.10), transparent 9rem),
+                linear-gradient(145deg, rgba(1,42,97,.40), rgba(2,19,52,.72)) !important;
+            border: 1px solid rgba(253,199,135,.26) !important;
+            box-shadow: 0 24px 70px rgba(0,0,0,.38), 0 0 44px rgba(253,199,135,.08), inset 0 1px 0 rgba(255,255,255,.10) !important;
+            backdrop-filter: blur(18px) !important;
+        }
+        .brand-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(105deg, transparent 18%, rgba(253,199,135,.08), transparent 42%);
+            transform: translateX(-130%) skewX(-18deg);
+            animation: scanline 7.5s ease-in-out infinite;
+        }
+        .brand-mark {
+            width: 58px !important;
+            height: 58px !important;
+            border-radius: 20px !important;
+            box-shadow: 0 0 38px rgba(253,199,135,.28), 0 16px 34px rgba(0,0,0,.30) !important;
+        }
+        .brand-card h2 {
+            font-size: 1.32rem !important;
+            letter-spacing: -.055em !important;
+        }
+        .brand-card p {
+            max-width: 95%;
+            color: rgba(199,220,226,.78) !important;
+        }
+        .sidebar-note {
+            margin: -4px 0 18px !important;
+            padding: 12px 14px !important;
+            border-radius: 18px !important;
+            color: rgba(199,220,226,.78) !important;
+            background: rgba(165,197,204,.065) !important;
+            border: 1px solid rgba(165,197,204,.14) !important;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 14px 36px rgba(0,0,0,.18) !important;
+            backdrop-filter: blur(14px) !important;
+        }
+        section[data-testid="stSidebar"] hr {
+            margin: 18px 0 !important;
+            border-color: rgba(253,199,135,.12) !important;
+        }
+        section[data-testid="stSidebar"] h3 {
+            margin: 0 0 10px !important;
+            color: #fff !important;
+            font-size: .84rem !important;
+            letter-spacing: .14em !important;
+            text-transform: uppercase !important;
+        }
+        section[data-testid="stSidebar"] [data-testid="stWidgetLabel"] p,
+        section[data-testid="stSidebar"] label p {
+            color: rgba(238,248,250,.86) !important;
+            font-size: .80rem !important;
+            font-weight: 900 !important;
+            letter-spacing: -.01em !important;
+        }
+        section[data-testid="stSidebar"] .stSlider,
+        section[data-testid="stSidebar"] .stSelectbox,
+        section[data-testid="stSidebar"] .stMultiSelect,
+        section[data-testid="stSidebar"] .stTextInput {
+            margin-bottom: 1.05rem !important;
+        }
+        section[data-testid="stSidebar"] .stTextInput input,
+        section[data-testid="stSidebar"] div[data-baseweb="select"] > div,
+        section[data-testid="stSidebar"] div[data-baseweb="input"] > div {
+            min-height: 44px !important;
+            border-radius: 17px !important;
+            background: linear-gradient(135deg, rgba(2,19,52,.72), rgba(1,42,97,.28)) !important;
+            border: 1px solid rgba(165,197,204,.18) !important;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 12px 30px rgba(0,0,0,.18) !important;
+            transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease !important;
+        }
+        section[data-testid="stSidebar"] .stTextInput input:focus,
+        section[data-testid="stSidebar"] div[data-baseweb="select"] > div:hover,
+        section[data-testid="stSidebar"] div[data-baseweb="input"] > div:hover {
+            border-color: rgba(253,199,135,.34) !important;
+            box-shadow: 0 0 0 1px rgba(253,199,135,.08), 0 0 30px rgba(253,199,135,.10), inset 0 1px 0 rgba(255,255,255,.08) !important;
+        }
+        section[data-testid="stSidebar"] div[data-baseweb="tag"] {
+            background: rgba(253,199,135,.10) !important;
+            border-color: rgba(253,199,135,.22) !important;
+            box-shadow: 0 0 18px rgba(253,199,135,.08) !important;
+        }
+        .feature-card {
+            display: grid;
+            grid-template-columns: 62px 1fr;
+            gap: 15px;
+            align-items: center;
+            min-height: 132px !important;
+        }
+        .feature-icon {
+            position: relative;
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            border-radius: 20px;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(253,199,135,.24), transparent 48%),
+                linear-gradient(145deg, rgba(165,197,204,.14), rgba(39,90,145,.20));
+            border: 1px solid rgba(253,199,135,.22);
+            box-shadow: 0 0 26px rgba(253,199,135,.12), inset 0 1px 0 rgba(255,255,255,.08);
+        }
+        .feature-icon svg {
+            width: 29px;
+            height: 29px;
+            stroke: var(--gold);
+            stroke-width: 1.65;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 9px rgba(253,199,135,.38));
+        }
+        .feature-icon.alt svg {
+            stroke: var(--mist);
+            filter: drop-shadow(0 0 9px rgba(165,197,204,.32));
+        }
+        .feature-copy b { margin-bottom: 7px !important; }
+        .feature-copy span { display: block; }
+
+
         </style>
         """
     )
@@ -3033,8 +3188,9 @@ def render_sidebar_brand() -> None:
             <div class="brand-card">
                 <div class="brand-mark"><img src="{LOGO_SRC}" alt="SteamVault logo"></div>
                 <h2>SteamVault Pro</h2>
-                <p>Premium discovery console untuk analisis, eksplorasi, dan rekomendasi game Steam.</p>
+                <p>Premium gaming platform untuk menemukan game Steam berdasarkan atmosfer, selera, dan sinyal kualitas.</p>
             </div>
+            <div class="sidebar-note">Atur vibe pencarianmu di sini. Filter dibuat ringan supaya fokus tetap ke eksplorasi game, bukan dashboard data.</div>
             """
         )
 
@@ -3098,15 +3254,26 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
     """
 
 def feature_strip() -> str:
+    icons = {
+        "shield": """<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M12 3l7 3v5c0 4.7-2.9 8.3-7 10-4.1-1.7-7-5.3-7-10V6l7-3z'/><path d='M9.2 12.2l1.8 1.8 4-4.4'/></svg>""",
+        "target": """<svg viewBox='0 0 24 24' aria-hidden='true'><circle cx='12' cy='12' r='7.5'/><circle cx='12' cy='12' r='3.2'/><path d='M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3'/></svg>""",
+        "spark": """<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z'/><path d='M18.4 15.3l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9.9-2.4z'/></svg>""",
+    }
     items = [
-        ("Discover", "Browse game cards with cinematic covers, gameplay descriptions, badges, value signals, and detail pages."),
-        ("Analyze", "Read market-level insight from genre, price, positivity, and quality distributions."),
-        ("Recommend", "Cari rekomendasi dari kesamaan konten, filter, ulasan pemain, harga, dan variasi hasil."),
-        ("Explain", "Every recommendation includes a readable reason and component score breakdown."),
+        ("Quality signal", "Shielded quality cues from positivity, popularity, playtime, and value so strong games surface faster.", icons["shield"], ""),
+        ("Content match", "Tag, genre, category, and description signals help the platform understand the kind of atmosphere you want.", icons["target"], " alt"),
+        ("Hybrid engine", "A polished blend of taste, player response, rules, value, and discovery diversity for richer recommendations.", icons["spark"], ""),
     ]
-    cards = "".join(f'<div class="feature-card"><b>{esc(title)}</b><span>{esc(desc)}</span></div>' for title, desc in items)
-    return f'<div class="feature-grid">{cards}</div>'
-
+    cards = "".join(
+        f"""
+        <div class="feature-card">
+          <div class="feature-icon{variant}">{icon}</div>
+          <div class="feature-copy"><b>{esc(title)}</b><span>{esc(desc)}</span></div>
+        </div>
+        """
+        for title, desc, icon, variant in items
+    )
+    return f'<div class="feature-grid" style="grid-template-columns: repeat(3, minmax(0, 1fr));">{cards}</div>'
 
 def section_header(title: str, subtitle: str = "") -> str:
     return f'<div class="section-title"><h3>{esc(title)}</h3><span>{esc(subtitle)}</span></div>'
@@ -3116,8 +3283,6 @@ def top_navigation(active_view: str, active_tag: str = "") -> str:
         ("Overview", "Overview"),
         ("Explore Library", "Explore"),
         ("Recommender", "Recommend"),
-        ("Evaluation", "Evaluation"),
-        ("Methodology", "Methodology"),
     ]
     links: list[str] = []
     for label, view in items:
@@ -3143,40 +3308,27 @@ def top_navigation(active_view: str, active_tag: str = "") -> str:
 inject_css()
 
 render_sidebar_brand()
-uploaded_games = st.sidebar.file_uploader("Upload CSV dataset game", type=["csv"], help="Opsional. Jika kosong, aplikasi membaca steam_top_games_2026.csv di folder yang sama.")
-uploaded_interactions = st.sidebar.file_uploader(
-    "Opsional: upload interaksi user-item",
-    type=["csv"],
-    help="Untuk true collaborative filtering. Kolom minimal: user_id dan app_id/name; rating/playtime/liked opsional.",
-)
 
 try:
-    if uploaded_games is not None:
-        games = load_games_from_bytes(uploaded_games.getvalue())
-        data_source = uploaded_games.name
-    elif DEFAULT_CSV.exists():
+    if DEFAULT_CSV.exists():
         games = load_games_from_path(str(DEFAULT_CSV))
         data_source = DEFAULT_CSV.name
     else:
-        st.error("CSV belum ditemukan. Upload dataset melalui sidebar atau letakkan steam_top_games_2026.csv di folder app.")
+        st.error("Dataset belum ditemukan. Letakkan steam_top_games_2026.csv di folder yang sama dengan app.")
         st.stop()
 except Exception as exc:
     st.error(f"Gagal membaca dataset: {exc}")
     st.stop()
 
+# Simplified public experience: no upload workflow in the UI.
 interactions = None
-if uploaded_interactions is not None:
-    try:
-        interactions = load_interactions_from_bytes(uploaded_interactions.getvalue())
-    except Exception as exc:
-        st.sidebar.warning(f"Interaksi gagal dibaca: {exc}")
 
 vectorizer, tfidf_matrix = build_tfidf(tuple(games["content_text"].tolist()))
 all_titles = sorted(games["name"].dropna().astype(str).unique().tolist())
 all_genres = sorted([g for g in games["genre_primary"].dropna().unique().tolist() if g and g != "Unknown"])
 all_tags = top_values_from_lists(games, "tag_list", limit=120)
 
-NAV_OPTIONS = ["Overview", "Explore", "Recommend", "Evaluation", "Methodology", "Detail"]
+NAV_OPTIONS = ["Overview", "Explore", "Recommend", "Detail"]
 active_view = match_known_value(query_value("view", "Overview"), NAV_OPTIONS)
 if active_view not in NAV_OPTIONS:
     active_view = "Overview"
@@ -3185,27 +3337,27 @@ active_tag_default = [active_tag] if active_tag in all_tags else []
 
 # Sidebar global filters
 st.sidebar.markdown("---")
-st.sidebar.markdown("### Filter global")
+st.sidebar.markdown("### Discovery tuning")
 years = games["year"].dropna()
 if years.empty:
     min_year, max_year = 1990, 2030
 else:
     min_year, max_year = int(years.min()), int(years.max())
-year_range = st.sidebar.slider("Tahun rilis", min_year, max_year, (min_year, max_year))
+year_range = st.sidebar.slider("Era rilis", min_year, max_year, (min_year, max_year))
 price_limit_global = float(np.nanquantile(games["price_effective"].fillna(0), 0.98)) if len(games) else 100.0
 price_limit_global = max(10.0, min(200.0, price_limit_global))
-global_price = st.sidebar.slider("Harga maksimum global ($)", 0.0, float(math.ceil(price_limit_global)), min(60.0, float(math.ceil(price_limit_global))), 1.0)
-global_min_pos = st.sidebar.slider("Minimal positivity global (%)", 0, 100, 0)
-global_genres = st.sidebar.multiselect("Genre global", all_genres, max_selections=5)
+global_price = st.sidebar.slider("Maksimum harga ($)", 0.0, float(math.ceil(price_limit_global)), min(60.0, float(math.ceil(price_limit_global))), 1.0)
+global_min_pos = st.sidebar.slider("Minimal rating positif (%)", 0, 100, 0)
+global_genres = st.sidebar.multiselect("Genre", all_genres, max_selections=5)
 global_tags = st.sidebar.multiselect(
-    "Tag wajib global",
+    "Tag atmosfer",
     all_tags,
     default=active_tag_default,
     max_selections=5,
     key=f"global_tags_{active_tag or 'all'}",
 )
-global_mode = st.sidebar.selectbox("Mode global", ["any", "singleplayer", "multiplayer", "coop"])
-global_search = st.sidebar.text_input("Cari judul")
+global_mode = st.sidebar.selectbox("Mode bermain", ["any", "singleplayer", "multiplayer", "coop"])
+global_search = st.sidebar.text_input("Cari game")
 filtered = apply_global_filters(games, year_range, global_price, global_min_pos, global_genres, global_tags, global_mode, global_search)
 
 render_html(top_navigation(active_view, active_tag))
@@ -3317,32 +3469,6 @@ elif nav_view == "Explore":
         n_show = e3.slider("Jumlah kartu", 6, 60, 18, 3)
         browse = filtered.sort_values(sort_col, ascending=sort_asc, na_position="last").head(n_show)
         render_cards(browse, games, columns=3, active_tag=active_tag)
-        st.markdown("### Tabel data")
-        display_cols = [
-            "name",
-            "genre_primary",
-            "year",
-            "price_effective",
-            "is_free",
-            "positivity",
-            "review_volume",
-            "display_score",
-            "metacritic_score",
-            "playtime_h",
-            "developer",
-            "publisher",
-        ]
-        st.dataframe(
-            filtered[display_cols].rename(columns={"display_score": "quality_score", "price_effective": "price_usd"}),
-            width="stretch",
-            hide_index=True,
-        )
-        st.download_button(
-            "Download hasil filter CSV",
-            filtered.to_csv(index=False).encode("utf-8"),
-            file_name="steamvault_filtered_games.csv",
-            mime="text/csv",
-        )
 
 elif nav_view == "Recommend":
     render_html('<span id="recommender"></span>' + section_header("Smart recommender", "hybrid, explainable, configurable"))
@@ -3425,148 +3551,3 @@ elif nav_view == "Recommend":
         fig = px.bar(chart_long, x="score", y="name", color="component", orientation="h", barmode="group", title="Komponen skor top recommendation", labels={"score": "Skor 0-1", "name": "Game"})
         fig.update_yaxes(categoryorder="total ascending")
         st.plotly_chart(clean_plotly(fig, height=470), width="stretch")
-
-        export_cols = [
-            "name",
-            "genre_primary",
-            "year",
-            "price_effective",
-            "positivity",
-            "review_volume",
-            "final_score_pct",
-            "content_component",
-            "crowd_component",
-            "rule_component",
-            "value_component",
-            "novelty_component",
-            "developer",
-            "publisher",
-            "short_description",
-        ]
-        st.download_button(
-            "Download rekomendasi CSV",
-            recs[export_cols].to_csv(index=False).encode("utf-8"),
-            file_name="steamvault_recommendations.csv",
-            mime="text/csv",
-        )
-
-elif nav_view == "Evaluation":
-    render_html(section_header("Recommendation evaluation", "quality, diversity, coverage"))
-    st.write("Tab ini mengevaluasi hasil rekomendasi terakhir dari konfigurasi pada tab Rekomendasi.")
-    try:
-        eval_recs = recs.copy()
-    except NameError:
-        eval_recs = pd.DataFrame()
-
-    if eval_recs.empty:
-        st.info("Buat rekomendasi terlebih dahulu di tab Rekomendasi.")
-    else:
-        # Intra-list diversity from TF-IDF item vectors.
-        idxs = eval_recs.index.to_list()
-        if len(idxs) > 1:
-            sim = cosine_similarity(tfidf_matrix[idxs], tfidf_matrix[idxs])
-            tri = sim[np.triu_indices_from(sim, k=1)]
-            diversity_metric = 1 - float(np.mean(tri))
-        else:
-            diversity_metric = np.nan
-        genre_coverage = eval_recs["genre_primary"].nunique()
-        tag_counter = Counter()
-        for xs in eval_recs["tag_list"]:
-            if isinstance(xs, list):
-                tag_counter.update(xs)
-        tag_coverage = len(tag_counter)
-        avg_price = eval_recs["price_effective"].mean()
-        avg_pos = eval_recs["positivity"].mean()
-        avg_final = eval_recs["final_score_pct"].mean()
-
-        m1, m2, m3, m4, m5 = st.columns(5)
-        m1.metric("Avg final score", fmt_float(avg_final, 1))
-        m2.metric("Avg positivity", fmt_float(avg_pos, 1, "%"))
-        m3.metric("Genre coverage", f"{genre_coverage}")
-        m4.metric("Tag coverage", f"{tag_coverage}")
-        m5.metric("Intra-list diversity", fmt_float(diversity_metric, 2))
-
-        e1, e2 = st.columns(2)
-        with e1:
-            genre_eval = eval_recs.groupby("genre_primary", as_index=False).size().sort_values("size", ascending=False)
-            fig = px.pie(genre_eval, values="size", names="genre_primary", title="Sebaran genre pada hasil rekomendasi")
-            st.plotly_chart(clean_plotly(fig, height=380), width="stretch")
-        with e2:
-            top_tag_eval = pd.DataFrame(tag_counter.most_common(12), columns=["tag", "count"])
-            if not top_tag_eval.empty:
-                fig = px.bar(top_tag_eval, x="count", y="tag", orientation="h", title="Top tag pada hasil rekomendasi")
-                fig.update_yaxes(categoryorder="total ascending")
-                st.plotly_chart(clean_plotly(fig, height=380), width="stretch")
-
-        st.markdown("### Interpretasi evaluasi")
-        st.markdown(
-            f"""
-            - **Final score rata-rata** menunjukkan kekuatan rekomendasi berdasarkan engine yang dipilih.
-            - **Intra-list diversity** mendekati 1 berarti rekomendasi lebih bervariasi; mendekati 0 berarti hasil sangat mirip satu sama lain.
-            - **Genre/tag coverage** membantu melihat apakah sistem terlalu sempit atau sudah cukup beragam.
-            - **Harga rata-rata** saat ini sekitar **${avg_price:.2f}**, sehingga bisa dipakai untuk membahas aspek value-for-money.
-            """
-        )
-
-elif nav_view == "Methodology":
-    render_html(section_header("Recommendation methodology", "ready for dashboard explanation"))
-    st.markdown(
-        """
-        Dashboard ini memakai empat pendekatan utama agar sesuai dengan topik recommendation system.
-        """
-    )
-    c1, c2 = st.columns(2)
-    with c1:
-        render_html(
-            """
-            <div class='method-card'>
-            <h4>1. Rule-Based Recommendation</h4>
-            <p>Rekomendasi dipilih menggunakan aturan eksplisit seperti genre, harga, minimal positivity, minimal review, mode bermain, dan tag wajib.</p>
-            <p><b>Kelebihan:</b> mudah dijelaskan dan cocok untuk cold-start user.</p>
-            </div>
-            """
-        )
-        render_html(
-            """
-            <div class='method-card'>
-            <h4>2. Content-Based Recommendation</h4>
-            <p>Item profile dibangun dari genre, tag, kategori, developer, publisher, dan deskripsi singkat. Teks dikonversi menjadi TF-IDF, lalu dihitung kemiripannya dengan cosine similarity.</p>
-            <p><b>Formula:</b> similarity(user, item) = cosine(TF-IDF user profile, TF-IDF item profile).</p>
-            </div>
-            """
-        )
-    with c2:
-        render_html(
-            """
-            <div class='method-card'>
-            <h4>3. Collaborative / Crowd Signal</h4>
-            <p>Jika file interaksi user-item diupload, sistem memakai item-based collaborative filtering. Jika tidak, dashboard memakai proxy pola ulasan pemain dari rating yang distabilkan, jumlah review, dan popularitas.</p>
-            <p><b>Catatan ilmiah:</b> proxy pola ulasan pemain bukan pure CF, tetapi aman untuk dataset agregat yang tidak punya user_id.</p>
-            </div>
-            """
-        )
-        render_html(
-            """
-            <div class='method-card'>
-            <h4>4. Weighted Hybrid Recommendation</h4>
-            <p>Skor akhir menggabungkan content match, sinyal pemain/kolaboratif, rule fit, value, dan novelty.</p>
-            <p><b>Formula:</b> S = w1*C_content + w2*C_crowd + w3*C_rule + w4*C_value + w5*C_novelty.</p>
-            </div>
-            """
-        )
-
-    st.markdown("### Rumus penting")
-    st.latex(r"WR = \frac{v}{v+m}R + \frac{m}{v+m}C")
-    st.markdown(
-        """
-        Keterangan: `R` adalah positivity item, `v` adalah jumlah review/recommendation, `C` adalah rata-rata positivity seluruh item, dan `m` adalah ambang minimum berbasis kuantil. Rumus ini membuat game dengan review sedikit tidak langsung menang hanya karena positivity tinggi.
-        """
-    )
-    st.markdown("### Keterbatasan")
-    st.markdown(
-        """
-        - Dataset Steam top games biasanya bersifat agregat, sehingga tidak selalu memiliki matriks `user_id x item`. Karena itu, true collaborative filtering hanya aktif jika file interaksi user-item ditambahkan.
-        - Content-based recommendation sangat bergantung pada kualitas metadata seperti tag, genre, dan deskripsi.
-        - Hybrid recommendation lebih robust, tetapi bobotnya perlu divalidasi dengan data interaksi nyata atau A/B testing jika digunakan di lingkungan produksi.
-        """
-    )
