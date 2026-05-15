@@ -132,9 +132,51 @@ def inject_css() -> None:
             padding-bottom: 4rem;
         }
 
-        #MainMenu, footer, header, [data-testid="stToolbar"], [data-testid="stDecoration"] {
+        #MainMenu, footer, [data-testid="stToolbar"], [data-testid="stDecoration"] {
             visibility: hidden !important;
             height: 0 !important;
+        }
+
+        /* Keep Streamlit's sidebar reopen control visible.
+           Previously the whole header was hidden, so after closing the sidebar
+           users could not find the button to open the filters again. */
+        header, header[data-testid="stHeader"] {
+            visibility: visible !important;
+            height: 3.15rem !important;
+            background: transparent !important;
+            pointer-events: none !important;
+        }
+        header [data-testid="stToolbar"], header [data-testid="stDecoration"] {
+            display: none !important;
+        }
+        [data-testid="collapsedControl"], [data-testid="stSidebarCollapsedControl"] {
+            visibility: visible !important;
+            display: flex !important;
+            position: fixed !important;
+            top: .85rem !important;
+            left: .85rem !important;
+            z-index: 999999 !important;
+            pointer-events: auto !important;
+            width: 42px !important;
+            height: 42px !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 999px !important;
+            background: linear-gradient(135deg, rgba(253,199,135,.95), rgba(165,197,204,.88)) !important;
+            border: 1px solid rgba(253,199,135,.55) !important;
+            box-shadow: 0 16px 42px rgba(0,0,0,.42), 0 0 34px rgba(253,199,135,.22) !important;
+        }
+        [data-testid="collapsedControl"] button,
+        [data-testid="stSidebarCollapsedControl"] button {
+            pointer-events: auto !important;
+            color: #021334 !important;
+            background: transparent !important;
+        }
+        [data-testid="collapsedControl"] svg,
+        [data-testid="stSidebarCollapsedControl"] svg {
+            color: #021334 !important;
+            fill: #021334 !important;
+            stroke: #021334 !important;
         }
 
         .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
@@ -299,6 +341,12 @@ def inject_css() -> None:
             font-weight: 900 !important;
             box-shadow: 0 14px 34px rgba(253,199,135,.18) !important;
             transition: transform .18s ease, box-shadow .18s ease, filter .18s ease !important;
+        }
+        [data-testid="stFileUploaderDropzone"] button,
+        [data-testid="stFileUploaderDropzone"] button span,
+        [data-testid="stFileUploaderDropzone"] button p {
+            color: var(--ink) !important;
+            -webkit-text-fill-color: var(--ink) !important;
         }
         [data-testid="stFileUploaderDropzone"] button:hover,
         .stButton button:hover,
@@ -532,7 +580,7 @@ def inject_css() -> None:
         }
         .hero-stats {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: auto auto auto;
             gap: 12px;
             margin-top: 16px;
         }
@@ -541,6 +589,7 @@ def inject_css() -> None:
             padding: 13px;
             background: rgba(165,197,204,.06);
             border: 1px solid rgba(165,197,204,.13);
+            white-space: nowrap;
         }
         .hero-stat strong {
             display: block;
@@ -658,6 +707,8 @@ def inject_css() -> None:
             transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
             margin-bottom: 20px;
             isolation: isolate;
+            display: flex;
+            flex-direction: column;
         }
         .game-card::before {
             content: "";
@@ -748,7 +799,12 @@ def inject_css() -> None:
             backdrop-filter: blur(12px);
         }
         .score-badge { color: var(--mist) !important; border-color: rgba(165,197,204,.30); }
-        .game-body { padding: 17px 17px 18px; }
+        .game-body {
+            padding: 14px 14px 16px;
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+        }
         .game-title {
             font-size: 1.13rem;
             font-weight: 950;
@@ -797,7 +853,7 @@ def inject_css() -> None:
             position: relative;
             border: 1px solid rgba(253,199,135,.16);
             background: linear-gradient(180deg, rgba(253,199,135,.08), rgba(39,90,145,.10));
-            margin-top: 12px;
+            margin-top: auto;
             padding: 12px 13px;
             border-radius: 18px;
             color: var(--text-soft) !important;
@@ -808,12 +864,23 @@ def inject_css() -> None:
             color: var(--gold) !important;
             font-weight: 950;
         }
+        .card-footer {
+            margin-top: auto;
+            padding-top: 18px;
+            display: flex;
+            flex-direction: column;
+        }
+        .tags-wrap {
+            margin-bottom: 14px;
+        }
         .card-actions {
             display: flex;
             gap: 9px;
             margin-top: 13px;
+            position: relative;
+            z-index: 3;
         }
-        .card-action {
+        .stApp a.card-action, .card-action {
             flex: 1;
             display: inline-flex;
             align-items: center;
@@ -1048,7 +1115,7 @@ def inject_css() -> None:
             letter-spacing: -.01em;
             box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
         }
-        .cta-primary {
+        .stApp a.cta-primary, .cta-primary {
             box-shadow: 0 24px 64px rgba(253,199,135,.28), 0 0 34px rgba(253,199,135,.18);
         }
         .cta-secondary {
@@ -1596,6 +1663,47 @@ def inject_css() -> None:
             .detail-grid { grid-template-columns: 1fr; }
             .detail-cover, .detail-cover img { min-height: 230px; }
             .detail-panels { grid-template-columns: 1fr; }
+        }
+        .stApp a.card-action, 
+        .stApp a.cta-primary,
+        .stApp a.detail-cta.primary {
+            color: var(--ink) !important;
+        }
+        .stApp a.card-action.secondary,
+        .stApp a.cta-secondary,
+        .stApp a.detail-cta.secondary {
+            color: var(--text) !important;
+            background: rgba(165,197,204,.08) !important;
+            border-color: rgba(165,197,204,.16) !important;
+        }
+        [data-testid="stFileUploaderDropzone"] button *,
+        .stButton button *,
+        .stDownloadButton button * {
+            color: var(--ink) !important;
+        }
+
+
+        /* User-facing explanation should feel human, not like a statistics note. */
+        .why {
+            background: linear-gradient(180deg, rgba(165,197,204,.105), rgba(39,90,145,.12)) !important;
+            border-color: rgba(165,197,204,.20) !important;
+        }
+        .why-label {
+            color: var(--gold) !important;
+        }
+        .sidebar-reopen-hint {
+            display: block;
+            margin: 10px 0 18px;
+            padding: 10px 12px;
+            border-radius: 16px;
+            background: rgba(253,199,135,.085);
+            border: 1px solid rgba(253,199,135,.18);
+            color: var(--text-soft) !important;
+            font-size: .78rem;
+            line-height: 1.45;
+        }
+        .sidebar-reopen-hint b {
+            color: var(--gold) !important;
         }
 
         </style>
@@ -2222,7 +2330,7 @@ def recommend_games(
     cf_true = build_interaction_cf_scores(games, interactions, favorite_titles)
     if cf_true is None:
         cf = games["crowd_score"].to_numpy(dtype=float)
-        cf_label = "Crowd proxy"
+        cf_label = "Ulasan pemain"
     else:
         cf = normalize_array(cf_true, default=0.0)
         cf_label = "User-item CF"
@@ -2243,7 +2351,7 @@ def recommend_games(
         final = 0.78 * scores["content_component"] + 0.14 * scores["quality_component"] + 0.08 * scores["value_component"]
     elif engine == "Rule-Based":
         final = 0.65 * scores["rule_component"] + 0.22 * scores["quality_component"] + 0.13 * scores["value_component"]
-    elif engine == "Collaborative / Crowd":
+    elif engine == "Collaborative / Ulasan Pemain":
         final = 0.74 * scores["crowd_component"] + 0.16 * scores["quality_component"] + 0.10 * scores["novelty_component"]
     else:
         total_w = max(1e-9, sum(max(0.0, v) for v in weights.values()))
@@ -2372,9 +2480,9 @@ def gameplay_description(row: pd.Series, limit: int = 180) -> str:
     tags = row.get("tag_list", []) if isinstance(row.get("tag_list", []), list) else []
     tag_part = ", ".join(str(t) for t in tags[:3])
     if tag_part:
-        fallback = f"{title} is a {genre} title built around {tag_part} elements, surfaced here through quality, crowd, value, and content signals."
+        fallback = f"{title} adalah game {genre} dengan nuansa {tag_part}. Cocok dilihat kalau kamu ingin game yang terasa sejenis, punya ulasan bagus, dan mudah dibandingkan."
     else:
-        fallback = f"{title} is a {genre} title surfaced through quality, crowd, value, and content signals."
+        fallback = f"{title} adalah game {genre} yang dipilih karena kombinasi ulasan pemain, kualitas, harga, dan kecocokan kontennya terlihat menarik."
     return shorten_text(fallback, limit)
 
 
@@ -2442,7 +2550,9 @@ def component_bar(label: str, value: float) -> str:
 
 
 def explain_row(row: pd.Series, games: pd.DataFrame, favorite_titles: Sequence[str], preferred_tags: Sequence[str]) -> str:
+    """Generate short, non-technical reasons for normal users."""
     reasons: list[str] = []
+
     if favorite_titles:
         fav_rows = games[games["name"].isin(favorite_titles)]
         fav_tags = set()
@@ -2450,32 +2560,52 @@ def explain_row(row: pd.Series, games: pd.DataFrame, favorite_titles: Sequence[s
         for _, fav in fav_rows.iterrows():
             fav_tags.update([x.lower() for x in fav.get("tag_list", [])])
             fav_genres.update([x.lower() for x in fav.get("genre_list", [])])
-        row_tags = {x.lower() for x in row.get("tag_list", [])}
-        row_genres = {x.lower() for x in row.get("genre_list", [])}
-        shared_tags = [t for t in row.get("tag_list", []) if t.lower() in fav_tags][:4]
-        shared_genres = [g for g in row.get("genre_list", []) if g.lower() in fav_genres][:3]
+
+        shared_tags = [t for t in row.get("tag_list", []) if t.lower() in fav_tags][:3]
+        shared_genres = [g for g in row.get("genre_list", []) if g.lower() in fav_genres][:2]
         if shared_tags:
-            reasons.append("similar tags: " + ", ".join(shared_tags))
+            reasons.append("mirip dengan game favoritmu: " + ", ".join(shared_tags))
         elif shared_genres:
-            reasons.append("similar genres: " + ", ".join(shared_genres))
+            reasons.append("genrenya mirip dengan game yang kamu suka: " + ", ".join(shared_genres))
+
     if preferred_tags:
-        matched = [t for t in row.get("tag_list", []) if t.lower() in {x.lower() for x in preferred_tags}][:4]
+        preferred_set = {x.lower() for x in preferred_tags}
+        matched = [t for t in row.get("tag_list", []) if t.lower() in preferred_set][:3]
         if matched:
-            reasons.append("matches preference: " + ", ".join(matched))
+            reasons.append("sesuai tag yang kamu pilih: " + ", ".join(matched))
+
     try:
-        if float(row.get("bayes_rating", 0)) >= 85:
-            reasons.append("strong Bayesian crowd rating")
+        positivity = float(row.get("positivity", np.nan))
+        review_volume = float(row.get("review_volume", 0))
+        bayes_rating = float(row.get("bayes_rating", 0))
+        if np.isfinite(positivity) and positivity >= 90 and review_volume >= 1000:
+            reasons.append("banyak pemain memberi ulasan sangat positif")
+        elif np.isfinite(bayes_rating) and bayes_rating >= 85:
+            reasons.append("rating pemainnya kuat dan cukup dipercaya")
     except Exception:
         pass
+
     try:
         if float(row.get("value_score", 0)) >= 0.72:
-            reasons.append("good value for money")
+            if bool(row.get("is_free", False)):
+                reasons.append("gratis dimainkan")
+            else:
+                reasons.append("harga dan kualitasnya terasa sepadan")
     except Exception:
         pass
-    if bool(row.get("is_free", False)):
-        reasons.append("free to play")
+
+    if bool(row.get("is_free", False)) and "gratis dimainkan" not in reasons:
+        reasons.append("gratis dimainkan")
+
+    try:
+        if float(row.get("playtime_h", 0)) >= 20:
+            reasons.append("punya potensi waktu main yang panjang")
+    except Exception:
+        pass
+
     if not reasons:
-        reasons.append("high combined recommendation score")
+        reasons.append("skor keseluruhannya bagus dari kombinasi ulasan, popularitas, harga, dan kecocokan konten")
+
     return "; ".join(reasons[:3])
 
 
@@ -2494,7 +2624,7 @@ def game_card_html(
     initials = "".join([part[:1] for part in re.findall(r"[A-Za-z0-9]+", title)[:2]]).upper() or "SV"
     fallback = f'<div class="game-img-fallback"><div><span>{esc(initials)}</span><b>{title}</b></div></div>'
     media_inner = f'{fallback}<img src="{img}" alt="{title} cover" loading="lazy">' if img else fallback
-    img_html = f'<a class="cover-link" href="{detail_href}" target="_top" aria-label="Open detail page for {title}">{media_inner}<span class="preview-chip">View details</span></a>'
+    img_html = f'<a class="cover-link" href="{detail_href}" target="_top" aria-label="Open detail page for {title}">{media_inner}</a>'
     genre = esc(row.get("genre_primary", "Unknown"))
     year = fmt_int(row.get("year"))
     score = fmt_float(row.get("final_score_pct", row.get("display_score", 0)), 1)
@@ -2509,14 +2639,14 @@ def game_card_html(
     comp_html = ""
     if show_components:
         comp_html = (
-            component_bar("Content match", float(row.get("content_component", 0)))
-            + component_bar("Crowd signal", float(row.get("crowd_component", 0)))
-            + component_bar("Rule fit", float(row.get("rule_component", 0)))
-            + component_bar("Value", float(row.get("value_component", 0)))
+            component_bar("Mirip selera", float(row.get("content_component", 0)))
+            + component_bar("Bukti pemain", float(row.get("crowd_component", 0)))
+            + component_bar("Cocok filter", float(row.get("rule_component", 0)))
+            + component_bar("Harga/value", float(row.get("value_component", 0)))
         )
     rank_label = f"#{rank:02d}" if rank is not None else "Featured"
     first_tag = str(tags[0]) if tags else ""
-    action_primary = f'<a class="card-action" href="{detail_href}" target="_top">View detail</a>'
+    action_primary = f'<a class="card-action" href="{detail_href}" target="_top">View details</a>'
     action_secondary = (
         f'<a class="card-action secondary" href="{app_link("Explore", tag=first_tag, anchor="content-start")}" target="_top">More like this</a>'
         if first_tag
@@ -2535,15 +2665,17 @@ def game_card_html(
         <div class="game-title"><a href="{detail_href}" target="_top">{title}</a></div>
         <div class="meta-line">{genre} | {year} | {price_badge(row)}</div>
         <div class="pill-row">
-          <span class="pill pill-green">Pos {pos}</span>
+          <span class="pill pill-green">Positivity {pos}</span>
           <span class="pill">Reviews {recs}</span>
           <span class="pill">Playtime {play}</span>
         </div>
         {desc_html}
-        <div>{tag_html}</div>
-        {comp_html}
-        <div class="why"><span class="why-label">Why:</span> {why}</div>
-        <div class="card-actions">{action_primary}{action_secondary}</div>
+        <div class="card-footer">
+          <div class="tags-wrap">{tag_html}</div>
+          {comp_html}
+          <div class="why"><span class="why-label">Alasan:</span> {why}</div>
+          <div class="card-actions">{action_primary}{action_secondary}</div>
+        </div>
       </div>
     </article>
     """).strip()
@@ -2659,7 +2791,7 @@ def render_game_detail(row: pd.Series, games: pd.DataFrame, matrix, active_tag: 
           <p class="detail-description">{desc}</p>
           <div class="pill-row">
             <span class="pill pill-blue">Quality {score}</span>
-            <span class="pill pill-green">Pos {pos}</span>
+            <span class="pill pill-green">Positivity {pos}</span>
             <span class="pill">Reviews {recs}</span>
             <span class="pill">Playtime {play}</span>
             {price_badge(row)}
@@ -2674,7 +2806,7 @@ def render_game_detail(row: pd.Series, games: pd.DataFrame, matrix, active_tag: 
     panels = "".join([
         detail_panel_html("Gameplay identity", f"{genre} game dengan fokus metadata: {core_tags}. Mode: {mode_text}"),
         detail_panel_html("Studio signal", f"Developer: {developer}. Publisher: {publisher}."),
-        detail_panel_html("Why this game", why_text),
+        detail_panel_html("Kenapa direkomendasikan", why_text),
     ])
     render_html(f'<div class="detail-panels">{panels}</div>')
 
@@ -2759,8 +2891,9 @@ def render_sidebar_brand() -> None:
             <p>Premium discovery console untuk analisis, eksplorasi, dan rekomendasi game Steam.</p>
         </div>
         <div class="sidebar-note">
-            Atur library filter di sini. Gunakan tab Rekomendasi untuk mencari game berdasarkan preferensi, genre, tag, budget, dan sinyal crowd.
+            Atur filter library di sini. Kalau sidebar tertutup, klik tombol bulat di kiri atas untuk membukanya lagi.
         </div>
+        <div class="sidebar-reopen-hint"><b>Sidebar ketutup?</b><br>Klik tombol bulat di kiri atas halaman untuk membuka filter lagi.</div>
         """
     )
 
@@ -2789,7 +2922,7 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
             <a class="cta cta-secondary" href="{explore_href}" target="_top">Browse library</a>
           </div>
           <div class="hero-action-note">
-            <b>Rekomendasi</b> = isi preferensi lalu sistem memilih game yang paling cocok.
+            <b>Rekomendasi</b> = isi preferensi lalu sistem memilih game yang paling cocok.<br>
             <b>Library</b> = browse semua game, sorting, filter, dan klik tag tanpa buka tab baru.
           </div>
           <div class="hero-stats">
@@ -2804,17 +2937,17 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
             <span class="particle p1"></span><span class="particle p2"></span><span class="particle p3"></span><span class="particle p4"></span>
             <div class="mock-row one">
               <div class="mock-img"></div>
-              <div class="mock-line"><b>Quality signal</b><span>Bayesian rating + popularity depth</span></div>
+              <div class="mock-line"><b>Quality signal</b><span>review positif + banyak peminat</span></div>
               <div class="mock-score">92</div>
             </div>
             <div class="mock-row two">
               <div class="mock-img"></div>
-              <div class="mock-line"><b>Content match</b><span>TF-IDF genre, tag, description</span></div>
+              <div class="mock-line"><b>Content match</b><span>genre, tag, dan deskripsi</span></div>
               <div class="mock-score">88</div>
             </div>
             <div class="mock-row three">
               <div class="mock-img"></div>
-              <div class="mock-line"><b>Hybrid engine</b><span>Rule + crowd + value + novelty</span></div>
+              <div class="mock-line"><b>Hybrid engine</b><span>selera + ulasan + harga + variasi</span></div>
               <div class="mock-score">95</div>
             </div>
           </div>
@@ -2827,7 +2960,7 @@ def feature_strip() -> str:
     items = [
         ("Discover", "Browse game cards with cinematic covers, gameplay descriptions, badges, value signals, and detail pages."),
         ("Analyze", "Read market-level insight from genre, price, positivity, and quality distributions."),
-        ("Recommend", "Run smart hybrid recommendation using content, rule, crowd, value, and novelty weights."),
+        ("Recommend", "Cari rekomendasi dari kesamaan konten, filter, ulasan pemain, harga, dan variasi hasil."),
         ("Explain", "Every recommendation includes a readable reason and component score breakdown."),
     ]
     cards = "".join(f'<div class="feature-card"><b>{esc(title)}</b><span>{esc(desc)}</span></div>' for title, desc in items)
@@ -2972,7 +3105,7 @@ kpi1, kpi2, kpi3, kpi4, kpi5 = st.columns(5)
 kpi1.metric("Library size", f"{len(games):,}")
 kpi2.metric("Active results", f"{len(filtered):,}")
 kpi3.metric("Free titles", f"{int(filtered['is_free'].sum()):,}" if not filtered.empty else "0")
-kpi4.metric("Avg positivity", fmt_float(filtered["positivity"].mean() if not filtered.empty else np.nan, 1, "%"))
+kpi4.metric("Average positivity", fmt_float(filtered["positivity"].mean() if not filtered.empty else np.nan, 1, "%"))
 kpi5.metric("Quality index", fmt_float((filtered["quality_score"].mean() * 100) if not filtered.empty else np.nan, 1))
 
 if nav_view == "Overview":
@@ -3014,13 +3147,13 @@ if nav_view == "Overview":
             )
             st.plotly_chart(clean_plotly(fig, height=340), width="stretch")
 
-        render_html(section_header("Fast picks", "quality, value, and crowd favorites"))
+        render_html(section_header("Fast picks", "quality, value, and player favorites"))
         pick_cols = st.columns(3)
         used_quick_names: set[str] = set()
         quick_sets = [
             ("Best Quality", top_unique_games(filtered, "quality_score", used_quick_names, 3)),
             ("Best Value", top_unique_games(filtered, "value_score", used_quick_names, 3)),
-            ("Crowd Favorite", top_unique_games(filtered, "crowd_score", used_quick_names, 3)),
+            ("Player Favorite", top_unique_games(filtered, "crowd_score", used_quick_names, 3)),
         ]
         for col, (label, data) in zip(pick_cols, quick_sets):
             with col:
@@ -3073,7 +3206,7 @@ elif nav_view == "Explore":
 elif nav_view == "Recommend":
     render_html('<span id="recommender"></span>' + section_header("Smart recommender", "hybrid, explainable, configurable"))
     render_html(
-        "<div class='mini-note'>Tips: pilih 1-5 game favorit atau beberapa tag/genre. Jika tidak ada input favorit, sistem otomatis menjadi cold-start recommender berbasis rule, value, dan crowd signal.</div>"
+        "<div class='mini-note'>Tips: pilih 1-5 game favorit atau beberapa tag/genre. Jika tidak ada input favorit, sistem otomatis memilih berdasarkan filter, harga, dan ulasan pemain.</div>"
     )
 
     MOODS = {
@@ -3089,8 +3222,8 @@ elif nav_view == "Recommend":
     with r1:
         engine = st.selectbox(
             "Engine rekomendasi",
-            ["Smart Hybrid", "Content-Based", "Rule-Based", "Collaborative / Crowd"],
-            help="Smart Hybrid memakai weighted hybrid. Collaborative akan menjadi true user-item CF jika file interaksi diupload; jika tidak, memakai crowd wisdom proxy.",
+            ["Smart Hybrid", "Content-Based", "Rule-Based", "Collaborative / Ulasan Pemain"],
+            help="Smart Hybrid menggabungkan beberapa sinyal. Mode kolaboratif memakai data interaksi jika diupload; kalau tidak, memakai ulasan dan popularitas pemain sebagai pengganti.",
         )
         favorite_titles = st.multiselect("Game favorit / referensi", all_titles, max_selections=5)
         preferred_genres = st.multiselect("Genre preferensi", all_genres, max_selections=5)
@@ -3111,7 +3244,7 @@ elif nav_view == "Recommend":
         with st.expander("Atur bobot hybrid", expanded=False):
             w1, w2, w3, w4, w5 = st.columns(5)
             weights["content"] = w1.slider("Content", 0.0, 1.0, weights["content"], 0.05)
-            weights["crowd"] = w2.slider("Crowd/CF", 0.0, 1.0, weights["crowd"], 0.05)
+            weights["crowd"] = w2.slider("Ulasan/CF", 0.0, 1.0, weights["crowd"], 0.05)
             weights["rule"] = w3.slider("Rule", 0.0, 1.0, weights["rule"], 0.05)
             weights["value"] = w4.slider("Value", 0.0, 1.0, weights["value"], 0.05)
             weights["novelty"] = w5.slider("Novelty", 0.0, 1.0, weights["novelty"], 0.05)
@@ -3139,9 +3272,9 @@ elif nav_view == "Recommend":
     if recs.empty:
         st.warning("Tidak ada rekomendasi yang cocok. Turunkan minimal positivity, review, harga, atau tag wajib.")
     else:
-        source_label = recs["cf_source"].iloc[0] if "cf_source" in recs.columns else "Crowd proxy"
+        source_label = recs["cf_source"].iloc[0] if "cf_source" in recs.columns else "Ulasan pemain"
         render_html(
-            f"<div class='mini-note'><b>Engine aktif:</b> {esc(engine)} | <b>Sinyal kolaboratif:</b> {esc(source_label)} | Hasil sudah direrank dengan diversity penalty.</div>"
+            f"<div class='mini-note'><b>Engine aktif:</b> {esc(engine)} | <b>Sumber sinyal pemain:</b> {esc(source_label)} | Hasil sudah direrank dengan diversity penalty.</div>"
         )
         render_cards(recs, games, favorite_titles, preferred_tags, columns=3, show_components=True, active_tag=active_tag)
 
@@ -3266,8 +3399,8 @@ elif nav_view == "Methodology":
             """
             <div class='method-card'>
             <h4>3. Collaborative / Crowd Signal</h4>
-            <p>Jika file interaksi user-item diupload, sistem memakai item-based collaborative filtering. Jika tidak, dashboard memakai proxy crowd wisdom dari Bayesian rating, volume review, dan popularity.</p>
-            <p><b>Catatan ilmiah:</b> proxy crowd wisdom bukan pure CF, tetapi aman untuk dataset agregat yang tidak punya user_id.</p>
+            <p>Jika file interaksi user-item diupload, sistem memakai item-based collaborative filtering. Jika tidak, dashboard memakai proxy pola ulasan pemain dari rating yang distabilkan, jumlah review, dan popularitas.</p>
+            <p><b>Catatan ilmiah:</b> proxy pola ulasan pemain bukan pure CF, tetapi aman untuk dataset agregat yang tidak punya user_id.</p>
             </div>
             """
         )
@@ -3275,7 +3408,7 @@ elif nav_view == "Methodology":
             """
             <div class='method-card'>
             <h4>4. Weighted Hybrid Recommendation</h4>
-            <p>Skor akhir menggabungkan content match, crowd/collaborative signal, rule fit, value, dan novelty.</p>
+            <p>Skor akhir menggabungkan content match, sinyal pemain/kolaboratif, rule fit, value, dan novelty.</p>
             <p><b>Formula:</b> S = w1*C_content + w2*C_crowd + w3*C_rule + w4*C_value + w5*C_novelty.</p>
             </div>
             """
