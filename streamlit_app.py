@@ -1,5 +1,5 @@
 # SteamVault Pro - Steam Game Discovery & Hybrid Recommendation Dashboard
-# Put this file in the same folder as steam_top_games_2026.csv.
+# Put this file in the same folder as steam_top_games_2026.csv, or upload the CSV from the sidebar.
 
 from __future__ import annotations
 
@@ -28,8 +28,8 @@ except Exception:  # pragma: no cover
 
 
 APP_TITLE = "SteamVault Pro"
+LOGO_SRC = "data:image/jpeg;base64,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"
 DEFAULT_CSV = Path(__file__).parent / "steam_top_games_2026.csv"
-LOGO_SRC = "data:image/jpeg;base64,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"
 
 st.set_page_config(
     page_title=APP_TITLE,
@@ -138,7 +138,8 @@ def inject_css() -> None:
             height: 0 !important;
         }
 
-        header, [data-testid="stHeader"] {
+        /* Header stays alive so Streamlit's native sidebar open/close control can still work. */
+        header, header[data-testid="stHeader"], [data-testid="stHeader"] {
             visibility: visible !important;
             display: block !important;
             height: 0 !important;
@@ -146,59 +147,67 @@ def inject_css() -> None:
             background: transparent !important;
             pointer-events: none !important;
         }
-
-        [data-testid="stToolbar"] {
+        header [data-testid="stDecoration"], [data-testid="stDecoration"] {
+            display: none !important;
+        }
+        header [data-testid="stToolbar"], [data-testid="stToolbar"] {
             visibility: visible !important;
             display: flex !important;
             opacity: 1 !important;
             height: auto !important;
             background: transparent !important;
-            pointer-events: none !important;
+            pointer-events: auto !important;
         }
 
-        [data-testid="stSidebarCollapsedControl"],
-        [data-testid="collapsedControl"] {
+        /* Make the collapsed-sidebar opener impossible to miss. */
+        [data-testid="collapsedControl"], [data-testid="stSidebarCollapsedControl"] {
+            visibility: visible !important;
+            display: flex !important;
+            opacity: 1 !important;
             position: fixed !important;
-            top: 1.15rem !important;
-            left: 0.95rem !important;
-            z-index: 999 !important;
+            top: .85rem !important;
+            left: .85rem !important;
+            z-index: 999999 !important;
             pointer-events: auto !important;
+            width: 58px !important;
+            height: 42px !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 999px !important;
+            background: linear-gradient(135deg, rgba(253,199,135,.98), rgba(165,197,204,.92)) !important;
+            border: 1px solid rgba(253,199,135,.65) !important;
+            box-shadow: 0 16px 42px rgba(0,0,0,.46), 0 0 34px rgba(253,199,135,.26) !important;
         }
-
-        [data-testid="stSidebarCollapsedControl"] button,
         [data-testid="collapsedControl"] button,
-        button[aria-label="Open sidebar"] {
-            width: 54px !important;
-            height: 54px !important;
-            min-width: 54px !important;
-            border-radius: 16px !important;
-            border: 1px solid rgba(253,199,135,.44) !important;
-            background: linear-gradient(135deg, rgba(2,19,52,.96), rgba(1,42,97,.78)) !important;
-            box-shadow: 0 18px 45px rgba(0,0,0,.36), 0 0 28px rgba(253,199,135,.16), inset 0 1px 0 rgba(255,255,255,.08) !important;
-            color: transparent !important;
-            position: relative !important;
+        [data-testid="stSidebarCollapsedControl"] button,
+        header button[kind="header"],
+        header [data-testid="baseButton-headerNoPadding"],
+        header [data-testid="stBaseButton-headerNoPadding"] {
+            visibility: visible !important;
+            display: flex !important;
+            opacity: 1 !important;
             pointer-events: auto !important;
+            color: #021334 !important;
+            background: transparent !important;
         }
-
-        [data-testid="stSidebarCollapsedControl"] button svg,
-        [data-testid="collapsedControl"] button svg,
-        button[aria-label="Open sidebar"] svg {
-            opacity: 0 !important;
-        }
-
-        [data-testid="stSidebarCollapsedControl"] button::after,
-        [data-testid="collapsedControl"] button::after,
-        button[aria-label="Open sidebar"]::after {
+        [data-testid="collapsedControl"]::after,
+        [data-testid="stSidebarCollapsedControl"]::after {
             content: ">>>";
-            position: absolute;
-            inset: 0;
-            display: grid;
-            place-items: center;
-            color: var(--gold) !important;
-            font-size: 1rem;
-            font-weight: 900;
-            letter-spacing: .06em;
-            text-shadow: 0 0 18px rgba(253,199,135,.38);
+            color: #021334 !important;
+            font-weight: 950;
+            font-size: .82rem;
+            letter-spacing: -.06em;
+            line-height: 1;
+        }
+        [data-testid="collapsedControl"] svg,
+        [data-testid="stSidebarCollapsedControl"] svg {
+            display: none !important;
+        }
+        section[data-testid="stSidebar"] [data-testid="stSidebarCollapseButton"],
+        section[data-testid="stSidebar"] button[kind="header"] {
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
         }
 
         .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
@@ -255,22 +264,23 @@ def inject_css() -> None:
             box-shadow: 0 22px 60px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.08);
         }
         .brand-mark {
-            width: 58px;
-            height: 58px;
+            width: 54px;
+            height: 54px;
             display: grid;
             place-items: center;
             border-radius: 18px;
-            margin-bottom: 14px;
-            padding: 5px;
-            background: linear-gradient(135deg, rgba(253,199,135,.28), rgba(165,197,204,.26));
-            box-shadow: 0 0 35px rgba(253,199,135,.22);
+            margin-bottom: 12px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--gold), var(--mist));
+            box-shadow: 0 0 35px rgba(253,199,135,.28);
         }
-        .brand-mark img {
+        .brand-mark img,
+        .top-nav-brand span img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            border-radius: 14px;
+            border-radius: inherit;
         }
         .brand-card h2 {
             margin: 0;
@@ -295,64 +305,15 @@ def inject_css() -> None:
             line-height: 1.45;
         }
 
-        .sidebar-note.tight {
-            margin-top: 8px;
-            margin-bottom: 12px;
-        }
-        .sidebar-brand-card {
-            display: grid;
-            grid-template-columns: 58px 1fr;
-            gap: 12px;
-            align-items: center;
-        }
-        .sidebar-brand-card .brand-mark {
-            margin-bottom: 0;
-        }
-        .sidebar-brand-copy h2 {
-            margin: 0;
-        }
-        .sidebar-brand-copy p {
-            margin: 6px 0 0;
-        }
-        .sidebar-section-title {
-            margin: 16px 0 6px;
-            padding: 12px 14px;
-            border-radius: 18px;
-            background: linear-gradient(145deg, rgba(1,42,97,.36), rgba(2,19,52,.72));
-            border: 1px solid rgba(253,199,135,.18);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
-        }
-        .sidebar-section-title span {
-            display: block;
-            color: var(--gold) !important;
-            font-size: .68rem;
-            font-weight: 800;
-            letter-spacing: .14em;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-        .sidebar-section-title b {
-            display: block;
-            color: #fff !important;
-            font-size: 1rem;
-            line-height: 1.2;
-        }
-        .sidebar-helper {
-            margin: 0 0 14px;
-            color: rgba(199,220,226,.84) !important;
-            font-size: .78rem;
-            line-height: 1.55;
-        }
-
         .stTextInput input,
         .stNumberInput input,
         .stTextArea textarea,
         div[data-baseweb="select"] > div,
         div[data-baseweb="input"] > div,
         div[data-baseweb="textarea"] > div {
-            background: linear-gradient(180deg, rgba(5, 26, 67, 0.96), rgba(3, 20, 52, 0.96)) !important;
-            border: 1px solid rgba(165, 197, 204, 0.16) !important;
-            border-radius: 17px !important;
+            background: rgba(2, 19, 52, 0.92) !important;
+            border: 1px solid rgba(165, 197, 204, 0.18) !important;
+            border-radius: 15px !important;
             color: var(--text) !important;
             box-shadow: inset 0 1px 0 rgba(255,255,255,.05) !important;
         }
@@ -635,20 +596,10 @@ def inject_css() -> None:
         .mock-row.two { top: 112px; transform: translateX(18px); opacity: .92; }
         .mock-row.three { top: 202px; transform: translateX(-8px); opacity: .82; }
         .mock-img {
-            height: 56px;
-            width: 62px;
-            display: grid;
-            place-items: center;
+            height: 48px;
             border-radius: 14px;
-            background: linear-gradient(135deg, rgba(253,199,135,.22), rgba(165,197,204,.18));
-            border: 1px solid rgba(253,199,135,.22);
-            box-shadow: 0 12px 24px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.10);
-        }
-        .mock-img svg {
-            width: 28px;
-            height: 28px;
-            color: var(--gold);
-            filter: drop-shadow(0 0 14px rgba(253,199,135,.30));
+            background: linear-gradient(135deg, var(--gold), var(--mid));
+            box-shadow: 0 12px 24px rgba(0,0,0,.22);
         }
         .mock-line b, .mock-line span { display: block; }
         .mock-line b { color: #fff !important; font-size: .88rem; margin-bottom: 5px; }
@@ -954,7 +905,7 @@ def inject_css() -> None:
             margin-top: auto;
             padding-top: 18px;
             display: flex;
-            flex-direction: column;a
+            flex-direction: column;
         }
         .tags-wrap {
             margin-bottom: 14px;
@@ -1432,22 +1383,17 @@ def inject_css() -> None:
             font-weight: 950;
             letter-spacing: -.04em;
         }
-        .top-nav-brand .brand-badge {
+        .top-nav-brand span {
             width: 34px;
             height: 34px;
             display: inline-grid;
             place-items: center;
             border-radius: 12px;
-            padding: 3px;
-            background: linear-gradient(135deg, rgba(253,199,135,.30), rgba(165,197,204,.24));
-            box-shadow: 0 0 26px rgba(253,199,135,.18);
-        }
-        .top-nav-brand .brand-badge img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            border-radius: 10px;
+            overflow: hidden;
+            color: var(--ink) !important;
+            background: linear-gradient(135deg, var(--gold), var(--mist));
+            box-shadow: 0 0 26px rgba(253,199,135,.22);
+            font-size: .78rem;
         }
         .top-nav-links {
             display: flex;
@@ -1773,6 +1719,137 @@ def inject_css() -> None:
         .stDownloadButton button * {
             color: var(--ink) !important;
         }
+
+
+        /* User-facing explanation should feel human, not like a statistics note. */
+        .why {
+            background: linear-gradient(180deg, rgba(165,197,204,.105), rgba(39,90,145,.12)) !important;
+            border-color: rgba(165,197,204,.20) !important;
+        }
+        .why-label {
+            color: var(--gold) !important;
+        }
+
+
+        /* Final fix: keep the native Streamlit sidebar opener visible and obvious. */
+        header, header[data-testid="stHeader"], [data-testid="stHeader"] {
+            visibility: visible !important;
+            display: block !important;
+            height: 3.15rem !important;
+            min-height: 3.15rem !important;
+            background: transparent !important;
+            pointer-events: auto !important;
+            z-index: 1000000 !important;
+        }
+        header [data-testid="stToolbar"], [data-testid="stToolbar"] {
+            visibility: visible !important;
+            display: flex !important;
+            opacity: 1 !important;
+            height: auto !important;
+            min-height: 0 !important;
+            background: transparent !important;
+            pointer-events: auto !important;
+        }
+        [data-testid="collapsedControl"],
+        [data-testid="stSidebarCollapsedControl"] {
+            visibility: visible !important;
+            display: flex !important;
+            opacity: 1 !important;
+            position: fixed !important;
+            top: 14px !important;
+            left: 14px !important;
+            z-index: 1000001 !important;
+            pointer-events: auto !important;
+            width: 86px !important;
+            height: 46px !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 999px !important;
+            background: linear-gradient(135deg, rgba(253,199,135,.98), rgba(165,197,204,.94)) !important;
+            border: 1px solid rgba(253,199,135,.72) !important;
+            box-shadow: 0 18px 50px rgba(0,0,0,.50), 0 0 40px rgba(253,199,135,.32) !important;
+        }
+        [data-testid="collapsedControl"] button,
+        [data-testid="stSidebarCollapsedControl"] button,
+        button[aria-label*="Open sidebar"],
+        button[title*="Open sidebar"] {
+            visibility: visible !important;
+            display: inline-flex !important;
+            opacity: 1 !important;
+            align-items: center !important;
+            justify-content: center !important;
+            min-width: 74px !important;
+            min-height: 40px !important;
+            color: #021334 !important;
+            background: transparent !important;
+            pointer-events: auto !important;
+            border-radius: 999px !important;
+            font-weight: 950 !important;
+        }
+        [data-testid="collapsedControl"] button svg,
+        [data-testid="stSidebarCollapsedControl"] button svg,
+        button[aria-label*="Open sidebar"] svg,
+        button[title*="Open sidebar"] svg {
+            display: none !important;
+        }
+        [data-testid="collapsedControl"]::after,
+        [data-testid="stSidebarCollapsedControl"]::after,
+        [data-testid="collapsedControl"] button::after,
+        [data-testid="stSidebarCollapsedControl"] button::after,
+        button[aria-label*="Open sidebar"]::after,
+        button[title*="Open sidebar"]::after {
+            content: ">>>";
+            color: #021334 !important;
+            font-size: 1.03rem !important;
+            line-height: 1 !important;
+            font-weight: 950 !important;
+            letter-spacing: .08em !important;
+            text-shadow: 0 1px 0 rgba(255,255,255,.25);
+        }
+        [data-testid="collapsedControl"] button::after,
+        [data-testid="stSidebarCollapsedControl"] button::after {
+            display: none !important;
+        }
+        section[data-testid="stSidebar"] button[aria-label*="Close sidebar"],
+        section[data-testid="stSidebar"] button[title*="Close sidebar"],
+        section[data-testid="stSidebar"] [data-testid="stSidebarCollapseButton"],
+        section[data-testid="stSidebar"] button[kind="header"] {
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        .sidebar-reopen-hint {
+            display: none !important;
+        }
+        .top-nav-brand .top-nav-logo,
+        .hero-mini-logo {
+            overflow: hidden !important;
+            padding: 0 !important;
+            display: inline-grid !important;
+            place-items: center !important;
+            background: rgba(253,199,135,.12) !important;
+            border: 1px solid rgba(253,199,135,.34) !important;
+            box-shadow: 0 0 34px rgba(253,199,135,.20), inset 0 1px 0 rgba(255,255,255,.14) !important;
+        }
+        .top-nav-brand .top-nav-logo {
+            width: 34px !important;
+            height: 34px !important;
+            border-radius: 12px !important;
+        }
+        .hero-mini-logo {
+            width: 24px !important;
+            height: 24px !important;
+            border-radius: 9px !important;
+        }
+        .top-nav-brand .top-nav-logo img,
+        .hero-mini-logo img {
+            width: 100% !important;
+            height: 100% !important;
+            display: block !important;
+            object-fit: cover !important;
+            border-radius: inherit !important;
+        }
+
         </style>
         """
     )
@@ -2397,7 +2474,7 @@ def recommend_games(
     cf_true = build_interaction_cf_scores(games, interactions, favorite_titles)
     if cf_true is None:
         cf = games["crowd_score"].to_numpy(dtype=float)
-        cf_label = "Crowd proxy"
+        cf_label = "Ulasan pemain"
     else:
         cf = normalize_array(cf_true, default=0.0)
         cf_label = "User-item CF"
@@ -2418,7 +2495,7 @@ def recommend_games(
         final = 0.78 * scores["content_component"] + 0.14 * scores["quality_component"] + 0.08 * scores["value_component"]
     elif engine == "Rule-Based":
         final = 0.65 * scores["rule_component"] + 0.22 * scores["quality_component"] + 0.13 * scores["value_component"]
-    elif engine == "Collaborative / Crowd":
+    elif engine == "Collaborative / Ulasan Pemain":
         final = 0.74 * scores["crowd_component"] + 0.16 * scores["quality_component"] + 0.10 * scores["novelty_component"]
     else:
         total_w = max(1e-9, sum(max(0.0, v) for v in weights.values()))
@@ -2547,9 +2624,9 @@ def gameplay_description(row: pd.Series, limit: int = 180) -> str:
     tags = row.get("tag_list", []) if isinstance(row.get("tag_list", []), list) else []
     tag_part = ", ".join(str(t) for t in tags[:3])
     if tag_part:
-        fallback = f"{title} is a {genre} title built around {tag_part} elements, surfaced here through quality, crowd, value, and content signals."
+        fallback = f"{title} adalah game {genre} dengan nuansa {tag_part}. Cocok dilihat kalau kamu ingin game yang terasa sejenis, punya ulasan bagus, dan mudah dibandingkan."
     else:
-        fallback = f"{title} is a {genre} title surfaced through quality, crowd, value, and content signals."
+        fallback = f"{title} adalah game {genre} yang dipilih karena kombinasi ulasan pemain, kualitas, harga, dan kecocokan kontennya terlihat menarik."
     return shorten_text(fallback, limit)
 
 
@@ -2617,7 +2694,9 @@ def component_bar(label: str, value: float) -> str:
 
 
 def explain_row(row: pd.Series, games: pd.DataFrame, favorite_titles: Sequence[str], preferred_tags: Sequence[str]) -> str:
+    """Generate short, non-technical reasons for normal users."""
     reasons: list[str] = []
+
     if favorite_titles:
         fav_rows = games[games["name"].isin(favorite_titles)]
         fav_tags = set()
@@ -2625,32 +2704,52 @@ def explain_row(row: pd.Series, games: pd.DataFrame, favorite_titles: Sequence[s
         for _, fav in fav_rows.iterrows():
             fav_tags.update([x.lower() for x in fav.get("tag_list", [])])
             fav_genres.update([x.lower() for x in fav.get("genre_list", [])])
-        row_tags = {x.lower() for x in row.get("tag_list", [])}
-        row_genres = {x.lower() for x in row.get("genre_list", [])}
-        shared_tags = [t for t in row.get("tag_list", []) if t.lower() in fav_tags][:4]
-        shared_genres = [g for g in row.get("genre_list", []) if g.lower() in fav_genres][:3]
+
+        shared_tags = [t for t in row.get("tag_list", []) if t.lower() in fav_tags][:3]
+        shared_genres = [g for g in row.get("genre_list", []) if g.lower() in fav_genres][:2]
         if shared_tags:
-            reasons.append("similar tags: " + ", ".join(shared_tags))
+            reasons.append("mirip dengan game favoritmu: " + ", ".join(shared_tags))
         elif shared_genres:
-            reasons.append("similar genres: " + ", ".join(shared_genres))
+            reasons.append("genrenya mirip dengan game yang kamu suka: " + ", ".join(shared_genres))
+
     if preferred_tags:
-        matched = [t for t in row.get("tag_list", []) if t.lower() in {x.lower() for x in preferred_tags}][:4]
+        preferred_set = {x.lower() for x in preferred_tags}
+        matched = [t for t in row.get("tag_list", []) if t.lower() in preferred_set][:3]
         if matched:
-            reasons.append("matches preference: " + ", ".join(matched))
+            reasons.append("sesuai tag yang kamu pilih: " + ", ".join(matched))
+
     try:
-        if float(row.get("bayes_rating", 0)) >= 85:
-            reasons.append("strong Bayesian crowd rating")
+        positivity = float(row.get("positivity", np.nan))
+        review_volume = float(row.get("review_volume", 0))
+        bayes_rating = float(row.get("bayes_rating", 0))
+        if np.isfinite(positivity) and positivity >= 90 and review_volume >= 1000:
+            reasons.append("banyak pemain memberi ulasan sangat positif")
+        elif np.isfinite(bayes_rating) and bayes_rating >= 85:
+            reasons.append("rating pemainnya kuat dan cukup dipercaya")
     except Exception:
         pass
+
     try:
         if float(row.get("value_score", 0)) >= 0.72:
-            reasons.append("good value for money")
+            if bool(row.get("is_free", False)):
+                reasons.append("gratis dimainkan")
+            else:
+                reasons.append("harga dan kualitasnya terasa sepadan")
     except Exception:
         pass
-    if bool(row.get("is_free", False)):
-        reasons.append("free to play")
+
+    if bool(row.get("is_free", False)) and "gratis dimainkan" not in reasons:
+        reasons.append("gratis dimainkan")
+
+    try:
+        if float(row.get("playtime_h", 0)) >= 20:
+            reasons.append("punya potensi waktu main yang panjang")
+    except Exception:
+        pass
+
     if not reasons:
-        reasons.append("high combined recommendation score")
+        reasons.append("skor keseluruhannya bagus dari kombinasi ulasan, popularitas, harga, dan kecocokan konten")
+
     return "; ".join(reasons[:3])
 
 
@@ -2684,10 +2783,10 @@ def game_card_html(
     comp_html = ""
     if show_components:
         comp_html = (
-            component_bar("Content match", float(row.get("content_component", 0)))
-            + component_bar("Crowd signal", float(row.get("crowd_component", 0)))
-            + component_bar("Rule fit", float(row.get("rule_component", 0)))
-            + component_bar("Value", float(row.get("value_component", 0)))
+            component_bar("Mirip selera", float(row.get("content_component", 0)))
+            + component_bar("Bukti pemain", float(row.get("crowd_component", 0)))
+            + component_bar("Cocok filter", float(row.get("rule_component", 0)))
+            + component_bar("Harga/value", float(row.get("value_component", 0)))
         )
     rank_label = f"#{rank:02d}" if rank is not None else "Featured"
     first_tag = str(tags[0]) if tags else ""
@@ -2718,7 +2817,7 @@ def game_card_html(
         <div class="card-footer">
           <div class="tags-wrap">{tag_html}</div>
           {comp_html}
-          <div class="why"><span class="why-label">Why:</span> {why}</div>
+          <div class="why"><span class="why-label">Alasan:</span> {why}</div>
           <div class="card-actions">{action_primary}{action_secondary}</div>
         </div>
       </div>
@@ -2851,7 +2950,7 @@ def render_game_detail(row: pd.Series, games: pd.DataFrame, matrix, active_tag: 
     panels = "".join([
         detail_panel_html("Gameplay identity", f"{genre} game dengan fokus metadata: {core_tags}. Mode: {mode_text}"),
         detail_panel_html("Studio signal", f"Developer: {developer}. Publisher: {publisher}."),
-        detail_panel_html("Why this game", why_text),
+        detail_panel_html("Kenapa direkomendasikan", why_text),
     ])
     render_html(f'<div class="detail-panels">{panels}</div>')
 
@@ -2927,49 +3026,17 @@ def top_unique_games(df: pd.DataFrame, sort_col: str, used_names: set[str], n: i
 
 
 
-def premium_icon(name: str) -> str:
-    icons = {
-        "quality": """
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 3.2l6.5 2.7v5.9c0 4.9-3.1 8.3-6.5 9.1-3.4-.8-6.5-4.2-6.5-9.1V5.9L12 3.2z"/>
-          <path d="M12 8.1l.9 1.8 2 .3-1.45 1.4.35 2.05L12 12.7l-1.8.95.35-2.05-1.45-1.4 2-.3.9-1.8z"/>
-        </svg>
-        """,
-        "content": """
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="7.5"/>
-          <circle cx="12" cy="12" r="2.25"/>
-          <path d="M12 2.75v2.6M12 18.65v2.6M2.75 12h2.6M18.65 12h2.6"/>
-          <path d="M5.55 5.55l1.65 1.65M16.8 16.8l1.65 1.65M18.45 5.55 16.8 7.2M7.2 16.8l-1.65 1.65"/>
-        </svg>
-        """,
-        "hybrid": """
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="9" y="9" width="6" height="6" rx="1.8"/>
-          <path d="M12 3.1v2.6M12 18.3v2.6M20.9 12h-2.6M5.7 12H3.1"/>
-          <path d="M6.3 6.3l1.95 1.95M15.75 15.75l1.95 1.95M17.7 6.3l-1.95 1.95M8.25 15.75 6.3 17.7"/>
-          <circle cx="6.3" cy="6.3" r="1.1"/>
-          <circle cx="17.7" cy="6.3" r="1.1"/>
-          <circle cx="6.3" cy="17.7" r="1.1"/>
-          <circle cx="17.7" cy="17.7" r="1.1"/>
-        </svg>
-        """,
-    }
-    return textwrap.dedent(icons.get(name, "")).strip()
-
-
 def render_sidebar_brand() -> None:
-    render_html(
-        f"""
-        <div class="brand-card sidebar-brand-card">
-            <div class="brand-mark"><img src="{LOGO_SRC}" alt="SteamVault Pro logo"></div>
-            <div class="sidebar-brand-copy">
-              <h2>SteamVault Pro</h2>
-              <p>Temukan game Steam dengan filter yang simpel, tampilan premium, dan rekomendasi yang gampang dipahami.</p>
+    with st.sidebar:
+        render_html(
+            f"""
+            <div class="brand-card">
+                <div class="brand-mark"><img src="{LOGO_SRC}" alt="SteamVault logo"></div>
+                <h2>SteamVault Pro</h2>
+                <p>Premium discovery console untuk analisis, eksplorasi, dan rekomendasi game Steam.</p>
             </div>
-        </div>
-        """
-    )
+            """
+        )
 
 
 def hero_section(total_games: int, filtered_games: int, data_source: str) -> str:
@@ -2979,25 +3046,25 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
     <section class="hero">
       <div class="hero-grid">
         <div class="hero-copy">
-          <div class="hero-kicker">SteamVault Pro / cinematic discovery engine</div>
+          <div class="hero-kicker"><span class="hero-mini-logo"><img src="{LOGO_SRC}" alt="SteamVault logo"></span>SteamVault Pro / cinematic discovery engine</div>
           <h1><span class="ghost-word">Enter the</span> <span class="accent">Vault</span> of games.</h1>
           <p class="hero-subtitle">
-            Temukan game Steam yang terasa paling cocok buat kamu lewat filter library,
-            browsing yang cinematic, dan rekomendasi hybrid yang mudah dipahami.
+            Platform eksplorasi game Steam dengan tampilan cinematic, filter library,
+            dan rekomendasi hybrid yang menjelaskan alasan tiap game dipilih.
           </p>
           <div class="hero-proof-row">
             <span class="hero-proof">Hybrid recommender</span>
-            <span class="hero-proof">Same-page detail</span>
-            <span class="hero-proof">Tag-based explore</span>
-            <span class="hero-proof">Premium gaming UI</span>
+            <span class="hero-proof">Same-page tag filter</span>
+            <span class="hero-proof">Game detail pages</span>
+            <span class="hero-proof">AAA-style UI</span>
           </div>
           <div class="hero-actions">
             <a class="cta cta-primary" href="{recommend_href}" target="_top">Cari rekomendasi</a>
             <a class="cta cta-secondary" href="{explore_href}" target="_top">Browse library</a>
           </div>
           <div class="hero-action-note">
-            <b>Recommender</b> cocok kalau kamu ingin sistem memilihkan game terbaik untukmu.<br>
-            <b>Library</b> cocok kalau kamu ingin browsing sendiri lalu membuka detail game tanpa pindah tab.
+            <b>Rekomendasi</b> = isi preferensi lalu sistem memilih game yang paling cocok.<br>
+            <b>Library</b> = browse semua game, sorting, filter, dan klik tag tanpa buka tab baru.
           </div>
           <div class="hero-stats">
             <div class="hero-stat"><strong>{total_games:,}</strong><span>Total games indexed</span></div>
@@ -3010,18 +3077,18 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
             <div class="signature-orb"></div>
             <span class="particle p1"></span><span class="particle p2"></span><span class="particle p3"></span><span class="particle p4"></span>
             <div class="mock-row one">
-              <div class="mock-img">{premium_icon("quality")}</div>
-              <div class="mock-line"><b>Quality signal</b><span>rating solid, review positif, dan banyak peminat</span></div>
+              <div class="mock-img"></div>
+              <div class="mock-line"><b>Quality signal</b><span>review positif + banyak peminat</span></div>
               <div class="mock-score">92</div>
             </div>
             <div class="mock-row two">
-              <div class="mock-img">{premium_icon("content")}</div>
-              <div class="mock-line"><b>Content match</b><span>genre, tag, dan vibe yang paling nyambung</span></div>
+              <div class="mock-img"></div>
+              <div class="mock-line"><b>Content match</b><span>genre, tag, dan deskripsi</span></div>
               <div class="mock-score">88</div>
             </div>
             <div class="mock-row three">
-              <div class="mock-img">{premium_icon("hybrid")}</div>
-              <div class="mock-line"><b>Hybrid engine</b><span>selera user + kualitas + value + variasi</span></div>
+              <div class="mock-img"></div>
+              <div class="mock-line"><b>Hybrid engine</b><span>selera + ulasan + harga + variasi</span></div>
               <div class="mock-score">95</div>
             </div>
           </div>
@@ -3032,16 +3099,12 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
 
 def feature_strip() -> str:
     items = [
-        ("Discover", "Jelajahi library dengan kartu game yang cinematic, tag interaktif, dan detail yang lebih mudah dipahami."),
-        ("Compare", "Lihat sinyal kualitas, value, dan popularitas untuk membandingkan game dengan cepat."),
-        ("Recommend", "Dapatkan rekomendasi hybrid berdasarkan genre, tag, preferensi, budget, dan kualitas."),
-        ("Explore deeper", "Buka halaman detail game untuk membaca ringkasan gameplay, alasan rekomendasi, dan judul serupa."),
+        ("Discover", "Browse game cards with cinematic covers, gameplay descriptions, badges, value signals, and detail pages."),
+        ("Analyze", "Read market-level insight from genre, price, positivity, and quality distributions."),
+        ("Recommend", "Cari rekomendasi dari kesamaan konten, filter, ulasan pemain, harga, dan variasi hasil."),
+        ("Explain", "Every recommendation includes a readable reason and component score breakdown."),
     ]
-    icon_map = {"Discover": "content", "Compare": "quality", "Recommend": "hybrid", "Explore deeper": "content"}
-    cards = "".join(
-        f'<div class="feature-card"><div class="feature-icon">{premium_icon(icon_map.get(title, "content"))}</div><div><b>{esc(title)}</b><span>{esc(desc)}</span></div></div>'
-        for title, desc in items
-    )
+    cards = "".join(f'<div class="feature-card"><b>{esc(title)}</b><span>{esc(desc)}</span></div>' for title, desc in items)
     return f'<div class="feature-grid">{cards}</div>'
 
 
@@ -3053,6 +3116,8 @@ def top_navigation(active_view: str, active_tag: str = "") -> str:
         ("Overview", "Overview"),
         ("Explore Library", "Explore"),
         ("Recommender", "Recommend"),
+        ("Evaluation", "Evaluation"),
+        ("Methodology", "Methodology"),
     ]
     links: list[str] = []
     for label, view in items:
@@ -3062,12 +3127,12 @@ def top_navigation(active_view: str, active_tag: str = "") -> str:
             f'<a class="top-nav-link{active}" href="{app_link(view, tag=tag, anchor="content-start")}" target="_top">{esc(label)}</a>'
         )
     if active_view == "Detail":
-        tag_note = "Game detail page"
+        tag_note = 'Game detail page'
     else:
-        tag_note = f"Tag aktif: {esc(active_tag)}" if active_tag else "Explore, detail, dan rekomendasi tetap di tab yang sama"
+        tag_note = f'Tag aktif: {esc(active_tag)}' if active_tag else 'Same-tab navigation'
     return (
         '<nav class="top-nav-shell" aria-label="Main navigation">'
-        '<a class="top-nav-brand" href="' + app_link('Overview') + '" target="_top"><span class="brand-badge"><img src="' + LOGO_SRC + '" alt="SteamVault Pro logo"></span>SteamVault Pro</a>'
+        f'<a class="top-nav-brand" href="{app_link("Overview")}" target="_top"><span class="top-nav-logo"><img src="{LOGO_SRC}" alt="SteamVault logo"></span>SteamVault Pro</a>'
         f'<div class="top-nav-links">{"".join(links)}<div class="top-nav-meta">{tag_note}</div></div>'
         '</nav>'
     )
@@ -3077,62 +3142,70 @@ def top_navigation(active_view: str, active_tag: str = "") -> str:
 # -----------------------------------------------------------------------------
 inject_css()
 
+render_sidebar_brand()
+uploaded_games = st.sidebar.file_uploader("Upload CSV dataset game", type=["csv"], help="Opsional. Jika kosong, aplikasi membaca steam_top_games_2026.csv di folder yang sama.")
+uploaded_interactions = st.sidebar.file_uploader(
+    "Opsional: upload interaksi user-item",
+    type=["csv"],
+    help="Untuk true collaborative filtering. Kolom minimal: user_id dan app_id/name; rating/playtime/liked opsional.",
+)
+
 try:
-    if DEFAULT_CSV.exists():
+    if uploaded_games is not None:
+        games = load_games_from_bytes(uploaded_games.getvalue())
+        data_source = uploaded_games.name
+    elif DEFAULT_CSV.exists():
         games = load_games_from_path(str(DEFAULT_CSV))
         data_source = DEFAULT_CSV.name
     else:
-        st.error("File steam_top_games_2026.csv belum ditemukan di folder app.")
+        st.error("CSV belum ditemukan. Upload dataset melalui sidebar atau letakkan steam_top_games_2026.csv di folder app.")
         st.stop()
 except Exception as exc:
     st.error(f"Gagal membaca dataset: {exc}")
     st.stop()
 
 interactions = None
+if uploaded_interactions is not None:
+    try:
+        interactions = load_interactions_from_bytes(uploaded_interactions.getvalue())
+    except Exception as exc:
+        st.sidebar.warning(f"Interaksi gagal dibaca: {exc}")
+
 vectorizer, tfidf_matrix = build_tfidf(tuple(games["content_text"].tolist()))
 all_titles = sorted(games["name"].dropna().astype(str).unique().tolist())
 all_genres = sorted([g for g in games["genre_primary"].dropna().unique().tolist() if g and g != "Unknown"])
 all_tags = top_values_from_lists(games, "tag_list", limit=120)
 
-NAV_OPTIONS = ["Overview", "Explore", "Recommend", "Detail"]
+NAV_OPTIONS = ["Overview", "Explore", "Recommend", "Evaluation", "Methodology", "Detail"]
 active_view = match_known_value(query_value("view", "Overview"), NAV_OPTIONS)
 if active_view not in NAV_OPTIONS:
     active_view = "Overview"
 active_tag = match_known_value(query_value("tag", ""), all_tags)
 active_tag_default = [active_tag] if active_tag in all_tags else []
 
-with st.sidebar:
-    render_sidebar_brand()
-    render_html(
-        """
-        <div class='sidebar-section-title'>
-          <span>Filter panel</span>
-          <b>Atur library kamu</b>
-        </div>
-        <div class='sidebar-helper'>Pilih tahun, harga, positivity, genre, tag, dan mode bermain untuk menyaring hasil library.</div>
-        """
-    )
-    years = games["year"].dropna()
-    if years.empty:
-        min_year, max_year = 1990, 2030
-    else:
-        min_year, max_year = int(years.min()), int(years.max())
-    year_range = st.slider("Tahun rilis", min_year, max_year, (min_year, max_year))
-    price_limit_global = float(np.nanquantile(games["price_effective"].fillna(0), 0.98)) if len(games) else 100.0
-    price_limit_global = max(10.0, min(200.0, price_limit_global))
-    global_price = st.slider("Harga maksimum global ($)", 0.0, float(math.ceil(price_limit_global)), min(60.0, float(math.ceil(price_limit_global))), 1.0)
-    global_min_pos = st.slider("Minimal positivity global (%)", 0, 100, 0)
-    global_genres = st.multiselect("Genre global", all_genres, max_selections=5)
-    global_tags = st.multiselect(
-        "Tag wajib global",
-        all_tags,
-        default=active_tag_default,
-        max_selections=5,
-        key=f"global_tags_{active_tag or 'all'}",
-    )
-    global_mode = st.selectbox("Mode global", ["any", "singleplayer", "multiplayer", "coop"])
-    global_search = st.text_input("Cari judul")
-
+# Sidebar global filters
+st.sidebar.markdown("---")
+st.sidebar.markdown("### Filter global")
+years = games["year"].dropna()
+if years.empty:
+    min_year, max_year = 1990, 2030
+else:
+    min_year, max_year = int(years.min()), int(years.max())
+year_range = st.sidebar.slider("Tahun rilis", min_year, max_year, (min_year, max_year))
+price_limit_global = float(np.nanquantile(games["price_effective"].fillna(0), 0.98)) if len(games) else 100.0
+price_limit_global = max(10.0, min(200.0, price_limit_global))
+global_price = st.sidebar.slider("Harga maksimum global ($)", 0.0, float(math.ceil(price_limit_global)), min(60.0, float(math.ceil(price_limit_global))), 1.0)
+global_min_pos = st.sidebar.slider("Minimal positivity global (%)", 0, 100, 0)
+global_genres = st.sidebar.multiselect("Genre global", all_genres, max_selections=5)
+global_tags = st.sidebar.multiselect(
+    "Tag wajib global",
+    all_tags,
+    default=active_tag_default,
+    max_selections=5,
+    key=f"global_tags_{active_tag or 'all'}",
+)
+global_mode = st.sidebar.selectbox("Mode global", ["any", "singleplayer", "multiplayer", "coop"])
+global_search = st.sidebar.text_input("Cari judul")
 filtered = apply_global_filters(games, year_range, global_price, global_min_pos, global_genres, global_tags, global_mode, global_search)
 
 render_html(top_navigation(active_view, active_tag))
@@ -3151,8 +3224,8 @@ render_html(hero_section(len(games), len(filtered), data_source))
 render_html(
     """
     <div id="content-start" class="nav-intro">
-      <span>Explore in one place</span>
-      <b>Klik poster, judul, atau tag untuk menjelajah tanpa pindah-pindah tab. Tombol Steam ada di halaman detail game.</b>
+      <span>Navigation ready</span>
+      <b>Poster dan judul membuka halaman detail di tab yang sama. Tombol Steam tersedia di halaman detail.</b>
     </div>
     """
 )
@@ -3215,13 +3288,13 @@ if nav_view == "Overview":
             )
             st.plotly_chart(clean_plotly(fig, height=340), width="stretch")
 
-        render_html(section_header("Fast picks", "quality, value, and crowd favorites"))
+        render_html(section_header("Fast picks", "quality, value, and player favorites"))
         pick_cols = st.columns(3)
         used_quick_names: set[str] = set()
         quick_sets = [
             ("Best Quality", top_unique_games(filtered, "quality_score", used_quick_names, 3)),
             ("Best Value", top_unique_games(filtered, "value_score", used_quick_names, 3)),
-            ("Crowd Favorite", top_unique_games(filtered, "crowd_score", used_quick_names, 3)),
+            ("Player Favorite", top_unique_games(filtered, "crowd_score", used_quick_names, 3)),
         ]
         for col, (label, data) in zip(pick_cols, quick_sets):
             with col:
@@ -3244,11 +3317,37 @@ elif nav_view == "Explore":
         n_show = e3.slider("Jumlah kartu", 6, 60, 18, 3)
         browse = filtered.sort_values(sort_col, ascending=sort_asc, na_position="last").head(n_show)
         render_cards(browse, games, columns=3, active_tag=active_tag)
+        st.markdown("### Tabel data")
+        display_cols = [
+            "name",
+            "genre_primary",
+            "year",
+            "price_effective",
+            "is_free",
+            "positivity",
+            "review_volume",
+            "display_score",
+            "metacritic_score",
+            "playtime_h",
+            "developer",
+            "publisher",
+        ]
+        st.dataframe(
+            filtered[display_cols].rename(columns={"display_score": "quality_score", "price_effective": "price_usd"}),
+            width="stretch",
+            hide_index=True,
+        )
+        st.download_button(
+            "Download hasil filter CSV",
+            filtered.to_csv(index=False).encode("utf-8"),
+            file_name="steamvault_filtered_games.csv",
+            mime="text/csv",
+        )
 
 elif nav_view == "Recommend":
     render_html('<span id="recommender"></span>' + section_header("Smart recommender", "hybrid, explainable, configurable"))
     render_html(
-        "<div class='mini-note'>Tips: pilih 1-5 game favorit atau beberapa tag/genre. Jika tidak ada input favorit, sistem otomatis menjadi cold-start recommender berbasis rule, value, dan crowd signal.</div>"
+        "<div class='mini-note'>Tips: pilih 1-5 game favorit atau beberapa tag/genre. Jika tidak ada input favorit, sistem otomatis memilih berdasarkan filter, harga, dan ulasan pemain.</div>"
     )
 
     MOODS = {
@@ -3264,8 +3363,8 @@ elif nav_view == "Recommend":
     with r1:
         engine = st.selectbox(
             "Engine rekomendasi",
-            ["Smart Hybrid", "Content-Based", "Rule-Based", "Collaborative / Crowd"],
-            help="Smart Hybrid memakai weighted hybrid. Collaborative akan menjadi true user-item CF jika file interaksi diupload; jika tidak, memakai crowd wisdom proxy.",
+            ["Smart Hybrid", "Content-Based", "Rule-Based", "Collaborative / Ulasan Pemain"],
+            help="Smart Hybrid menggabungkan beberapa sinyal. Mode kolaboratif memakai data interaksi jika diupload; kalau tidak, memakai ulasan dan popularitas pemain sebagai pengganti.",
         )
         favorite_titles = st.multiselect("Game favorit / referensi", all_titles, max_selections=5)
         preferred_genres = st.multiselect("Genre preferensi", all_genres, max_selections=5)
@@ -3286,7 +3385,7 @@ elif nav_view == "Recommend":
         with st.expander("Atur bobot hybrid", expanded=False):
             w1, w2, w3, w4, w5 = st.columns(5)
             weights["content"] = w1.slider("Content", 0.0, 1.0, weights["content"], 0.05)
-            weights["crowd"] = w2.slider("Crowd/CF", 0.0, 1.0, weights["crowd"], 0.05)
+            weights["crowd"] = w2.slider("Ulasan/CF", 0.0, 1.0, weights["crowd"], 0.05)
             weights["rule"] = w3.slider("Rule", 0.0, 1.0, weights["rule"], 0.05)
             weights["value"] = w4.slider("Value", 0.0, 1.0, weights["value"], 0.05)
             weights["novelty"] = w5.slider("Novelty", 0.0, 1.0, weights["novelty"], 0.05)
@@ -3314,9 +3413,9 @@ elif nav_view == "Recommend":
     if recs.empty:
         st.warning("Tidak ada rekomendasi yang cocok. Turunkan minimal positivity, review, harga, atau tag wajib.")
     else:
-        source_label = recs["cf_source"].iloc[0] if "cf_source" in recs.columns else "Crowd proxy"
+        source_label = recs["cf_source"].iloc[0] if "cf_source" in recs.columns else "Ulasan pemain"
         render_html(
-            f"<div class='mini-note'><b>Engine aktif:</b> {esc(engine)} | <b>Sinyal kolaboratif:</b> {esc(source_label)} | Hasil sudah direrank dengan diversity penalty.</div>"
+            f"<div class='mini-note'><b>Engine aktif:</b> {esc(engine)} | <b>Sumber sinyal pemain:</b> {esc(source_label)} | Hasil sudah direrank dengan diversity penalty.</div>"
         )
         render_cards(recs, games, favorite_titles, preferred_tags, columns=3, show_components=True, active_tag=active_tag)
 
@@ -3327,4 +3426,147 @@ elif nav_view == "Recommend":
         fig.update_yaxes(categoryorder="total ascending")
         st.plotly_chart(clean_plotly(fig, height=470), width="stretch")
 
+        export_cols = [
+            "name",
+            "genre_primary",
+            "year",
+            "price_effective",
+            "positivity",
+            "review_volume",
+            "final_score_pct",
+            "content_component",
+            "crowd_component",
+            "rule_component",
+            "value_component",
+            "novelty_component",
+            "developer",
+            "publisher",
+            "short_description",
+        ]
+        st.download_button(
+            "Download rekomendasi CSV",
+            recs[export_cols].to_csv(index=False).encode("utf-8"),
+            file_name="steamvault_recommendations.csv",
+            mime="text/csv",
+        )
 
+elif nav_view == "Evaluation":
+    render_html(section_header("Recommendation evaluation", "quality, diversity, coverage"))
+    st.write("Tab ini mengevaluasi hasil rekomendasi terakhir dari konfigurasi pada tab Rekomendasi.")
+    try:
+        eval_recs = recs.copy()
+    except NameError:
+        eval_recs = pd.DataFrame()
+
+    if eval_recs.empty:
+        st.info("Buat rekomendasi terlebih dahulu di tab Rekomendasi.")
+    else:
+        # Intra-list diversity from TF-IDF item vectors.
+        idxs = eval_recs.index.to_list()
+        if len(idxs) > 1:
+            sim = cosine_similarity(tfidf_matrix[idxs], tfidf_matrix[idxs])
+            tri = sim[np.triu_indices_from(sim, k=1)]
+            diversity_metric = 1 - float(np.mean(tri))
+        else:
+            diversity_metric = np.nan
+        genre_coverage = eval_recs["genre_primary"].nunique()
+        tag_counter = Counter()
+        for xs in eval_recs["tag_list"]:
+            if isinstance(xs, list):
+                tag_counter.update(xs)
+        tag_coverage = len(tag_counter)
+        avg_price = eval_recs["price_effective"].mean()
+        avg_pos = eval_recs["positivity"].mean()
+        avg_final = eval_recs["final_score_pct"].mean()
+
+        m1, m2, m3, m4, m5 = st.columns(5)
+        m1.metric("Avg final score", fmt_float(avg_final, 1))
+        m2.metric("Avg positivity", fmt_float(avg_pos, 1, "%"))
+        m3.metric("Genre coverage", f"{genre_coverage}")
+        m4.metric("Tag coverage", f"{tag_coverage}")
+        m5.metric("Intra-list diversity", fmt_float(diversity_metric, 2))
+
+        e1, e2 = st.columns(2)
+        with e1:
+            genre_eval = eval_recs.groupby("genre_primary", as_index=False).size().sort_values("size", ascending=False)
+            fig = px.pie(genre_eval, values="size", names="genre_primary", title="Sebaran genre pada hasil rekomendasi")
+            st.plotly_chart(clean_plotly(fig, height=380), width="stretch")
+        with e2:
+            top_tag_eval = pd.DataFrame(tag_counter.most_common(12), columns=["tag", "count"])
+            if not top_tag_eval.empty:
+                fig = px.bar(top_tag_eval, x="count", y="tag", orientation="h", title="Top tag pada hasil rekomendasi")
+                fig.update_yaxes(categoryorder="total ascending")
+                st.plotly_chart(clean_plotly(fig, height=380), width="stretch")
+
+        st.markdown("### Interpretasi evaluasi")
+        st.markdown(
+            f"""
+            - **Final score rata-rata** menunjukkan kekuatan rekomendasi berdasarkan engine yang dipilih.
+            - **Intra-list diversity** mendekati 1 berarti rekomendasi lebih bervariasi; mendekati 0 berarti hasil sangat mirip satu sama lain.
+            - **Genre/tag coverage** membantu melihat apakah sistem terlalu sempit atau sudah cukup beragam.
+            - **Harga rata-rata** saat ini sekitar **${avg_price:.2f}**, sehingga bisa dipakai untuk membahas aspek value-for-money.
+            """
+        )
+
+elif nav_view == "Methodology":
+    render_html(section_header("Recommendation methodology", "ready for dashboard explanation"))
+    st.markdown(
+        """
+        Dashboard ini memakai empat pendekatan utama agar sesuai dengan topik recommendation system.
+        """
+    )
+    c1, c2 = st.columns(2)
+    with c1:
+        render_html(
+            """
+            <div class='method-card'>
+            <h4>1. Rule-Based Recommendation</h4>
+            <p>Rekomendasi dipilih menggunakan aturan eksplisit seperti genre, harga, minimal positivity, minimal review, mode bermain, dan tag wajib.</p>
+            <p><b>Kelebihan:</b> mudah dijelaskan dan cocok untuk cold-start user.</p>
+            </div>
+            """
+        )
+        render_html(
+            """
+            <div class='method-card'>
+            <h4>2. Content-Based Recommendation</h4>
+            <p>Item profile dibangun dari genre, tag, kategori, developer, publisher, dan deskripsi singkat. Teks dikonversi menjadi TF-IDF, lalu dihitung kemiripannya dengan cosine similarity.</p>
+            <p><b>Formula:</b> similarity(user, item) = cosine(TF-IDF user profile, TF-IDF item profile).</p>
+            </div>
+            """
+        )
+    with c2:
+        render_html(
+            """
+            <div class='method-card'>
+            <h4>3. Collaborative / Crowd Signal</h4>
+            <p>Jika file interaksi user-item diupload, sistem memakai item-based collaborative filtering. Jika tidak, dashboard memakai proxy pola ulasan pemain dari rating yang distabilkan, jumlah review, dan popularitas.</p>
+            <p><b>Catatan ilmiah:</b> proxy pola ulasan pemain bukan pure CF, tetapi aman untuk dataset agregat yang tidak punya user_id.</p>
+            </div>
+            """
+        )
+        render_html(
+            """
+            <div class='method-card'>
+            <h4>4. Weighted Hybrid Recommendation</h4>
+            <p>Skor akhir menggabungkan content match, sinyal pemain/kolaboratif, rule fit, value, dan novelty.</p>
+            <p><b>Formula:</b> S = w1*C_content + w2*C_crowd + w3*C_rule + w4*C_value + w5*C_novelty.</p>
+            </div>
+            """
+        )
+
+    st.markdown("### Rumus penting")
+    st.latex(r"WR = \frac{v}{v+m}R + \frac{m}{v+m}C")
+    st.markdown(
+        """
+        Keterangan: `R` adalah positivity item, `v` adalah jumlah review/recommendation, `C` adalah rata-rata positivity seluruh item, dan `m` adalah ambang minimum berbasis kuantil. Rumus ini membuat game dengan review sedikit tidak langsung menang hanya karena positivity tinggi.
+        """
+    )
+    st.markdown("### Keterbatasan")
+    st.markdown(
+        """
+        - Dataset Steam top games biasanya bersifat agregat, sehingga tidak selalu memiliki matriks `user_id x item`. Karena itu, true collaborative filtering hanya aktif jika file interaksi user-item ditambahkan.
+        - Content-based recommendation sangat bergantung pada kualitas metadata seperti tag, genre, dan deskripsi.
+        - Hybrid recommendation lebih robust, tetapi bobotnya perlu divalidasi dengan data interaksi nyata atau A/B testing jika digunakan di lingkungan produksi.
+        """
+    )
