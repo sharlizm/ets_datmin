@@ -28,11 +28,12 @@ except Exception:  # pragma: no cover
 
 
 APP_TITLE = "SteamVault Pro"
+LOGO_SRC = "data:image/jpeg;base64,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"
 DEFAULT_CSV = Path(__file__).parent / "steam_top_games_2026.csv"
 
 st.set_page_config(
     page_title=APP_TITLE,
-    page_icon="SV",
+    page_icon="🎮",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -132,51 +133,81 @@ def inject_css() -> None:
             padding-bottom: 4rem;
         }
 
-        #MainMenu, footer, [data-testid="stToolbar"], [data-testid="stDecoration"] {
+        #MainMenu, footer, [data-testid="stDecoration"] {
             visibility: hidden !important;
             height: 0 !important;
         }
 
-        /* Keep Streamlit's sidebar reopen control visible.
-           Previously the whole header was hidden, so after closing the sidebar
-           users could not find the button to open the filters again. */
-        header, header[data-testid="stHeader"] {
+        /* Header stays alive so Streamlit's native sidebar open/close control can still work. */
+        header, header[data-testid="stHeader"], [data-testid="stHeader"] {
             visibility: visible !important;
-            height: 3.15rem !important;
+            display: block !important;
+            height: 0 !important;
+            min-height: 0 !important;
             background: transparent !important;
             pointer-events: none !important;
         }
-        header [data-testid="stToolbar"], header [data-testid="stDecoration"] {
+        header [data-testid="stDecoration"], [data-testid="stDecoration"] {
             display: none !important;
         }
+        header [data-testid="stToolbar"], [data-testid="stToolbar"] {
+            visibility: visible !important;
+            display: flex !important;
+            opacity: 1 !important;
+            height: auto !important;
+            background: transparent !important;
+            pointer-events: auto !important;
+        }
+
+        /* Make the collapsed-sidebar opener impossible to miss. */
         [data-testid="collapsedControl"], [data-testid="stSidebarCollapsedControl"] {
             visibility: visible !important;
             display: flex !important;
+            opacity: 1 !important;
             position: fixed !important;
             top: .85rem !important;
             left: .85rem !important;
             z-index: 999999 !important;
             pointer-events: auto !important;
-            width: 42px !important;
+            width: 58px !important;
             height: 42px !important;
             align-items: center !important;
             justify-content: center !important;
             border-radius: 999px !important;
-            background: linear-gradient(135deg, rgba(253,199,135,.95), rgba(165,197,204,.88)) !important;
-            border: 1px solid rgba(253,199,135,.55) !important;
-            box-shadow: 0 16px 42px rgba(0,0,0,.42), 0 0 34px rgba(253,199,135,.22) !important;
+            background: linear-gradient(135deg, rgba(253,199,135,.98), rgba(165,197,204,.92)) !important;
+            border: 1px solid rgba(253,199,135,.65) !important;
+            box-shadow: 0 16px 42px rgba(0,0,0,.46), 0 0 34px rgba(253,199,135,.26) !important;
         }
         [data-testid="collapsedControl"] button,
-        [data-testid="stSidebarCollapsedControl"] button {
+        [data-testid="stSidebarCollapsedControl"] button,
+        header button[kind="header"],
+        header [data-testid="baseButton-headerNoPadding"],
+        header [data-testid="stBaseButton-headerNoPadding"] {
+            visibility: visible !important;
+            display: flex !important;
+            opacity: 1 !important;
             pointer-events: auto !important;
             color: #021334 !important;
             background: transparent !important;
         }
+        [data-testid="collapsedControl"]::after,
+        [data-testid="stSidebarCollapsedControl"]::after {
+            content: ">>>";
+            color: #021334 !important;
+            font-weight: 950;
+            font-size: .82rem;
+            letter-spacing: -.06em;
+            line-height: 1;
+        }
         [data-testid="collapsedControl"] svg,
         [data-testid="stSidebarCollapsedControl"] svg {
-            color: #021334 !important;
-            fill: #021334 !important;
-            stroke: #021334 !important;
+            display: none !important;
+        }
+        section[data-testid="stSidebar"] [data-testid="stSidebarCollapseButton"],
+        section[data-testid="stSidebar"] button[kind="header"] {
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
         }
 
         .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
@@ -233,17 +264,23 @@ def inject_css() -> None:
             box-shadow: 0 22px 60px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.08);
         }
         .brand-mark {
-            width: 46px;
-            height: 46px;
+            width: 54px;
+            height: 54px;
             display: grid;
             place-items: center;
-            border-radius: 16px;
+            border-radius: 18px;
             margin-bottom: 12px;
-            color: #021334 !important;
-            font-weight: 950;
-            letter-spacing: -0.08em;
+            overflow: hidden;
             background: linear-gradient(135deg, var(--gold), var(--mist));
             box-shadow: 0 0 35px rgba(253,199,135,.28);
+        }
+        .brand-mark img,
+        .top-nav-brand span img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: inherit;
         }
         .brand-card h2 {
             margin: 0;
@@ -1347,11 +1384,12 @@ def inject_css() -> None:
             letter-spacing: -.04em;
         }
         .top-nav-brand span {
-            width: 30px;
-            height: 30px;
+            width: 34px;
+            height: 34px;
             display: inline-grid;
             place-items: center;
-            border-radius: 11px;
+            border-radius: 12px;
+            overflow: hidden;
             color: var(--ink) !important;
             background: linear-gradient(135deg, var(--gold), var(--mist));
             box-shadow: 0 0 26px rgba(253,199,135,.22);
@@ -1691,19 +1729,125 @@ def inject_css() -> None:
         .why-label {
             color: var(--gold) !important;
         }
-        .sidebar-reopen-hint {
-            display: block;
-            margin: 10px 0 18px;
-            padding: 10px 12px;
-            border-radius: 16px;
-            background: rgba(253,199,135,.085);
-            border: 1px solid rgba(253,199,135,.18);
-            color: var(--text-soft) !important;
-            font-size: .78rem;
-            line-height: 1.45;
+
+
+        /* Final fix: keep the native Streamlit sidebar opener visible and obvious. */
+        header, header[data-testid="stHeader"], [data-testid="stHeader"] {
+            visibility: visible !important;
+            display: block !important;
+            height: 3.15rem !important;
+            min-height: 3.15rem !important;
+            background: transparent !important;
+            pointer-events: auto !important;
+            z-index: 1000000 !important;
         }
-        .sidebar-reopen-hint b {
-            color: var(--gold) !important;
+        header [data-testid="stToolbar"], [data-testid="stToolbar"] {
+            visibility: visible !important;
+            display: flex !important;
+            opacity: 1 !important;
+            height: auto !important;
+            min-height: 0 !important;
+            background: transparent !important;
+            pointer-events: auto !important;
+        }
+        [data-testid="collapsedControl"],
+        [data-testid="stSidebarCollapsedControl"] {
+            visibility: visible !important;
+            display: flex !important;
+            opacity: 1 !important;
+            position: fixed !important;
+            top: 14px !important;
+            left: 14px !important;
+            z-index: 1000001 !important;
+            pointer-events: auto !important;
+            width: 86px !important;
+            height: 46px !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 999px !important;
+            background: linear-gradient(135deg, rgba(253,199,135,.98), rgba(165,197,204,.94)) !important;
+            border: 1px solid rgba(253,199,135,.72) !important;
+            box-shadow: 0 18px 50px rgba(0,0,0,.50), 0 0 40px rgba(253,199,135,.32) !important;
+        }
+        [data-testid="collapsedControl"] button,
+        [data-testid="stSidebarCollapsedControl"] button,
+        button[aria-label*="Open sidebar"],
+        button[title*="Open sidebar"] {
+            visibility: visible !important;
+            display: inline-flex !important;
+            opacity: 1 !important;
+            align-items: center !important;
+            justify-content: center !important;
+            min-width: 74px !important;
+            min-height: 40px !important;
+            color: #021334 !important;
+            background: transparent !important;
+            pointer-events: auto !important;
+            border-radius: 999px !important;
+            font-weight: 950 !important;
+        }
+        [data-testid="collapsedControl"] button svg,
+        [data-testid="stSidebarCollapsedControl"] button svg,
+        button[aria-label*="Open sidebar"] svg,
+        button[title*="Open sidebar"] svg {
+            display: none !important;
+        }
+        [data-testid="collapsedControl"]::after,
+        [data-testid="stSidebarCollapsedControl"]::after,
+        [data-testid="collapsedControl"] button::after,
+        [data-testid="stSidebarCollapsedControl"] button::after,
+        button[aria-label*="Open sidebar"]::after,
+        button[title*="Open sidebar"]::after {
+            content: ">>>";
+            color: #021334 !important;
+            font-size: 1.03rem !important;
+            line-height: 1 !important;
+            font-weight: 950 !important;
+            letter-spacing: .08em !important;
+            text-shadow: 0 1px 0 rgba(255,255,255,.25);
+        }
+        [data-testid="collapsedControl"] button::after,
+        [data-testid="stSidebarCollapsedControl"] button::after {
+            display: none !important;
+        }
+        section[data-testid="stSidebar"] button[aria-label*="Close sidebar"],
+        section[data-testid="stSidebar"] button[title*="Close sidebar"],
+        section[data-testid="stSidebar"] [data-testid="stSidebarCollapseButton"],
+        section[data-testid="stSidebar"] button[kind="header"] {
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        .sidebar-reopen-hint {
+            display: none !important;
+        }
+        .top-nav-brand .top-nav-logo,
+        .hero-mini-logo {
+            overflow: hidden !important;
+            padding: 0 !important;
+            display: inline-grid !important;
+            place-items: center !important;
+            background: rgba(253,199,135,.12) !important;
+            border: 1px solid rgba(253,199,135,.34) !important;
+            box-shadow: 0 0 34px rgba(253,199,135,.20), inset 0 1px 0 rgba(255,255,255,.14) !important;
+        }
+        .top-nav-brand .top-nav-logo {
+            width: 34px !important;
+            height: 34px !important;
+            border-radius: 12px !important;
+        }
+        .hero-mini-logo {
+            width: 24px !important;
+            height: 24px !important;
+            border-radius: 9px !important;
+        }
+        .top-nav-brand .top-nav-logo img,
+        .hero-mini-logo img {
+            width: 100% !important;
+            height: 100% !important;
+            display: block !important;
+            object-fit: cover !important;
+            border-radius: inherit !important;
         }
 
         </style>
@@ -2883,19 +3027,16 @@ def top_unique_games(df: pd.DataFrame, sort_col: str, used_names: set[str], n: i
 
 
 def render_sidebar_brand() -> None:
-    render_html(
-        """
-        <div class="brand-card">
-            <div class="brand-mark">SV</div>
-            <h2>SteamVault Pro</h2>
-            <p>Premium discovery console untuk analisis, eksplorasi, dan rekomendasi game Steam.</p>
-        </div>
-        <div class="sidebar-note">
-            Atur filter library di sini. Kalau sidebar tertutup, klik tombol bulat di kiri atas untuk membukanya lagi.
-        </div>
-        <div class="sidebar-reopen-hint"><b>Sidebar ketutup?</b><br>Klik tombol bulat di kiri atas halaman untuk membuka filter lagi.</div>
-        """
-    )
+    with st.sidebar:
+        render_html(
+            f"""
+            <div class="brand-card">
+                <div class="brand-mark"><img src="{LOGO_SRC}" alt="SteamVault logo"></div>
+                <h2>SteamVault Pro</h2>
+                <p>Premium discovery console untuk analisis, eksplorasi, dan rekomendasi game Steam.</p>
+            </div>
+            """
+        )
 
 
 def hero_section(total_games: int, filtered_games: int, data_source: str) -> str:
@@ -2905,7 +3046,7 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
     <section class="hero">
       <div class="hero-grid">
         <div class="hero-copy">
-          <div class="hero-kicker">SteamVault Pro / cinematic discovery engine</div>
+          <div class="hero-kicker"><span class="hero-mini-logo"><img src="{LOGO_SRC}" alt="SteamVault logo"></span>SteamVault Pro / cinematic discovery engine</div>
           <h1><span class="ghost-word">Enter the</span> <span class="accent">Vault</span> of games.</h1>
           <p class="hero-subtitle">
             Platform eksplorasi game Steam dengan tampilan cinematic, filter library,
@@ -2991,7 +3132,7 @@ def top_navigation(active_view: str, active_tag: str = "") -> str:
         tag_note = f'Tag aktif: {esc(active_tag)}' if active_tag else 'Same-tab navigation'
     return (
         '<nav class="top-nav-shell" aria-label="Main navigation">'
-        '<a class="top-nav-brand" href="' + app_link('Overview') + '" target="_top"><span>SV</span>SteamVault Pro</a>'
+        f'<a class="top-nav-brand" href="{app_link("Overview")}" target="_top"><span class="top-nav-logo"><img src="{LOGO_SRC}" alt="SteamVault logo"></span>SteamVault Pro</a>'
         f'<div class="top-nav-links">{"".join(links)}<div class="top-nav-meta">{tag_note}</div></div>'
         '</nav>'
     )
