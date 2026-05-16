@@ -402,6 +402,25 @@ def inject_css() -> None:
             color: var(--text-soft) !important;
             font-weight: 800 !important;
         }
+        /* Slider track & thumb: replace Streamlit's default red with theme gold/mist */
+        [data-testid="stSlider"] [data-baseweb="slider"] [role="slider"] {
+            background: linear-gradient(135deg, var(--gold), var(--mist)) !important;
+            border-color: rgba(253,199,135,.70) !important;
+            box-shadow: 0 0 18px rgba(253,199,135,.38) !important;
+        }
+        [data-testid="stSlider"] [data-baseweb="slider"] div[style*="background"],
+        [data-testid="stSlider"] [data-baseweb="slider"] [data-testid*="track"] {
+            background: linear-gradient(90deg, var(--mid), var(--mist)) !important;
+        }
+        [data-testid="stSlider"] div[class*="SliderFilledTrack"],
+        [data-testid="stSlider"] div[data-baseweb="slider"] > div > div:first-child > div:first-child {
+            background: linear-gradient(90deg, var(--mid), var(--gold)) !important;
+        }
+        /* Target the inner filled part of range slider via inline style pattern */
+        [data-testid="stSlider"] div[data-baseweb="slider"] div[style*="rgb(255, 75, 75)"],
+        [data-testid="stSlider"] div[data-baseweb="slider"] div[style*="rgb(255,75,75)"] {
+            background: linear-gradient(90deg, var(--mid), var(--mist)) !important;
+        }
 
         .hero {
             position: relative;
@@ -1469,6 +1488,19 @@ def inject_css() -> None:
             .top-nav-meta { width: 100%; justify-content: center; margin-left: 0; }
         }
 
+        .top-nav-link.home-btn {
+            color: var(--gold) !important;
+            border-color: rgba(253,199,135,.30);
+            background: rgba(253,199,135,.08);
+            margin-left: 6px;
+            font-weight: 950;
+        }
+        .top-nav-link.home-btn:hover {
+            background: rgba(253,199,135,.16);
+            border-color: rgba(253,199,135,.50);
+            box-shadow: 0 14px 34px rgba(253,199,135,.14);
+        }
+
         .nav-intro {
             display: flex;
             align-items: center;
@@ -2004,6 +2036,133 @@ def inject_css() -> None:
         .feature-copy b { margin-bottom: 7px !important; }
         .feature-copy span { display: block; }
 
+
+        /* Mock icons in hero panel */
+        .mock-icon-wrap {
+            display: grid !important;
+            place-items: center;
+            background: linear-gradient(135deg, rgba(253,199,135,.18), rgba(39,90,145,.32)) !important;
+            border: 1px solid rgba(253,199,135,.26) !important;
+        }
+        .mock-icon {
+            width: 26px;
+            height: 26px;
+            stroke: var(--gold);
+            stroke-width: 1.7;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 8px rgba(253,199,135,.42));
+        }
+
+        /* About Us section */
+        .about-section {
+            margin: 42px 0 0;
+            padding: clamp(28px, 4vw, 54px);
+            border-radius: 34px;
+            border: 1px solid rgba(165,197,204,.18);
+            background:
+                radial-gradient(circle at 92% 8%, rgba(253,199,135,.12), transparent 18rem),
+                radial-gradient(circle at 8% 92%, rgba(39,90,145,.24), transparent 20rem),
+                linear-gradient(135deg, rgba(2,19,52,.92), rgba(1,42,97,.60) 54%, rgba(2,8,23,.94));
+            box-shadow: 0 40px 110px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.07);
+        }
+        .about-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 7px 13px;
+            margin-bottom: 18px;
+            border-radius: 999px;
+            color: var(--mist) !important;
+            font-size: .76rem;
+            font-weight: 950;
+            letter-spacing: .10em;
+            text-transform: uppercase;
+            background: rgba(165,197,204,.10);
+            border: 1px solid rgba(165,197,204,.22);
+        }
+        .about-kicker::before {
+            content: "";
+            width: 7px; height: 7px;
+            border-radius: 999px;
+            background: var(--mist);
+            box-shadow: 0 0 14px var(--mist);
+        }
+        .about-section h2 {
+            margin: 0 0 8px;
+            color: #fff !important;
+            font-size: clamp(1.7rem, 3.2vw, 2.9rem);
+            letter-spacing: -0.065em;
+        }
+        .about-section > p {
+            max-width: 680px;
+            color: var(--text-soft) !important;
+            font-size: .96rem;
+            line-height: 1.70;
+            margin: 0 0 32px;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+        }
+        .team-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            padding: 20px;
+            background: linear-gradient(145deg, rgba(1,42,97,.42), rgba(2,19,52,.72));
+            border: 1px solid rgba(165,197,204,.16);
+            box-shadow: 0 18px 54px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.06);
+            transition: transform .20s ease, border-color .20s ease;
+        }
+        .team-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(253,199,135,.32);
+        }
+        .team-avatar {
+            width: 52px; height: 52px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 14px;
+            font-size: 1.35rem;
+            background: linear-gradient(135deg, rgba(253,199,135,.18), rgba(39,90,145,.30));
+            border: 1px solid rgba(253,199,135,.22);
+            box-shadow: 0 0 26px rgba(253,199,135,.12);
+        }
+        .team-name {
+            display: block;
+            color: #fff !important;
+            font-size: 1.00rem;
+            font-weight: 950;
+            letter-spacing: -.03em;
+            margin-bottom: 5px;
+        }
+        .team-role {
+            display: block;
+            color: var(--gold) !important;
+            font-size: .74rem;
+            font-weight: 900;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .team-desc {
+            color: var(--muted) !important;
+            font-size: .80rem;
+            line-height: 1.50;
+        }
+        .about-project {
+            margin-top: 28px;
+            padding: 18px 20px;
+            border-radius: 22px;
+            background: rgba(165,197,204,.055);
+            border: 1px solid rgba(165,197,204,.13);
+        }
+        .about-project b { color: var(--gold) !important; }
+        .about-project p { color: var(--text-soft) !important; margin: 7px 0 0; font-size: .86rem; line-height: 1.62; }
 
         </style>
         """
@@ -3150,7 +3309,8 @@ def clean_plotly(fig: go.Figure, height: int = 360) -> go.Figure:
         template="plotly_dark",
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(2,19,52,0.16)",
-        font=dict(color="#C7DCE2", family="Inter"),
+        font=dict(color="#EEF8FA", family="Inter"),
+        title_font=dict(color="#FDC787", family="Inter", size=16),
         margin=dict(l=12, r=12, t=55, b=12),
         height=height,
     )
@@ -3163,6 +3323,141 @@ def safe_top_tags(df: pd.DataFrame, n: int = 20) -> pd.DataFrame:
         if isinstance(values, list):
             counter.update(values)
     return pd.DataFrame(counter.most_common(n), columns=["tag", "count"])
+
+
+def premium_palette(count: int) -> list[str]:
+    base = ["#FDC787", "#A5C5CC", "#6FA9C1", "#4E82B4", "#275A91", "#1A4578"]
+    if count <= len(base):
+        return base[:count]
+    return [base[i % len(base)] for i in range(count)]
+
+
+def polish_plotly(fig: go.Figure, height: int = 360) -> go.Figure:
+    fig = clean_plotly(fig, height=height)
+    fig.update_layout(
+        hoverlabel=dict(bgcolor="rgba(2,19,52,0.94)", bordercolor="rgba(253,199,135,0.32)", font=dict(color="#EEF8FA")),
+        legend=dict(
+            bgcolor="rgba(2,19,52,0.18)",
+            bordercolor="rgba(165,197,204,0.14)",
+            borderwidth=1,
+            title_font=dict(color="#A5C5CC"),
+            font=dict(color="#C7DCE2"),
+        ),
+        margin=dict(l=18, r=18, t=64, b=20),
+    )
+    fig.update_xaxes(
+        showgrid=True,
+        gridcolor="rgba(165,197,204,0.10)",
+        zeroline=False,
+        linecolor="rgba(165,197,204,0.18)",
+        tickfont=dict(color="#C7DCE2"),
+        title_font=dict(color="#A5C5CC"),
+    )
+    fig.update_yaxes(
+        showgrid=False,
+        zeroline=False,
+        linecolor="rgba(165,197,204,0.18)",
+        tickfont=dict(color="#C7DCE2"),
+        title_font=dict(color="#A5C5CC"),
+    )
+    return fig
+
+
+def premium_rank_bar(
+    df: pd.DataFrame,
+    value_col: str,
+    label_col: str,
+    title: str,
+    x_label: str,
+    y_label: str,
+    height: int = 430,
+) -> go.Figure:
+    chart_df = df.copy().sort_values(value_col, ascending=True)
+    colors = premium_palette(len(chart_df))
+    colors = list(reversed(colors))
+    fig = go.Figure(
+        go.Bar(
+            x=chart_df[value_col],
+            y=chart_df[label_col],
+            orientation="h",
+            marker=dict(
+                color=colors,
+                line=dict(color="rgba(253,199,135,0.28)", width=1.2),
+            ),
+            text=chart_df[value_col].map(lambda v: f"{int(v):,}"),
+            textposition="outside",
+            hovertemplate="%{y}<br>%{x:,}<extra></extra>",
+        )
+    )
+    fig.update_layout(title=title, showlegend=False)
+    fig.update_xaxes(title=x_label)
+    fig.update_yaxes(title=y_label)
+    return polish_plotly(fig, height=height)
+
+
+def premium_price_histogram(price_df: pd.DataFrame, height: int = 340) -> go.Figure:
+    values = price_df["price_effective"].dropna().astype(float)
+    fig = go.Figure(
+        go.Histogram(
+            x=values,
+            nbinsx=24,
+            marker=dict(color="rgba(165,197,204,0.68)", line=dict(color="#FDC787", width=1.2)),
+            hovertemplate="Harga $%{x:.2f}<br>Jumlah %{y}<extra></extra>",
+        )
+    )
+    if len(values):
+        mean_price = float(values.mean())
+        fig.add_vline(
+            x=mean_price,
+            line_width=2,
+            line_color="#FDC787",
+            line_dash="dash",
+            annotation_text=f"Rata-rata ${mean_price:.1f}",
+            annotation_position="top right",
+            annotation_font=dict(color="#FDC787"),
+        )
+    fig.update_layout(title="Distribusi harga", showlegend=False)
+    fig.update_xaxes(title="Harga efektif ($)")
+    fig.update_yaxes(title="Jumlah game")
+    return polish_plotly(fig, height=height)
+
+
+def premium_quality_scatter(scatter_df: pd.DataFrame, height: int = 340) -> go.Figure:
+    plot_df = scatter_df.copy()
+    plot_df["bubble_size"] = np.clip(np.sqrt(plot_df["review_volume"].fillna(0) + 1), 6, 32)
+    fig = px.scatter(
+        plot_df,
+        x="positivity",
+        y="display_score",
+        size="bubble_size",
+        color="display_score",
+        hover_name="name",
+        hover_data={
+            "genre_primary": True,
+            "review_volume": ':,',
+            "price_effective": ':.2f',
+            "bubble_size": False,
+            "display_score": ':.1f',
+            "positivity": ':.1f',
+        },
+        color_continuous_scale=[(0.0, "#275A91"), (0.55, "#A5C5CC"), (1.0, "#FDC787")],
+        labels={
+            "positivity": "Positivity (%)",
+            "display_score": "Quality score",
+            "genre_primary": "Genre",
+            "review_volume": "Reviews",
+            "price_effective": "Harga ($)",
+        },
+        title="Positivity vs quality score",
+    )
+    fig.update_traces(
+        marker=dict(opacity=0.78, line=dict(color="rgba(238,248,250,0.16)", width=1.1)),
+        selector=dict(mode="markers"),
+    )
+    fig.update_layout(coloraxis_colorbar=dict(title="Quality"))
+    fig.update_xaxes(title="Positivity (%)")
+    fig.update_yaxes(title="Quality score")
+    return polish_plotly(fig, height=height)
 
 
 
@@ -3198,6 +3493,8 @@ def render_sidebar_brand() -> None:
 def hero_section(total_games: int, filtered_games: int, data_source: str) -> str:
     explore_href = app_link("Explore", anchor="content-start")
     recommend_href = app_link("Recommend", anchor="content-start")
+    overview_href = app_link("Overview", anchor="content-start")
+    about_href = app_link("About", anchor="content-start")
     return f"""
     <section class="hero">
       <div class="hero-grid">
@@ -3217,6 +3514,8 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
           <div class="hero-actions">
             <a class="cta cta-primary" href="{recommend_href}" target="_top">Cari rekomendasi</a>
             <a class="cta cta-secondary" href="{explore_href}" target="_top">Browse library</a>
+            <a class="cta cta-secondary" href="{overview_href}" target="_top">Overview / Ringkasan</a>
+            <a class="cta cta-secondary" href="{about_href}" target="_top">About Us</a>
           </div>
           <div class="hero-action-note">
             <b>Rekomendasi</b> = isi preferensi lalu sistem memilih game yang paling cocok.<br>
@@ -3233,17 +3532,23 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
             <div class="signature-orb"></div>
             <span class="particle p1"></span><span class="particle p2"></span><span class="particle p3"></span><span class="particle p4"></span>
             <div class="mock-row one">
-              <div class="mock-img"></div>
+              <div class="mock-img mock-icon-wrap">
+                <svg viewBox='0 0 24 24' class='mock-icon' aria-hidden='true'><path d='M12 3l7 3v5c0 4.7-2.9 8.3-7 10-4.1-1.7-7-5.3-7-10V6l7-3z'/><path d='M9.2 12.2l1.8 1.8 4-4.4'/></svg>
+              </div>
               <div class="mock-line"><b>Quality signal</b><span>review positif + banyak peminat</span></div>
               <div class="mock-score">92</div>
             </div>
             <div class="mock-row two">
-              <div class="mock-img"></div>
+              <div class="mock-img mock-icon-wrap">
+                <svg viewBox='0 0 24 24' class='mock-icon' aria-hidden='true'><circle cx='12' cy='12' r='7.5'/><circle cx='12' cy='12' r='3.2'/><path d='M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3'/></svg>
+              </div>
               <div class="mock-line"><b>Content match</b><span>genre, tag, dan deskripsi</span></div>
               <div class="mock-score">88</div>
             </div>
             <div class="mock-row three">
-              <div class="mock-img"></div>
+              <div class="mock-img mock-icon-wrap">
+                <svg viewBox='0 0 24 24' class='mock-icon' aria-hidden='true'><path d='M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z'/><path d='M18.4 15.3l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9.9-2.4z'/></svg>
+              </div>
               <div class="mock-line"><b>Hybrid engine</b><span>selera + ulasan + harga + variasi</span></div>
               <div class="mock-score">95</div>
             </div>
@@ -3278,18 +3583,50 @@ def feature_strip() -> str:
 def section_header(title: str, subtitle: str = "") -> str:
     return f'<div class="section-title"><h3>{esc(title)}</h3><span>{esc(subtitle)}</span></div>'
 
+def about_us_section() -> str:
+    """Render the About Us section with team members and project description."""
+    team = [
+        ("🎮", "Sharliz Mayalpen Zafirah", "5052241003", ""),
+        ("🎨", "Amelia Widiastuti", "5052241007", ""),
+        ("📊", "Marvelio Jonathan Wijaya", "5052241017", ""),
+    ]
+    cards = "".join(f"""
+    <div class="team-card">
+      <div class="team-avatar">{emoji}</div>
+      <span class="team-name">{esc(name)}</span>
+      <span class="team-role">{esc(role)}</span>
+      <p class="team-desc">{esc(desc)}</p>
+    </div>
+    """ for emoji, name, role, desc in team)
+    return f"""
+    <section class="about-section">
+      <div class="about-kicker">Tim Pengembang</div>
+      <h2>About Us</h2>
+      <p>SteamVault Pro adalah project eksplorasi game Steam dengan pendekatan cinematic dan rekomendasi hybrid yang transparan. Dibuat oleh tim mahasiswa yang bersemangat tentang game, data, dan desain UI berkualitas tinggi.</p>
+      <div class="team-grid">{cards}</div>
+      <div class="about-project">
+        <b>Tentang Project</b>
+        <p>SteamVault Pro membangun sistem rekomendasi hybrid yang menggabungkan sinyal content-based (TF-IDF pada tag, genre, deskripsi), collaborative filtering berbasis ulasan pemain, rule-based filter (harga, mode, rating), dan diversity penalty — semua dijelaskan secara transparan kepada pengguna. Dataset aktif: <b>steam_top_games_2026.csv</b>.</p>
+      </div>
+    </section>
+    """
+
+
 def top_navigation(active_view: str, active_tag: str = "") -> str:
+    home_href = app_link("Home")
     items = [
         ("Overview", "Overview"),
         ("Explore Library", "Explore"),
         ("Recommender", "Recommend"),
+        ("About Us", "About"),
     ]
     links: list[str] = []
     for label, view in items:
         active = " active" if active_view == view else ""
         tag = active_tag if view == "Explore" and active_tag else None
+        anchor = "about-us" if view == "About" else "content-start"
         links.append(
-            f'<a class="top-nav-link{active}" href="{app_link(view, tag=tag, anchor="content-start")}" target="_top">{esc(label)}</a>'
+            f'<a class="top-nav-link{active}" href="{app_link(view, tag=tag, anchor=anchor)}" target="_top">{esc(label)}</a>'
         )
     if active_view == "Detail":
         tag_note = 'Game detail page'
@@ -3297,8 +3634,9 @@ def top_navigation(active_view: str, active_tag: str = "") -> str:
         tag_note = f'Tag aktif: {esc(active_tag)}' if active_tag else 'Same-tab navigation'
     return (
         '<nav class="top-nav-shell" aria-label="Main navigation">'
-        f'<a class="top-nav-brand" href="{app_link("Overview")}" target="_top"><span class="top-nav-logo"><img src="{LOGO_SRC}" alt="SteamVault logo"></span>SteamVault Pro</a>'
+        f'<a class="top-nav-brand" href="{home_href}" target="_top"><span class="top-nav-logo"><img src="{LOGO_SRC}" alt="SteamVault logo"></span>SteamVault Pro</a>'
         f'<div class="top-nav-links">{"".join(links)}<div class="top-nav-meta">{tag_note}</div></div>'
+        f'<a class="top-nav-link home-btn" href="{home_href}" target="_top">← Home</a>'
         '</nav>'
     )
 
@@ -3328,14 +3666,14 @@ all_titles = sorted(games["name"].dropna().astype(str).unique().tolist())
 all_genres = sorted([g for g in games["genre_primary"].dropna().unique().tolist() if g and g != "Unknown"])
 all_tags = top_values_from_lists(games, "tag_list", limit=120)
 
-NAV_OPTIONS = ["Overview", "Explore", "Recommend", "Detail"]
-active_view = match_known_value(query_value("view", "Overview"), NAV_OPTIONS)
+NAV_OPTIONS = ["Home", "Overview", "Explore", "Recommend", "Detail", "About"]
+active_view = match_known_value(query_value("view", "Home"), NAV_OPTIONS)
 if active_view not in NAV_OPTIONS:
-    active_view = "Overview"
+    active_view = "Home"
 active_tag = match_known_value(query_value("tag", ""), all_tags)
 active_tag_default = [active_tag] if active_tag in all_tags else []
 
-# Sidebar global filters
+# Sidebar global filters — always computed so sub-pages can use them
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Discovery tuning")
 years = games["year"].dropna()
@@ -3360,8 +3698,15 @@ global_mode = st.sidebar.selectbox("Mode bermain", ["any", "singleplayer", "mult
 global_search = st.sidebar.text_input("Cari game")
 filtered = apply_global_filters(games, year_range, global_price, global_min_pos, global_genres, global_tags, global_mode, global_search)
 
-render_html(top_navigation(active_view, active_tag))
 nav_view = active_view
+
+# ── HOME: hero only, no nav, no content ──────────────────────────────────────
+if nav_view == "Home":
+    render_html(hero_section(len(games), len(filtered), data_source))
+    st.stop()
+
+# ── ALL OTHER VIEWS: show navbar, no hero ────────────────────────────────────
+render_html(top_navigation(active_view, active_tag))
 
 if nav_view == "Detail":
     render_html('<span id="content-start"></span>')
@@ -3372,17 +3717,11 @@ if nav_view == "Detail":
     render_game_detail(detail_row, games, tfidf_matrix, active_tag=active_tag)
     st.stop()
 
-render_html(hero_section(len(games), len(filtered), data_source))
-render_html(
-    """
-    <div id="content-start" class="nav-intro">
-      <span>Navigation ready</span>
-      <b>Poster dan judul membuka halaman detail di tab yang sama. Tombol Steam tersedia di halaman detail.</b>
-    </div>
-    """
-)
+# nav-intro ("Navigation ready") only on non-About pages
+if nav_view != "About":
+    render_html('<span id="content-start"></span>')
 
-if active_tag:
+if active_tag and nav_view != "About":
     render_html(
         f"""
         <div class="active-filter-card">
@@ -3392,14 +3731,15 @@ if active_tag:
         """
     )
 
-st.caption(f"Data source: {data_source} | Jumlah data: {len(games):,} game | Setelah filter: {len(filtered):,} game")
-
-kpi1, kpi2, kpi3, kpi4, kpi5 = st.columns(5)
-kpi1.metric("Library size", f"{len(games):,}")
-kpi2.metric("Active results", f"{len(filtered):,}")
-kpi3.metric("Free titles", f"{int(filtered['is_free'].sum()):,}" if not filtered.empty else "0")
-kpi4.metric("Average positivity", fmt_float(filtered["positivity"].mean() if not filtered.empty else np.nan, 1, "%"))
-kpi5.metric("Quality index", fmt_float((filtered["quality_score"].mean() * 100) if not filtered.empty else np.nan, 1))
+# KPI cards — show only on Overview and Explore, NOT on About/Recommend
+if nav_view in ("Overview", "Explore"):
+    st.caption(f"Data source: {data_source} | Jumlah data: {len(games):,} game | Setelah filter: {len(filtered):,} game")
+    kpi1, kpi2, kpi3, kpi4, kpi5 = st.columns(5)
+    kpi1.metric("Library size", f"{len(games):,}")
+    kpi2.metric("Active results", f"{len(filtered):,}")
+    kpi3.metric("Free titles", f"{int(filtered['is_free'].sum()):,}" if not filtered.empty else "0")
+    kpi4.metric("Average positivity", fmt_float(filtered["positivity"].mean() if not filtered.empty else np.nan, 1, "%"))
+    kpi5.metric("Quality index", fmt_float((filtered["quality_score"].mean() * 100) if not filtered.empty else np.nan, 1))
 
 if nav_view == "Overview":
     render_html(feature_strip())
@@ -3409,36 +3749,42 @@ if nav_view == "Overview":
     else:
         c1, c2 = st.columns([1.12, 0.88])
         with c1:
-            genre_count = filtered.groupby("genre_primary", as_index=False).size().sort_values("size", ascending=False).head(14)
-            fig = px.bar(genre_count, x="size", y="genre_primary", orientation="h", title="Top genre berdasarkan jumlah game", labels={"size": "Jumlah", "genre_primary": "Genre"})
-            fig.update_yaxes(categoryorder="total ascending")
-            st.plotly_chart(clean_plotly(fig, height=430), width="stretch")
+            genre_count = filtered.groupby("genre_primary", as_index=False).size().sort_values("size", ascending=False).head(12)
+            st.plotly_chart(
+                premium_rank_bar(
+                    genre_count,
+                    value_col="size",
+                    label_col="genre_primary",
+                    title="Top genre berdasarkan jumlah game",
+                    x_label="Jumlah game",
+                    y_label="Genre",
+                    height=430,
+                ),
+                width="stretch",
+            )
         with c2:
-            top_tags = safe_top_tags(filtered, 14)
+            top_tags = safe_top_tags(filtered, 12)
             if not top_tags.empty:
-                fig = px.bar(top_tags, x="count", y="tag", orientation="h", title="Top tag paling sering muncul", labels={"count": "Jumlah", "tag": "Tag"})
-                fig.update_yaxes(categoryorder="total ascending")
-                st.plotly_chart(clean_plotly(fig, height=430), width="stretch")
+                st.plotly_chart(
+                    premium_rank_bar(
+                        top_tags,
+                        value_col="count",
+                        label_col="tag",
+                        title="Top tag paling sering muncul",
+                        x_label="Jumlah kemunculan",
+                        y_label="Tag",
+                        height=430,
+                    ),
+                    width="stretch",
+                )
 
         c3, c4 = st.columns(2)
         with c3:
             price_df = filtered[filtered["price_effective"].notna()].copy()
-            fig = px.histogram(price_df, x="price_effective", nbins=30, title="Distribusi harga", labels={"price_effective": "Harga efektif ($)", "count": "Jumlah"})
-            st.plotly_chart(clean_plotly(fig, height=340), width="stretch")
+            st.plotly_chart(premium_price_histogram(price_df, height=340), width="stretch")
         with c4:
             scatter = filtered.copy()
-            scatter["review_volume_log"] = np.log10(scatter["review_volume"].fillna(0) + 1)
-            fig = px.scatter(
-                scatter,
-                x="positivity",
-                y="display_score",
-                size="review_volume_log",
-                color="genre_primary",
-                hover_name="name",
-                title="Positivity vs quality score",
-                labels={"positivity": "Positivity (%)", "display_score": "Quality score", "review_volume_log": "Log reviews", "genre_primary": "Genre"},
-            )
-            st.plotly_chart(clean_plotly(fig, height=340), width="stretch")
+            st.plotly_chart(premium_quality_scatter(scatter, height=340), width="stretch")
 
         render_html(section_header("Fast picks", "quality, value, and player favorites"))
         pick_cols = st.columns(3)
@@ -3471,9 +3817,9 @@ elif nav_view == "Explore":
         render_cards(browse, games, columns=3, active_tag=active_tag)
 
 elif nav_view == "Recommend":
-    render_html('<span id="recommender"></span>' + section_header("Smart recommender", "hybrid, explainable, configurable"))
+    render_html('<span id="recommender"></span>' + section_header("Game recommendations", "simple, premium, and tailored to your taste"))
     render_html(
-        "<div class='mini-note'>Tips: pilih 1-5 game favorit atau beberapa tag/genre. Jika tidak ada input favorit, sistem otomatis memilih berdasarkan filter, harga, dan ulasan pemain.</div>"
+        "<div class='mini-note'>Mulai dari mode rekomendasi yang simpel, lalu tambahkan favorit, genre, atau tag untuk membuat hasil makin personal.</div>"
     )
 
     MOODS = {
@@ -3484,37 +3830,76 @@ elif nav_view == "Recommend":
         "Strategy deep dive": ["Strategy", "Simulation", "Turn-Based", "Management", "Tactical"],
         "Budget friendly": ["Free to Play", "Indie", "Casual", "Co-op"],
     }
+    REC_MODE_PRESETS = {
+        "Popular": {
+            "desc": "Mengutamakan game yang paling aman, ramai dimainkan, dan punya sinyal kualitas kuat.",
+            "weights": {"content": 0.16, "crowd": 0.42, "rule": 0.14, "value": 0.18, "novelty": 0.10},
+            "diversity": 0.10,
+            "min_pos": 75,
+            "min_reviews": 800,
+        },
+        "Balanced": {
+            "desc": "Campuran seimbang antara kecocokan selera, reputasi pemain, dan value.",
+            "weights": {"content": 0.42, "crowd": 0.27, "rule": 0.16, "value": 0.10, "novelty": 0.05},
+            "diversity": 0.18,
+            "min_pos": 65,
+            "min_reviews": 250,
+        },
+        "Personalized": {
+            "desc": "Lebih fokus ke game yang mirip dengan preferensi, tag, dan favorit yang kamu pilih.",
+            "weights": {"content": 0.50, "crowd": 0.16, "rule": 0.16, "value": 0.08, "novelty": 0.10},
+            "diversity": 0.16,
+            "min_pos": 60,
+            "min_reviews": 150,
+        },
+        "Hidden Gems": {
+            "desc": "Mencari game yang kuat secara kualitas tapi lebih unik dan tidak terlalu mainstream.",
+            "weights": {"content": 0.26, "crowd": 0.12, "rule": 0.16, "value": 0.12, "novelty": 0.34},
+            "diversity": 0.28,
+            "min_pos": 60,
+            "min_reviews": 40,
+        },
+    }
 
-    r1, r2 = st.columns([1.05, 0.95])
+    engine = "Smart Hybrid"
+    recommendation_mode = st.radio("Recommendation mode", list(REC_MODE_PRESETS.keys()), horizontal=True)
+    mode_preset = REC_MODE_PRESETS[recommendation_mode]
+    render_html(f"<div class='glass-panel'><b>{esc(recommendation_mode)}</b><br><span class='muted'>{esc(mode_preset['desc'])}</span></div>")
+
+    r1, r2 = st.columns([1.08, 0.92])
     with r1:
-        engine = st.selectbox(
-            "Engine rekomendasi",
-            ["Smart Hybrid", "Content-Based", "Rule-Based", "Collaborative / Ulasan Pemain"],
-            help="Smart Hybrid menggabungkan beberapa sinyal. Mode kolaboratif memakai data interaksi jika diupload; kalau tidak, memakai ulasan dan popularitas pemain sebagai pengganti.",
-        )
         favorite_titles = st.multiselect("Game favorit / referensi", all_titles, max_selections=5)
         preferred_genres = st.multiselect("Genre preferensi", all_genres, max_selections=5)
         preferred_tags = st.multiselect("Tag preferensi", all_tags, max_selections=10)
         mood_name = st.selectbox("Mood preset", list(MOODS.keys()))
         mood_terms = MOODS[mood_name]
     with r2:
-        max_price = st.slider("Maksimum harga rekomendasi ($)", 0.0, float(math.ceil(price_limit_global)), min(45.0, float(math.ceil(price_limit_global))), 1.0)
-        min_pos = st.slider("Minimal positivity rekomendasi (%)", 0, 100, 65)
-        min_reviews = st.slider("Minimal review/recommendation", 0, 100000, 250, 250)
-        mode = st.selectbox("Mode bermain", ["any", "singleplayer", "multiplayer", "coop"])
-        must_have_tags = st.multiselect("Tag wajib", all_tags, max_selections=4)
-        top_n = st.slider("Jumlah rekomendasi", 5, 30, 12)
-        diversity = st.slider("Diversity penalty", 0.0, 0.60, 0.18, 0.02, help="Lebih tinggi = hasil lebih beragam, mengurangi game yang terlalu mirip satu sama lain.")
+        max_price = st.slider("Budget maksimum ($)", 0.0, float(math.ceil(price_limit_global)), min(45.0, float(math.ceil(price_limit_global))), 1.0)
+        mode = st.selectbox("Mode bermain", ["any", "singleplayer", "multiplayer", "coop"], format_func=lambda x: {"any": "Any", "singleplayer": "Singleplayer", "multiplayer": "Multiplayer", "coop": "Co-op"}[x])
+        top_n = st.slider("Jumlah rekomendasi", 6, 24, 12, 2)
 
-    weights = {"content": 0.42, "crowd": 0.27, "rule": 0.16, "value": 0.10, "novelty": 0.05}
-    if engine == "Smart Hybrid":
-        with st.expander("Atur bobot hybrid", expanded=False):
-            w1, w2, w3, w4, w5 = st.columns(5)
-            weights["content"] = w1.slider("Content", 0.0, 1.0, weights["content"], 0.05)
-            weights["crowd"] = w2.slider("Ulasan/CF", 0.0, 1.0, weights["crowd"], 0.05)
-            weights["rule"] = w3.slider("Rule", 0.0, 1.0, weights["rule"], 0.05)
-            weights["value"] = w4.slider("Value", 0.0, 1.0, weights["value"], 0.05)
-            weights["novelty"] = w5.slider("Novelty", 0.0, 1.0, weights["novelty"], 0.05)
+    advanced_defaults = mode_preset["weights"].copy()
+    min_pos = int(mode_preset["min_pos"])
+    min_reviews = int(mode_preset["min_reviews"])
+    must_have_tags: list[str] = []
+    diversity = float(mode_preset["diversity"])
+    weights = advanced_defaults.copy()
+
+    with st.expander("Advanced AI Settings", expanded=False):
+        render_html("<div class='mini-note'>Untuk power users: atur bobot mesin rekomendasi dan filter teknis di sini. Default mode di atas sudah cukup untuk sebagian besar user.</div>")
+        a1, a2, a3 = st.columns(3)
+        with a1:
+            min_pos = st.slider("Minimal positivity (%)", 0, 100, int(mode_preset["min_pos"]))
+            weights["content"] = st.slider("Content weight", 0.0, 1.0, float(advanced_defaults["content"]), 0.05)
+            weights["value"] = st.slider("Value weight", 0.0, 1.0, float(advanced_defaults["value"]), 0.05)
+        with a2:
+            min_reviews = st.slider("Minimal reviews", 0, 100000, int(mode_preset["min_reviews"]), 50)
+            weights["crowd"] = st.slider("Collaborative Filtering weight", 0.0, 1.0, float(advanced_defaults["crowd"]), 0.05)
+            weights["novelty"] = st.slider("Novelty", 0.0, 1.0, float(advanced_defaults["novelty"]), 0.05)
+        with a3:
+            must_have_tags = st.multiselect("Must-have tags", all_tags, max_selections=4)
+            diversity = st.slider("Diversity penalty", 0.0, 0.60, float(mode_preset["diversity"]), 0.02, help="Lebih tinggi = hasil lebih beragam dan tidak terlalu mirip satu sama lain.")
+            weights["rule"] = st.slider("Rule weight", 0.0, 1.0, float(advanced_defaults["rule"]), 0.05)
 
     recs = recommend_games(
         games=games,
@@ -3537,17 +3922,36 @@ elif nav_view == "Recommend":
     )
 
     if recs.empty:
-        st.warning("Tidak ada rekomendasi yang cocok. Turunkan minimal positivity, review, harga, atau tag wajib.")
+        st.warning("Tidak ada rekomendasi yang cocok. Coba longgarkan budget, filter positivity, jumlah review, atau tag wajib di Advanced AI Settings.")
     else:
         source_label = recs["cf_source"].iloc[0] if "cf_source" in recs.columns else "Ulasan pemain"
         render_html(
-            f"<div class='mini-note'><b>Engine aktif:</b> {esc(engine)} | <b>Sumber sinyal pemain:</b> {esc(source_label)} | Hasil sudah direrank dengan diversity penalty.</div>"
+            f"<div class='mini-note'><b>Mode aktif:</b> {esc(recommendation_mode)} | <b>Dasar rekomendasi:</b> selera, kualitas, value, dan sinyal pemain ({esc(source_label)}).</div>"
         )
-        render_cards(recs, games, favorite_titles, preferred_tags, columns=3, show_components=True, active_tag=active_tag)
+        render_cards(recs, games, favorite_titles, preferred_tags, columns=3, show_components=False, active_tag=active_tag)
 
-        st.markdown("### Score breakdown")
-        chart_df = recs.head(10)[["name", "content_component", "crowd_component", "rule_component", "value_component", "novelty_component", "final_score"]].copy()
-        chart_long = chart_df.melt(id_vars="name", var_name="component", value_name="score")
-        fig = px.bar(chart_long, x="score", y="name", color="component", orientation="h", barmode="group", title="Komponen skor top recommendation", labels={"score": "Skor 0-1", "name": "Game"})
-        fig.update_yaxes(categoryorder="total ascending")
-        st.plotly_chart(clean_plotly(fig, height=470), width="stretch")
+        with st.expander("Advanced AI Insights", expanded=False):
+            chart_df = recs.head(10)[["name", "content_component", "crowd_component", "rule_component", "value_component", "novelty_component", "final_score"]].copy()
+            chart_long = chart_df.melt(id_vars="name", var_name="component", value_name="score")
+            fig = px.bar(
+                chart_long,
+                x="score",
+                y="name",
+                color="component",
+                orientation="h",
+                barmode="group",
+                title="Komponen skor top recommendation",
+                labels={"score": "Skor 0-1", "name": "Game", "component": "Komponen"},
+                color_discrete_sequence=["#FDC787", "#A5C5CC", "#6FA9C1", "#4E82B4", "#275A91", "#977086"],
+            )
+            fig.update_yaxes(categoryorder="total ascending")
+            st.plotly_chart(polish_plotly(fig, height=470), width="stretch")
+
+elif nav_view == "About":
+    render_html('<span id="about-us"></span>')
+    render_html(about_us_section())
+
+# Always show About Us anchor at the bottom of Overview too
+if nav_view == "Overview":
+    render_html('<span id="about-us"></span>')
+    render_html(about_us_section())
