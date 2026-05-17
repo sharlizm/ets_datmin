@@ -2203,7 +2203,41 @@ def inject_css() -> None:
             color: var(--text-soft) !important;
             margin: 0;
         }
-        </style>
+        
+
+        /* Detail page responsive cover fix: Steam header images are horizontal, so keep the frame cinematic instead of tall-cropping it. */
+        .detail-grid {
+            align-items: center !important;
+            grid-template-columns: minmax(380px, .78fr) minmax(0, 1.22fr) !important;
+        }
+        .detail-cover {
+            width: 100% !important;
+            aspect-ratio: 16 / 9 !important;
+            min-height: 0 !important;
+            height: auto !important;
+            align-self: center !important;
+        }
+        .detail-cover img {
+            position: absolute !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 0 !important;
+            object-fit: cover !important;
+            object-position: center center !important;
+        }
+        @media (min-width: 1180px) {
+            .detail-cover img {
+                object-fit: contain !important;
+                background: radial-gradient(circle at 50% 40%, rgba(39,90,145,.24), rgba(2,19,52,.92));
+            }
+        }
+        @media (max-width: 980px) {
+            .detail-grid { grid-template-columns: 1fr !important; }
+            .detail-cover { aspect-ratio: 16 / 9 !important; min-height: 0 !important; }
+            .detail-cover img { min-height: 0 !important; }
+        }
+</style>
         """
     )
 
@@ -3654,7 +3688,7 @@ def about_us_section() -> str:
         <div class="about-info-card">
           <div class="about-info-icon">🎮</div>
           <b>Tentang Dashboard</b>
-          <p>SteamVault Pro adalah platform interaktif untuk eksplorasi dan rekomendasi game Steam. Dashboard ini dibangun menggunakan pendekatan hybrid recommendation — menggabungkan content-based filtering, collaborative signals, dan rule-based logic. Setiap rekomendasi ditampilkan secara transparan agar pengguna bisa memahami alasan di baliknya.</p>
+          <p>SteamVault Pro adalah platform interaktif untuk eksplorasi dan rekomendasi game Steam. Dashboard ini dibangun menggunakan pendekatan hybrid recommendation — menggabungkan content-based matching, sinyal pemain/kualitas, rule-based filter, serta value dan novelty. Setiap rekomendasi dibuat agar mudah dipahami tanpa menampilkan rumus teknis di halaman utama.</p>
         </div>
         <div class="about-info-card">
           <div class="about-info-icon">📊</div>
@@ -3875,7 +3909,7 @@ elif nav_view == "Explore":
 elif nav_view == "Recommend":
     render_html('<span id="recommender"></span>' + section_header("Game recommendations", "hybrid, simple, and tailored to your taste"))
     render_html(
-        "<div class='mini-note'><b>Rekomendasi hybrid:</b> sistem menggabungkan kecocokan konten game, sinyal pemain, filter pilihanmu, dan value/variasi. Kamu cukup pilih gaya rekomendasi, lalu sistem yang menyeimbangkan skornya.</div>"
+        "<div class='mini-note'><b>Rekomendasi dibuat dari gabungan selera, kualitas game, popularitas pemain, dan variasi hasil.</b> Pilih gaya rekomendasi yang kamu mau; detail teknisnya tetap disembunyikan agar tidak membingungkan.</div>"
     )
 
     MOODS = {
@@ -3888,15 +3922,15 @@ elif nav_view == "Recommend":
     }
     REC_MODE_PRESETS = {
         "Popular": {
-            "desc": "Rekomendasi aman untuk mulai eksplorasi: game yang ramai, rating bagus, dan mudah diterima banyak pemain.",
-            "hybrid_note": "Mode ini lebih berat ke sinyal pemain dan kualitas umum.",
+            "desc": "Game aman, ramai, dan berkualitas untuk mulai eksplorasi.",
+            "hybrid_note": "Bobot lebih besar ke popularitas dan kualitas umum.",
             "weights": {"content": 0.16, "crowd": 0.42, "rule": 0.14, "value": 0.18, "novelty": 0.10},
             "diversity": 0.10,
             "min_pos": 75,
             "min_reviews": 800,
         },
         "Balanced": {
-            "desc": "Campuran paling netral antara selera, kualitas game, harga/value, dan variasi hasil.",
+            "desc": "Campuran selera, kualitas, value, dan variasi hasil.",
             "hybrid_note": "Mode ini memakai Weighted Hybrid: beberapa sinyal digabung menjadi satu skor akhir.",
             "weights": {"content": 0.42, "crowd": 0.27, "rule": 0.16, "value": 0.10, "novelty": 0.05},
             "diversity": 0.18,
@@ -3904,7 +3938,7 @@ elif nav_view == "Recommend":
             "min_reviews": 250,
         },
         "Personalized": {
-            "desc": "Lebih fokus ke game yang mirip dengan genre, tag, mood, atau game favorit yang kamu pilih.",
+            "desc": "Lebih dekat dengan genre, tag, mood, atau game favoritmu.",
             "hybrid_note": "Mode ini menaikkan bobot Content-Based agar hasil lebih sesuai selera.",
             "weights": {"content": 0.50, "crowd": 0.16, "rule": 0.16, "value": 0.08, "novelty": 0.10},
             "diversity": 0.16,
@@ -3912,8 +3946,8 @@ elif nav_view == "Recommend":
             "min_reviews": 150,
         },
         "Hidden Gems": {
-            "desc": "Mencari game berkualitas yang lebih unik, tidak terlalu mainstream, tapi masih relevan dengan pilihanmu.",
-            "hybrid_note": "Mode ini menaikkan bobot novelty dan diversity supaya hasil tidak hanya game populer.",
+            "desc": "Game bagus yang lebih unik dan belum terlalu mainstream.",
+            "hybrid_note": "Bobot lebih besar ke novelty dan variasi hasil.",
             "weights": {"content": 0.26, "crowd": 0.12, "rule": 0.16, "value": 0.12, "novelty": 0.34},
             "diversity": 0.28,
             "min_pos": 60,
@@ -3927,14 +3961,12 @@ elif nav_view == "Recommend":
     render_html(
         f"<div class='glass-panel'><b>{esc(recommendation_mode)}</b><br>"
         f"<span class='muted'>{esc(mode_preset['desc'])}</span><br>"
-        f"<span class='muted'><b>Jenis hybrid:</b> Weighted Hybrid + fallback Switching saat input selera masih kosong.</span></div>"
+        f"<span class='muted'>Tetap memakai hybrid recommendation; yang berubah hanya prioritas bobotnya.</span></div>"
     )
     render_html(
-        "<div class='mini-note'><b>Dimana hybrid-nya?</b> Di skor akhir rekomendasi. Sistem menimbang beberapa sinyal sekaligus: "
-        "<b>Content-Based</b> (genre, tag, deskripsi, game favorit), "
-        "<b>Sinyal Pemain</b> (ulasan, popularitas, kualitas), "
-        "<b>Rule-Based</b> (budget, rating minimum, mode bermain), dan "
-        "<b>Value/Novelty</b> (harga, variasi, hidden gems). Jadi user tidak perlu melihat rumus; cukup pilih mode rekomendasi.</div>"
+        "<div class='mini-note'><b>Bagian hybrid-nya ada di skor akhir rekomendasi.</b> Sistem menggabungkan "
+        "kecocokan genre/tag/deskripsi, kualitas dan popularitas pemain, filter pilihanmu, serta value/hidden gems. "
+        "Detail bobot teknis tersedia di Advanced Hybrid Settings.</div>"
     )
 
     r1, r2 = st.columns([1.08, 0.92])
@@ -3956,7 +3988,7 @@ elif nav_view == "Recommend":
     diversity = float(mode_preset["diversity"])
     weights = advanced_defaults.copy()
 
-    with st.expander("Advanced Hybrid Settings", expanded=False):
+    with st.expander("Advanced Hybrid Settings (opsional)", expanded=False):
         render_html("<div class='mini-note'>Opsional untuk power user. Default mode di atas sudah cukup untuk user awam.</div>")
         a1, a2, a3 = st.columns(3)
         with a1:
@@ -4010,7 +4042,7 @@ elif nav_view == "Recommend":
         source_label = recs["cf_source"].iloc[0] if "cf_source" in recs.columns else "Sinyal pemain"
         render_html(
             f"<div class='mini-note'><b>Mode aktif:</b> {esc(recommendation_mode)} | <b>Hybrid yang dipakai:</b> {esc(hybrid_strategy)}. "
-            f"Skor akhir berasal dari gabungan kecocokan konten, sinyal pemain/kualitas ({esc(source_label)}), filter pilihanmu, value, dan variasi hasil.</div>"
+            f"Skor akhir berasal dari gabungan selera/kecocokan konten, kualitas dan popularitas pemain ({esc(source_label)}), filter pilihanmu, value, dan variasi hasil.</div>"
         )
         render_cards(recs, games, favorite_titles, preferred_tags, columns=3, show_components=False, active_tag=active_tag)
 
