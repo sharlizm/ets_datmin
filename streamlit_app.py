@@ -615,24 +615,52 @@ def inject_css() -> None:
         .mock-row.two { top: 112px; transform: translateX(18px); opacity: .92; }
         .mock-row.three { top: 202px; transform: translateX(-8px); opacity: .82; }
         .mock-img {
+            width: 48px;
             height: 48px;
+            flex-shrink: 0;
             border-radius: 14px;
             background: linear-gradient(135deg, var(--gold), var(--mid));
             box-shadow: 0 12px 24px rgba(0,0,0,.22);
         }
+        .mock-img.mock-emoji-wrap {
+            display: grid !important;
+            place-items: center !important;
+            font-size: 1.6rem !important;
+            line-height: 1 !important;
+            background: linear-gradient(135deg, rgba(253,199,135,.14), rgba(39,90,145,.28)) !important;
+            border: 1px solid rgba(253,199,135,.22) !important;
+            box-shadow: 0 6px 18px rgba(0,0,0,.16) !important;
+            color: unset !important;
+        }
         .mock-line b, .mock-line span { display: block; }
-        .mock-line b { color: #fff !important; font-size: .88rem; margin-bottom: 5px; }
+        .mock-line b { color: #fff !important; font-size: .88rem; margin-bottom: 3px; }
         .mock-line span { color: var(--muted) !important; font-size: .74rem; }
+        .mock-line .mock-label { display: block; color: var(--gold) !important; font-size: .66rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; margin-top: 2px; }
         .mock-score {
-            display: grid;
-            place-items: center;
-            width: 50px;
-            height: 34px;
-            border-radius: 999px;
-            color: var(--gold) !important;
+            margin-left: auto;
+            flex-shrink: 0;
+            text-align: center;
+            min-width: 52px;
+        }
+        .mock-score .mock-num {
+            display: block;
+            font-size: 1.35rem;
             font-weight: 950;
-            background: rgba(253,199,135,.10);
-            border: 1px solid rgba(253,199,135,.25);
+            color: var(--gold) !important;
+            letter-spacing: -.04em;
+            line-height: 1.1;
+        }
+        .mock-score .mock-badge {
+            display: inline-block;
+            margin-top: 3px;
+            font-size: .58rem;
+            font-weight: 800;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            color: rgba(165,197,204,.85) !important;
+            border: 1px solid rgba(165,197,204,.22);
+            border-radius: 999px;
+            padding: 1px 5px;
         }
         .hero-stats {
             display: grid;
@@ -2037,23 +2065,7 @@ def inject_css() -> None:
         .feature-copy span { display: block; }
 
 
-        /* Mock icons in hero panel */
-        .mock-icon-wrap {
-            display: grid !important;
-            place-items: center;
-            background: linear-gradient(135deg, rgba(253,199,135,.18), rgba(39,90,145,.32)) !important;
-            border: 1px solid rgba(253,199,135,.26) !important;
-        }
-        .mock-icon {
-            width: 26px;
-            height: 26px;
-            stroke: var(--gold);
-            stroke-width: 1.7;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            filter: drop-shadow(0 0 8px rgba(253,199,135,.42));
-        }
+        /* Mock emoji icons handled by .mock-emoji-wrap */
 
         /* About Us section */
         .about-section {
@@ -2122,15 +2134,25 @@ def inject_css() -> None:
             border-color: rgba(253,199,135,.32);
         }
         .team-avatar {
-            width: 52px; height: 52px;
-            border-radius: 18px;
+            width: 76px; height: 76px;
+            border-radius: 50%;
+            overflow: hidden;
             display: grid;
             place-items: center;
             margin-bottom: 14px;
-            font-size: 1.35rem;
-            background: linear-gradient(135deg, rgba(253,199,135,.18), rgba(39,90,145,.30));
-            border: 1px solid rgba(253,199,135,.22);
-            box-shadow: 0 0 26px rgba(253,199,135,.12);
+            border: 2px solid rgba(253,199,135,.32);
+            box-shadow: 0 0 28px rgba(253,199,135,.20);
+        }
+        .team-avatar svg { display: block; }
+        .team-star-avatar {
+            width: 76px;
+            height: 76px;
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 25%, rgba(253,199,135,.32), rgba(39,90,145,.20) 52%, rgba(2,19,52,.72));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 0 28px rgba(253,199,135,.18);
         }
         .team-name {
             display: block;
@@ -2149,21 +2171,38 @@ def inject_css() -> None:
             text-transform: uppercase;
             margin-bottom: 10px;
         }
-        .team-desc {
-            color: var(--muted) !important;
-            font-size: .80rem;
-            line-height: 1.50;
-        }
-        .about-project {
-            margin-top: 28px;
-            padding: 18px 20px;
-            border-radius: 22px;
-            background: rgba(165,197,204,.055);
-            border: 1px solid rgba(165,197,204,.13);
-        }
-        .about-project b { color: var(--gold) !important; }
-        .about-project p { color: var(--text-soft) !important; margin: 7px 0 0; font-size: .86rem; line-height: 1.62; }
 
+
+        .about-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 28px;
+        }
+        .about-info-card {
+            padding: 22px 24px;
+            border-radius: 22px;
+            background: rgba(1,42,97,.32);
+            border: 1px solid rgba(165,197,204,.13);
+            box-shadow: 0 10px 30px rgba(0,0,0,.18);
+        }
+        .about-info-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        .about-info-card b {
+            display: block;
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--gold) !important;
+            margin-bottom: 8px;
+        }
+        .about-info-card p {
+            font-size: .84rem;
+            line-height: 1.65;
+            color: var(--text-soft) !important;
+            margin: 0;
+        }
         </style>
         """
     )
@@ -3512,9 +3551,9 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
             <span class="hero-proof">AAA-style UI</span>
           </div>
           <div class="hero-actions">
-            <a class="cta cta-primary" href="{recommend_href}" target="_top">Cari rekomendasi</a>
-            <a class="cta cta-secondary" href="{explore_href}" target="_top">Browse library</a>
-            <a class="cta cta-secondary" href="{overview_href}" target="_top">Overview / Ringkasan</a>
+            <a class="cta cta-secondary" href="{overview_href}" target="_top">Overview</a>
+            <a class="cta cta-secondary" href="{explore_href}" target="_top">Explore</a>
+            <a class="cta cta-primary" href="{recommend_href}" target="_top">Rekomendasi</a>
             <a class="cta cta-secondary" href="{about_href}" target="_top">About Us</a>
           </div>
           <div class="hero-action-note">
@@ -3532,25 +3571,19 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
             <div class="signature-orb"></div>
             <span class="particle p1"></span><span class="particle p2"></span><span class="particle p3"></span><span class="particle p4"></span>
             <div class="mock-row one">
-              <div class="mock-img mock-icon-wrap">
-                <svg viewBox='0 0 24 24' class='mock-icon' aria-hidden='true'><path d='M12 3l7 3v5c0 4.7-2.9 8.3-7 10-4.1-1.7-7-5.3-7-10V6l7-3z'/><path d='M9.2 12.2l1.8 1.8 4-4.4'/></svg>
-              </div>
-              <div class="mock-line"><b>Quality signal</b><span>review positif + banyak peminat</span></div>
-              <div class="mock-score">92</div>
+              <div class="mock-img mock-emoji-wrap">⭐</div>
+              <div class="mock-line"><b>Quality Signal</b><span>92% Trusted</span><span class="mock-label">Community Approved</span></div>
+              <div class="mock-score"><span class="mock-num">92</span><span class="mock-badge">trusted</span></div>
             </div>
             <div class="mock-row two">
-              <div class="mock-img mock-icon-wrap">
-                <svg viewBox='0 0 24 24' class='mock-icon' aria-hidden='true'><circle cx='12' cy='12' r='7.5'/><circle cx='12' cy='12' r='3.2'/><path d='M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3'/></svg>
-              </div>
-              <div class="mock-line"><b>Content match</b><span>genre, tag, dan deskripsi</span></div>
-              <div class="mock-score">88</div>
+              <div class="mock-img mock-emoji-wrap">🏆</div>
+              <div class="mock-line"><b>Content Match</b><span>88% Match</span><span class="mock-label">Taste Match</span></div>
+              <div class="mock-score"><span class="mock-num">88</span><span class="mock-badge">match</span></div>
             </div>
             <div class="mock-row three">
-              <div class="mock-img mock-icon-wrap">
-                <svg viewBox='0 0 24 24' class='mock-icon' aria-hidden='true'><path d='M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z'/><path d='M18.4 15.3l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9.9-2.4z'/></svg>
-              </div>
-              <div class="mock-line"><b>Hybrid engine</b><span>selera + ulasan + harga + variasi</span></div>
-              <div class="mock-score">95</div>
+              <div class="mock-img mock-emoji-wrap">⚡</div>
+              <div class="mock-line"><b>Hybrid Engine</b><span>95% Optimized</span><span class="mock-label">Smart Optimized</span></div>
+              <div class="mock-score"><span class="mock-num">95</span><span class="mock-badge">optimized</span></div>
             </div>
           </div>
         </div>
@@ -3559,20 +3592,15 @@ def hero_section(total_games: int, filtered_games: int, data_source: str) -> str
     """
 
 def feature_strip() -> str:
-    icons = {
-        "shield": """<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M12 3l7 3v5c0 4.7-2.9 8.3-7 10-4.1-1.7-7-5.3-7-10V6l7-3z'/><path d='M9.2 12.2l1.8 1.8 4-4.4'/></svg>""",
-        "target": """<svg viewBox='0 0 24 24' aria-hidden='true'><circle cx='12' cy='12' r='7.5'/><circle cx='12' cy='12' r='3.2'/><path d='M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3'/></svg>""",
-        "spark": """<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z'/><path d='M18.4 15.3l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9.9-2.4z'/></svg>""",
-    }
     items = [
-        ("Quality signal", "Shielded quality cues from positivity, popularity, playtime, and value so strong games surface faster.", icons["shield"], ""),
-        ("Content match", "Tag, genre, category, and description signals help the platform understand the kind of atmosphere you want.", icons["target"], " alt"),
-        ("Hybrid engine", "A polished blend of taste, player response, rules, value, and discovery diversity for richer recommendations.", icons["spark"], ""),
+        ("Quality Signal", "92% Trusted · Community Approved. Mengukur kualitas game dari positivity, popularitas, playtime, dan value.", "⭐", ""),
+        ("Content Match", "88% Match · Taste Match. Mencocokkan tag, genre, kategori, dan deskripsi dengan preferensi pengguna.", "🏆", " alt"),
+        ("Hybrid Engine", "95% Optimized · Smart Optimized. Menggabungkan selera, ulasan pemain, aturan, value, dan diversity.", "⚡", ""),
     ]
     cards = "".join(
         f"""
         <div class="feature-card">
-          <div class="feature-icon{variant}">{icon}</div>
+          <div class="feature-icon{variant}" style="font-size:1.6rem;line-height:1;">{icon}</div>
           <div class="feature-copy"><b>{esc(title)}</b><span>{esc(desc)}</span></div>
         </div>
         """
@@ -3583,30 +3611,58 @@ def feature_strip() -> str:
 def section_header(title: str, subtitle: str = "") -> str:
     return f'<div class="section-title"><h3>{esc(title)}</h3><span>{esc(subtitle)}</span></div>'
 
+def _avatar_from_assets(filename: str, initials: str, bg: str) -> str:
+    """Load photo from assets/ folder as base64. Falls back to SVG initials if file not found."""
+    import base64, mimetypes
+    assets_dir = Path(__file__).parent / "assets"
+    filepath = assets_dir / filename
+    if filepath.exists():
+        mime = mimetypes.guess_type(str(filepath))[0] or "image/jpeg"
+        b64 = base64.b64encode(filepath.read_bytes()).decode()
+        return f'<img src="data:{mime};base64,{b64}" alt="{initials}" style="width:76px;height:76px;object-fit:cover;border-radius:50%;">'
+    if initials == "🌟":
+        return '<span class="team-star-avatar" aria-label="Sharliz logo">🌟</span>'
+    # Fallback: SVG inisial
+    return (
+        f'<svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" width="76" height="76">'
+        f'<circle cx="38" cy="38" r="38" fill="{bg}"/>'
+        f'<text x="38" y="46" text-anchor="middle" font-family="Inter,system-ui,sans-serif" '
+        f'font-size="24" font-weight="800" fill="#EEF8FA" letter-spacing="-0.03em">{initials}</text>'
+        f'</svg>'
+    )
+
 def about_us_section() -> str:
-    """Render the About Us section with team members and project description."""
+    """Render the About Us section — foto dari assets/, fallback ke SVG inisial."""
     team = [
-        ("🎮", "Sharliz Mayalpen Zafirah", "5052241003", ""),
-        ("🎨", "Amelia Widiastuti", "5052241007", ""),
-        ("📊", "Marvelio Jonathan Wijaya", "5052241017", ""),
+        # (nama_file_di_assets, inisial_fallback, nama, NIM, warna_fallback)
+        ("sharliz.jpg", "🌟", "Sharliz Mayalpen Zafirah", "5052241003", "#1A4A7A"),
+        ("amelia.jpg",  "AW", "Amelia Widiastuti",        "5052241007", "#4A2060"),
+        ("marvelio.jpg","MJ", "Marvelio Jonathan Wijaya", "5052241017", "#0E4D3A"),
     ]
     cards = "".join(f"""
     <div class="team-card">
-      <div class="team-avatar">{emoji}</div>
+      <div class="team-avatar">{_avatar_from_assets(fname, initials, bg)}</div>
       <span class="team-name">{esc(name)}</span>
       <span class="team-role">{esc(role)}</span>
-      <p class="team-desc">{esc(desc)}</p>
     </div>
-    """ for emoji, name, role, desc in team)
+    """ for fname, initials, name, role, bg in team)
     return f"""
     <section class="about-section">
       <div class="about-kicker">Tim Pengembang</div>
       <h2>About Us</h2>
-      <p>SteamVault Pro adalah project eksplorasi game Steam dengan pendekatan cinematic dan rekomendasi hybrid yang transparan. Dibuat oleh tim mahasiswa yang bersemangat tentang game, data, dan desain UI berkualitas tinggi.</p>
       <div class="team-grid">{cards}</div>
-      <div class="about-project">
-        <b>Tentang Project</b>
-        <p>SteamVault Pro membangun sistem rekomendasi hybrid yang menggabungkan sinyal content-based (TF-IDF pada tag, genre, deskripsi), collaborative filtering berbasis ulasan pemain, rule-based filter (harga, mode, rating), dan diversity penalty — semua dijelaskan secara transparan kepada pengguna. Dataset aktif: <b>steam_top_games_2026.csv</b>.</p>
+
+      <div class="about-info-grid">
+        <div class="about-info-card">
+          <div class="about-info-icon">🎮</div>
+          <b>Tentang Dashboard</b>
+          <p>SteamVault Pro adalah platform interaktif untuk eksplorasi dan rekomendasi game Steam. Dashboard ini dibangun menggunakan pendekatan hybrid recommendation — menggabungkan content-based filtering, collaborative signals, dan rule-based logic. Setiap rekomendasi ditampilkan secara transparan agar pengguna bisa memahami alasan di baliknya.</p>
+        </div>
+        <div class="about-info-card">
+          <div class="about-info-icon">📊</div>
+          <b>Tentang Data</b>
+          <p>Data yang digunakan mencakup game-game populer di Steam hingga tahun 2026, tersimpan dalam file <b>steam_top_games_2026.csv</b>. Setiap entri dilengkapi dengan informasi genre, tags, harga, ulasan pengguna, playtime, Metacritic score, dan estimasi jumlah pemilik. Seluruh data telah melalui proses pembersihan dan normalisasi sebelum digunakan.</p>
+        </div>
       </div>
     </section>
     """
@@ -3696,6 +3752,8 @@ global_tags = st.sidebar.multiselect(
 )
 global_mode = st.sidebar.selectbox("Mode bermain", ["any", "singleplayer", "multiplayer", "coop"])
 global_search = st.sidebar.text_input("Cari game")
+if global_search.strip() and active_view in {"Home", "Overview", "Recommend", "About"}:
+    active_view = "Explore"
 filtered = apply_global_filters(games, year_range, global_price, global_min_pos, global_genres, global_tags, global_mode, global_search)
 
 nav_view = active_view
@@ -3865,6 +3923,13 @@ elif nav_view == "Recommend":
     recommendation_mode = st.radio("Recommendation mode", list(REC_MODE_PRESETS.keys()), horizontal=True)
     mode_preset = REC_MODE_PRESETS[recommendation_mode]
     render_html(f"<div class='glass-panel'><b>{esc(recommendation_mode)}</b><br><span class='muted'>{esc(mode_preset['desc'])}</span></div>")
+    render_html(
+        "<div class='mini-note'><b>Cara kerja hybrid:</b> setiap mode hanya mengubah bobot kombinasi antara "
+        "Content-Based <span class='muted'>(tag, genre, deskripsi)</span>, "
+        "Collaborative/Crowd Signal <span class='muted'>(ulasan dan popularitas pemain)</span>, "
+        "Rule-Based Filter <span class='muted'>(budget, rating, mode bermain)</span>, serta "
+        "Value & Novelty <span class='muted'>(harga, variasi, dan hidden gems)</span>.</div>"
+    )
 
     r1, r2 = st.columns([1.08, 0.92])
     with r1:
@@ -3948,10 +4013,5 @@ elif nav_view == "Recommend":
             st.plotly_chart(polish_plotly(fig, height=470), width="stretch")
 
 elif nav_view == "About":
-    render_html('<span id="about-us"></span>')
-    render_html(about_us_section())
-
-# Always show About Us anchor at the bottom of Overview too
-if nav_view == "Overview":
     render_html('<span id="about-us"></span>')
     render_html(about_us_section())
