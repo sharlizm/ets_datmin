@@ -3620,8 +3620,6 @@ def _avatar_from_assets(filename: str, initials: str, bg: str) -> str:
         mime = mimetypes.guess_type(str(filepath))[0] or "image/jpeg"
         b64 = base64.b64encode(filepath.read_bytes()).decode()
         return f'<img src="data:{mime};base64,{b64}" alt="{initials}" style="width:76px;height:76px;object-fit:cover;border-radius:50%;">'
-    if initials == "🌟":
-        return '<span class="team-star-avatar" aria-label="Sharliz logo">🌟</span>'
     # Fallback: SVG inisial
     return (
         f'<svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" width="76" height="76">'
@@ -3635,7 +3633,7 @@ def about_us_section() -> str:
     """Render the About Us section — foto dari assets/, fallback ke SVG inisial."""
     team = [
         # (nama_file_di_assets, inisial_fallback, nama, NIM, warna_fallback)
-        ("sharliz.jpg", "🌟", "Sharliz Mayalpen Zafirah", "5052241003", "#1A4A7A"),
+        ("sharliz.jpg", "SM", "Sharliz Mayalpen Zafirah", "5052241003", "#1A4A7A"),
         ("amelia.jpg",  "AW", "Amelia Widiastuti",        "5052241007", "#4A2060"),
         ("marvelio.jpg","MJ", "Marvelio Jonathan Wijaya", "5052241017", "#0E4D3A"),
     ]
