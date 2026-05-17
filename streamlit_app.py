@@ -3875,9 +3875,9 @@ elif nav_view == "Explore":
         render_cards(browse, games, columns=3, active_tag=active_tag)
 
 elif nav_view == "Recommend":
-    render_html('<span id="recommender"></span>' + section_header("Game recommendations", "simple, premium, and tailored to your taste"))
+    render_html('<span id="recommender"></span>' + section_header("Game recommendations", "hybrid, simple, and tailored to your taste"))
     render_html(
-        "<div class='mini-note'>Mulai dari mode rekomendasi yang simpel, lalu tambahkan favorit, genre, atau tag untuk membuat hasil makin personal.</div>"
+        "<div class='mini-note'><b>Rekomendasi hybrid:</b> sistem menggabungkan kecocokan konten game, sinyal pemain, filter pilihanmu, dan value/variasi. Kamu cukup pilih gaya rekomendasi, lalu sistem yang menyeimbangkan skornya.</div>"
     )
 
     MOODS = {
@@ -3890,28 +3890,32 @@ elif nav_view == "Recommend":
     }
     REC_MODE_PRESETS = {
         "Popular": {
-            "desc": "Mengutamakan game yang paling aman, ramai dimainkan, dan punya sinyal kualitas kuat.",
+            "desc": "Rekomendasi aman untuk mulai eksplorasi: game yang ramai, rating bagus, dan mudah diterima banyak pemain.",
+            "hybrid_note": "Mode ini lebih berat ke sinyal pemain dan kualitas umum.",
             "weights": {"content": 0.16, "crowd": 0.42, "rule": 0.14, "value": 0.18, "novelty": 0.10},
             "diversity": 0.10,
             "min_pos": 75,
             "min_reviews": 800,
         },
         "Balanced": {
-            "desc": "Campuran seimbang antara kecocokan selera, reputasi pemain, dan value.",
+            "desc": "Campuran paling netral antara selera, kualitas game, harga/value, dan variasi hasil.",
+            "hybrid_note": "Mode ini memakai Weighted Hybrid: beberapa sinyal digabung menjadi satu skor akhir.",
             "weights": {"content": 0.42, "crowd": 0.27, "rule": 0.16, "value": 0.10, "novelty": 0.05},
             "diversity": 0.18,
             "min_pos": 65,
             "min_reviews": 250,
         },
         "Personalized": {
-            "desc": "Lebih fokus ke game yang mirip dengan preferensi, tag, dan favorit yang kamu pilih.",
+            "desc": "Lebih fokus ke game yang mirip dengan genre, tag, mood, atau game favorit yang kamu pilih.",
+            "hybrid_note": "Mode ini menaikkan bobot Content-Based agar hasil lebih sesuai selera.",
             "weights": {"content": 0.50, "crowd": 0.16, "rule": 0.16, "value": 0.08, "novelty": 0.10},
             "diversity": 0.16,
             "min_pos": 60,
             "min_reviews": 150,
         },
         "Hidden Gems": {
-            "desc": "Mencari game yang kuat secara kualitas tapi lebih unik dan tidak terlalu mainstream.",
+            "desc": "Mencari game berkualitas yang lebih unik, tidak terlalu mainstream, tapi masih relevan dengan pilihanmu.",
+            "hybrid_note": "Mode ini menaikkan bobot novelty dan diversity supaya hasil tidak hanya game populer.",
             "weights": {"content": 0.26, "crowd": 0.12, "rule": 0.16, "value": 0.12, "novelty": 0.34},
             "diversity": 0.28,
             "min_pos": 60,
@@ -3920,15 +3924,19 @@ elif nav_view == "Recommend":
     }
 
     engine = "Smart Hybrid"
-    recommendation_mode = st.radio("Recommendation mode", list(REC_MODE_PRESETS.keys()), horizontal=True)
+    recommendation_mode = st.radio("Pilih gaya rekomendasi", list(REC_MODE_PRESETS.keys()), horizontal=True)
     mode_preset = REC_MODE_PRESETS[recommendation_mode]
-    render_html(f"<div class='glass-panel'><b>{esc(recommendation_mode)}</b><br><span class='muted'>{esc(mode_preset['desc'])}</span></div>")
     render_html(
-        "<div class='mini-note'><b>Cara kerja hybrid:</b> setiap mode hanya mengubah bobot kombinasi antara "
-        "Content-Based <span class='muted'>(tag, genre, deskripsi)</span>, "
-        "Collaborative/Crowd Signal <span class='muted'>(ulasan dan popularitas pemain)</span>, "
-        "Rule-Based Filter <span class='muted'>(budget, rating, mode bermain)</span>, serta "
-        "Value & Novelty <span class='muted'>(harga, variasi, dan hidden gems)</span>.</div>"
+        f"<div class='glass-panel'><b>{esc(recommendation_mode)}</b><br>"
+        f"<span class='muted'>{esc(mode_preset['desc'])}</span><br>"
+        f"<span class='muted'><b>Jenis hybrid:</b> Weighted Hybrid + fallback Switching saat input selera masih kosong.</span></div>"
+    )
+    render_html(
+        "<div class='mini-note'><b>Dimana hybrid-nya?</b> Di skor akhir rekomendasi. Sistem menimbang beberapa sinyal sekaligus: "
+        "<b>Content-Based</b> (genre, tag, deskripsi, game favorit), "
+        "<b>Sinyal Pemain</b> (ulasan, popularitas, kualitas), "
+        "<b>Rule-Based</b> (budget, rating minimum, mode bermain), dan "
+        "<b>Value/Novelty</b> (harga, variasi, hidden gems). Jadi user tidak perlu melihat rumus; cukup pilih mode rekomendasi.</div>"
     )
 
     r1, r2 = st.columns([1.08, 0.92])
@@ -3950,21 +3958,33 @@ elif nav_view == "Recommend":
     diversity = float(mode_preset["diversity"])
     weights = advanced_defaults.copy()
 
-    with st.expander("Advanced AI Settings", expanded=False):
-        render_html("<div class='mini-note'>Untuk power users: atur bobot mesin rekomendasi dan filter teknis di sini. Default mode di atas sudah cukup untuk sebagian besar user.</div>")
+    with st.expander("Advanced Hybrid Settings", expanded=False):
+        render_html("<div class='mini-note'>Opsional untuk power user. Default mode di atas sudah cukup untuk user awam.</div>")
         a1, a2, a3 = st.columns(3)
         with a1:
-            min_pos = st.slider("Minimal positivity (%)", 0, 100, int(mode_preset["min_pos"]))
-            weights["content"] = st.slider("Content weight", 0.0, 1.0, float(advanced_defaults["content"]), 0.05)
-            weights["value"] = st.slider("Value weight", 0.0, 1.0, float(advanced_defaults["value"]), 0.05)
+            min_pos = st.slider("Minimal rating positif (%)", 0, 100, int(mode_preset["min_pos"]))
+            weights["content"] = st.slider("Bobot kecocokan konten", 0.0, 1.0, float(advanced_defaults["content"]), 0.05)
+            weights["value"] = st.slider("Bobot value/harga", 0.0, 1.0, float(advanced_defaults["value"]), 0.05)
         with a2:
-            min_reviews = st.slider("Minimal reviews", 0, 100000, int(mode_preset["min_reviews"]), 50)
-            weights["crowd"] = st.slider("Collaborative Filtering weight", 0.0, 1.0, float(advanced_defaults["crowd"]), 0.05)
-            weights["novelty"] = st.slider("Novelty", 0.0, 1.0, float(advanced_defaults["novelty"]), 0.05)
+            min_reviews = st.slider("Minimal jumlah ulasan", 0, 100000, int(mode_preset["min_reviews"]), 50)
+            weights["crowd"] = st.slider("Bobot sinyal pemain", 0.0, 1.0, float(advanced_defaults["crowd"]), 0.05)
+            weights["novelty"] = st.slider("Bobot hidden gems", 0.0, 1.0, float(advanced_defaults["novelty"]), 0.05)
         with a3:
-            must_have_tags = st.multiselect("Must-have tags", all_tags, max_selections=4)
-            diversity = st.slider("Diversity penalty", 0.0, 0.60, float(mode_preset["diversity"]), 0.02, help="Lebih tinggi = hasil lebih beragam dan tidak terlalu mirip satu sama lain.")
-            weights["rule"] = st.slider("Rule weight", 0.0, 1.0, float(advanced_defaults["rule"]), 0.05)
+            must_have_tags = st.multiselect("Tag wajib", all_tags, max_selections=4)
+            diversity = st.slider("Variasi hasil", 0.0, 0.60, float(mode_preset["diversity"]), 0.02, help="Lebih tinggi = hasil lebih beragam dan tidak terlalu mirip satu sama lain.")
+            weights["rule"] = st.slider("Bobot filter pilihan", 0.0, 1.0, float(advanced_defaults["rule"]), 0.05)
+
+    has_taste_input = bool(favorite_titles or preferred_genres or preferred_tags or mood_terms)
+    hybrid_strategy = "Weighted Hybrid"
+    if not has_taste_input and weights.get("content", 0.0) > 0:
+        # Switching Hybrid fallback: when the user has not given taste signals yet,
+        # content similarity has no profile to compare against. The content weight is
+        # moved to crowd/rule signals so recommendations still work for new users.
+        shifted_content = float(weights.get("content", 0.0))
+        weights["content"] = 0.0
+        weights["crowd"] = float(weights.get("crowd", 0.0)) + shifted_content * 0.65
+        weights["rule"] = float(weights.get("rule", 0.0)) + shifted_content * 0.35
+        hybrid_strategy = "Switching Hybrid fallback"
 
     recs = recommend_games(
         games=games,
@@ -3987,16 +4007,28 @@ elif nav_view == "Recommend":
     )
 
     if recs.empty:
-        st.warning("Tidak ada rekomendasi yang cocok. Coba longgarkan budget, filter positivity, jumlah review, atau tag wajib di Advanced AI Settings.")
+        st.warning("Tidak ada rekomendasi yang cocok. Coba longgarkan budget, rating positif, jumlah ulasan, atau tag wajib di Advanced Hybrid Settings.")
     else:
-        source_label = recs["cf_source"].iloc[0] if "cf_source" in recs.columns else "Ulasan pemain"
+        source_label = recs["cf_source"].iloc[0] if "cf_source" in recs.columns else "Sinyal pemain"
         render_html(
-            f"<div class='mini-note'><b>Mode aktif:</b> {esc(recommendation_mode)} | <b>Dasar rekomendasi:</b> selera, kualitas, value, dan sinyal pemain ({esc(source_label)}).</div>"
+            f"<div class='mini-note'><b>Mode aktif:</b> {esc(recommendation_mode)} | <b>Hybrid yang dipakai:</b> {esc(hybrid_strategy)}. "
+            f"Skor akhir berasal dari gabungan kecocokan konten, sinyal pemain/kualitas ({esc(source_label)}), filter pilihanmu, value, dan variasi hasil.</div>"
         )
         render_cards(recs, games, favorite_titles, preferred_tags, columns=3, show_components=False, active_tag=active_tag)
 
-        with st.expander("Advanced AI Insights", expanded=False):
+        with st.expander("Lihat bagian hybrid recommendation", expanded=False):
+            render_html(
+                "<div class='mini-note'><b>Bagian hybrid-nya ada di final score.</b> Setiap game diberi beberapa skor kecil, lalu digabung menjadi satu skor akhir untuk menentukan urutan rekomendasi.</div>"
+            )
             chart_df = recs.head(10)[["name", "content_component", "crowd_component", "rule_component", "value_component", "novelty_component", "final_score"]].copy()
+            chart_df = chart_df.rename(columns={
+                "content_component": "Content-Based match",
+                "crowd_component": "Sinyal pemain/kualitas",
+                "rule_component": "Rule-Based filter",
+                "value_component": "Value/harga",
+                "novelty_component": "Novelty/hidden gems",
+                "final_score": "Final hybrid score",
+            })
             chart_long = chart_df.melt(id_vars="name", var_name="component", value_name="score")
             fig = px.bar(
                 chart_long,
@@ -4005,8 +4037,8 @@ elif nav_view == "Recommend":
                 color="component",
                 orientation="h",
                 barmode="group",
-                title="Komponen skor top recommendation",
-                labels={"score": "Skor 0-1", "name": "Game", "component": "Komponen"},
+                title="Bagian skor yang digabung dalam Hybrid Recommendation",
+                labels={"score": "Skor 0-1", "name": "Game", "component": "Bagian hybrid"},
                 color_discrete_sequence=["#FDC787", "#A5C5CC", "#6FA9C1", "#4E82B4", "#275A91", "#977086"],
             )
             fig.update_yaxes(categoryorder="total ascending")
